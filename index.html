@@ -511,6 +511,57 @@
     .sbtn__txt { font-size: 14.5px; }
     .tete { align-items: flex-start; }
   }
+  /* ============================================================
+     GRANDS ÉCRANS (1281 px et plus)
+     Même rendu que sur un portable (1280 px) : chaque bloc garde la même
+     part de l'écran, et textes, cartes, schémas et boutons grandissent
+     ensemble du même facteur (--z ≈ largeur de l'écran ÷ 1280).
+     ============================================================ */
+  @media (min-width: 1281px) {
+    :root { --z: 1; }
+    /* contenu : 92 % de la largeur (comme sur le portable), agrandi d'un bloc */
+    .shell { width: 92%; zoom: var(--z); }
+    /* tailles calculées en « vw » à l'intérieur des blocs agrandis : figées à leur valeur du portable */
+    .titre { font-size: 53.8px; }
+    .hero h1 { font-size: 56.3px; }
+    .hero__accroche { font-size: 19.2px; }
+    .bandeau .titre { font-size: 46.1px; }
+    .deux-col { gap: 76.8px; }
+    .si-orbite { margin-top: 64px; }
+    .poles, .eco { margin-top: 60px; }
+    .cartes3, .defile-zone { margin-top: 56px; }
+    .carrousel { margin-top: 51.2px; }
+    .expz-intro { padding-bottom: 64px; }
+    .bandeau { padding: 76.8px; }
+    .bandeau__femme { right: 64px; }
+    /* espacements des sections et plaques sombres : proportionnels à l'écran */
+    section { padding-top: 9vw; padding-bottom: 9vw; }
+    #posture { padding: 4.375vw 0; }
+    .contact-cta { padding-top: 10vw !important; padding-bottom: 8vw; }
+    #offre > section { padding-top: 20vw; }
+    .plaque { width: calc(100% - 2.5vw); border-radius: 2.5vw; }
+    .hero { min-height: 100vh; }
+    .pos-filet { width: 20vw; }
+    /* défilement « cinéma » des expertises : textes et panneau final agrandis */
+    .cine-txt { zoom: var(--z); left: 24px; bottom: calc(7svh / var(--z)); }
+    .cine-txt h3 { font-size: 56.3px; }
+    .cine-txt p { font-size: 17.3px; }
+    .cine-fin { zoom: var(--z); }
+    .cine-fin h3 { font-size: 43.5px; }
+  }
+  /* facteur d'agrandissement selon la largeur de l'écran (par paliers de 80 px) */
+  @media (min-width: 1360px) { :root { --z: 1.0625; } }
+  @media (min-width: 1440px) { :root { --z: 1.125; } }
+  @media (min-width: 1520px) { :root { --z: 1.1875; } }
+  @media (min-width: 1600px) { :root { --z: 1.25; } }
+  @media (min-width: 1680px) { :root { --z: 1.3125; } }
+  @media (min-width: 1760px) { :root { --z: 1.375; } }
+  @media (min-width: 1840px) { :root { --z: 1.4375; } }
+  @media (min-width: 1920px) { :root { --z: 1.5; } }
+  @media (min-width: 2080px) { :root { --z: 1.625; } }
+  @media (min-width: 2240px) { :root { --z: 1.75; } }
+  @media (min-width: 2400px) { :root { --z: 1.875; } }
+  @media (min-width: 2560px) { :root { --z: 2; } }
 </style>
 </head>
 <body>
