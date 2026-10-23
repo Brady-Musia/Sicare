@@ -230,7 +230,8 @@
   .cine-txt p { opacity: 0; transform: translateY(14px); transition: opacity .8s ease .25s, transform .9s cubic-bezier(.22,1,.36,1) .25s; }
   .cine-slide.actif .cine-txt p { opacity: 1; transform: none; }
   /* fin : panneau clair qui grandit depuis le centre, puis le bouton */
-  .cine-masque { position: absolute; inset: 0; z-index: 5; background: var(--paper); transform: scale(0); border-radius: 50%; will-change: transform, border-radius; }
+  /* disque assez grand pour couvrir toute la scène (diagonale < 150vmax) ; seule sa taille est animée */
+  .cine-masque { position: absolute; left: 50%; top: 50%; z-index: 5; width: 150vmax; height: 150vmax; border-radius: 50%; background: var(--paper); transform: translate(-50%,-50%) scale(0); will-change: transform; }
   .cine-fin { position: absolute; inset: 0; z-index: 6; display: grid; place-content: center; justify-items: center; gap: 26px; text-align: center; padding: 24px; pointer-events: none; }
   .cine-fin h3 { font-family: var(--fh); font-weight: 700; font-size: clamp(28px, 3.4vw, 50px); line-height: 1.15; color: var(--navy); }
   .cine-fin h3 em { font-style: normal; color: var(--cyan); }
@@ -1176,39 +1177,41 @@
   // déroulé (en écrans) : pause sur chaque photo, rideau vers la suivante, puis le panneau final
   // TENUE : la scène reste figée après le panneau final, le temps de lire la phrase et voir le bouton
   var PAUSE=0.5, RIDEAU=1, PAS=PAUSE+RIDEAU, FIN_DEB=PAUSE+(n-1)*PAS+0.4, FIN_DUR=1, TENUE=0.6, TOTAL=FIN_DEB+FIN_DUR+TENUE;
-  var ins=slides.map(function(s){return s.firstElementChild;}), imgs=slides.map(function(s){return s.querySelector('.cine-img');}), dernier=-1;
+  var ins=slides.map(function(s){return s.firstElementChild;}), imgs=slides.map(function(s){return s.querySelector('.cine-img');});
   var cur=0, cible=0, run=false, visible=false, epingle=false;
   function clamp(v){return v<0?0:v>1?1:v;}
   function ease(t){return -(Math.cos(Math.PI*t)-1)/2;} // sinusoïdale : départ et arrivée très doux
+  // Toutes les mesures se font sur la scène figée elle-même (hauteur réelle, 100svh) et non sur innerHeight :
+  // sur téléphone, innerHeight change quand la barre d'adresse apparaît/disparaît, ce qui décalait
+  // la fin du déroulé, l'arrivée de la dernière photo et l'apparition du bouton.
+  var scene=cine.querySelector('.cine-scene'), H=scene.offsetHeight, actif=0;
   function lire(){
-    var r=cine.getBoundingClientRect(), vh=innerHeight, course=cine.offsetHeight-vh;
+    H=scene.offsetHeight||innerHeight;
+    var r=cine.getBoundingClientRect(), course=Math.max(1,cine.offsetHeight-H);
     cible=clamp(-r.top/course)*TOTAL;
-    // les textes apparaissent quand la scène arrive à l'écran
-    visible=r.top<vh*0.45 && r.bottom>vh*0.3;
-    // scène hors écran (ou en train de sortir) : on s'aligne tout de suite, pour qu'elle ne parte jamais à moitié animée
-    epingle=r.top<=0 && r.bottom>=vh;
-    if(r.bottom<=vh*0.15 || r.top>=vh*0.85) cur=cible;
+    visible=r.top<H*0.45 && r.bottom>H*0.3;
+    epingle=r.top<=1 && r.bottom>=H-1;
+    if(r.bottom<=H*0.15 || r.top>=H*0.85) cur=cible;
   }
   function dessine(u){
-    var actif=0, H=innerHeight;
-    for(var k=1;k<n;k++){
-      var p=ease(clamp((u-(PAUSE+(k-1)*PAS))/RIDEAU)), y=(1-p)*H;
-      slides[k].style.transform='translate3d(0,'+y.toFixed(1)+'px,0)';
-      ins[k].style.transform='translate3d(0,'+(-y).toFixed(1)+'px,0)';
-      imgs[k].style.transform='translate3d(0,'+(y*0.3).toFixed(1)+'px,0) scale(1.2)';
-      if(p>0.55) actif=k;
+    // une seule transformation par photo : entrée (rideau + parallaxe) ET sortie (glisse vers le haut).
+    // Avant, la sortie écrasait l'entrée pour les photos 2 à 4, mais pas pour la dernière :
+    // « Réponse à incident » entrait décalée de 30 % et laissait apparaître une bande vide.
+    for(var k=0;k<n;k++){
+      var pin=k?ease(clamp((u-(PAUSE+(k-1)*PAS))/RIDEAU)):1;          // entrée
+      var pout=k<n-1?ease(clamp((u-(PAUSE+k*PAS))/RIDEAU)):0;         // sortie
+      var y=(1-pin)*H;
+      if(k){ slides[k].style.transform='translate3d(0,'+y.toFixed(1)+'px,0)'; ins[k].style.transform='translate3d(0,'+(-y).toFixed(1)+'px,0)'; }
+      var dy=Math.min(y*0.3, H*0.08) - 0.12*H*pout; // décalage borné : la photo couvre toujours tout le cadre
+      imgs[k].style.transform='translate3d(0,'+dy.toFixed(1)+'px,0) scale(1.2)';
     }
-    // la photo qui part glisse légèrement vers le haut (parallaxe)
-    for(var j=0;j<n-1;j++){
-      var q=ease(clamp((u-(PAUSE+j*PAS))/RIDEAU));
-      if(q<1) imgs[j].style.transform='translate3d(0,'+(-0.12*H*q).toFixed(1)+'px,0) scale(1.2)';
-    }
-    // panneau final : grandit depuis le centre jusqu'à couvrir l'écran, la scène recule un peu
+    // photo active avec hystérésis (évite le clignotement du texte autour du seuil)
+    var cand=0; for(var m=1;m<n;m++){ var pm=ease(clamp((u-(PAUSE+(m-1)*PAS))/RIDEAU)); if(pm>(m>actif?0.6:0.4)) cand=m; }
+    actif=cand;
+    // panneau final : un disque qui grandit depuis le centre (transform seul → fluide, même sur téléphone)
     var f=ease(clamp((u-FIN_DEB)/FIN_DUR));
-    masque.style.transform='scale('+f.toFixed(4)+')';
-    masque.style.borderRadius=(48*(1-f)).toFixed(2)+'%';
+    masque.style.transform='translate(-50%,-50%) scale('+f.toFixed(4)+')';
     cadre.style.transform='scale('+(1-0.06*f).toFixed(4)+')';
-    // apparition de la phrase et du bouton avec hystérésis : pas de clignotement aux allers-retours
     if(f>0.92) fin.classList.add('vue'); else if(f<0.86) fin.classList.remove('vue');
     slides.forEach(function(s,i){ s.classList.toggle('actif', visible && i===actif && f<0.4); });
   }
