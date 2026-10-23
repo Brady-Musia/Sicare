@@ -244,6 +244,8 @@
   @media (max-width: 768px) {
     .cine-txt { left: 20px; width: calc(100% - 40px); bottom: 34px; }
   }
+  /* téléphone et tablette : le panneau final reste plus longtemps à l'écran (un glissement de doigt va vite) */
+  @media (max-width: 900px) { .cine { height: 1000svh; } }
   /* animations réduites : photos empilées, sans figer la page */
   @media (prefers-reduced-motion: reduce) {
     .cine { height: auto; }
@@ -1227,9 +1229,21 @@
   if(matchMedia('(prefers-reduced-motion: reduce)').matches){ slides.forEach(function(s){s.classList.add('actif');}); fin.classList.add('vue'); return; }
   // déroulé (en écrans) : pause sur chaque photo, rideau vers la suivante, puis le panneau final
   // TENUE : la scène reste figée après le panneau final, le temps de lire la phrase et voir le bouton
-  var PAUSE=0.5, RIDEAU=1, PAS=PAUSE+RIDEAU, FIN_DEB=PAUSE+(n-1)*PAS+0.4, FIN_DUR=1, TENUE=0.6, TOTAL=FIN_DEB+FIN_DUR+TENUE;
+  // téléphone / tablette : tenue plus longue (la hauteur de #cine est allongée d'autant dans le CSS)
+  var mobile=matchMedia('(max-width: 900px)').matches;
+  var PAUSE=0.5, RIDEAU=1, PAS=PAUSE+RIDEAU, FIN_DEB=PAUSE+(n-1)*PAS+0.4, FIN_DUR=1, TENUE=mobile?1.4:0.6, TOTAL=FIN_DEB+FIN_DUR+TENUE;
   var ins=slides.map(function(s){return s.firstElementChild;}), imgs=slides.map(function(s){return s.querySelector('.cine-img');});
   var cur=0, cible=0, run=false, visible=false, epingle=false;
+  // les 5 photos sont chargées et décodées AVANT d'arriver sur la scène :
+  // sur téléphone, une photo décodée pendant l'animation (la dernière surtout) saccade et tremble
+  var prets=false;
+  function precharge(){ if(prets) return; prets=true;
+    [].forEach.call(cine.querySelectorAll('.cine-img img'),function(im){ im.loading='eager'; if(im.decode) im.decode().catch(function(){}); }); }
+  if('IntersectionObserver' in window){ var ioc=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ precharge(); ioc.disconnect(); } },{rootMargin:'200% 0px'}); ioc.observe(cine); } else precharge();
+  // positions arrondies au pixel réel de l'écran : la photo et son cadre (déplacés en sens inverse)
+  // tombent exactement l'un sur l'autre, sans tremblement
+  var dpr=window.devicePixelRatio||1;
+  function px(v){ return Math.round(v*dpr)/dpr; }
   function clamp(v){return v<0?0:v>1?1:v;}
   function ease(t){return -(Math.cos(Math.PI*t)-1)/2;} // sinusoïdale : départ et arrivée très doux
   // Toutes les mesures se font sur la scène figée elle-même (hauteur réelle, 100svh) et non sur innerHeight :
@@ -1245,24 +1259,30 @@
     if(r.bottom<=H*0.15 || r.top>=H*0.85) cur=cible;
   }
   function dessine(u){
+    var f=ease(clamp((u-FIN_DEB)/FIN_DUR)); // avancée du panneau final (0 → 1)
     // une seule transformation par photo : entrée (rideau + parallaxe) ET sortie (glisse vers le haut).
     // Avant, la sortie écrasait l'entrée pour les photos 2 à 4, mais pas pour la dernière :
     // « Réponse à incident » entrait décalée de 30 % et laissait apparaître une bande vide.
     for(var k=0;k<n;k++){
       var pin=k?ease(clamp((u-(PAUSE+(k-1)*PAS))/RIDEAU)):1;          // entrée
       var pout=k<n-1?ease(clamp((u-(PAUSE+k*PAS))/RIDEAU)):0;         // sortie
-      var y=(1-pin)*H;
-      if(k){ slides[k].style.transform='translate3d(0,'+y.toFixed(1)+'px,0)'; ins[k].style.transform='translate3d(0,'+(-y).toFixed(1)+'px,0)'; }
-      var dy=Math.min(y*0.3, H*0.08) - 0.12*H*pout; // décalage borné : la photo couvre toujours tout le cadre
-      imgs[k].style.transform='translate3d(0,'+dy.toFixed(1)+'px,0) scale(1.2)';
+      // photo entièrement recouverte (par la suivante ou par le panneau final) : masquée,
+      // le téléphone n'a plus à la redessiner à chaque image
+      var couverte=(k<n-1 && pout>=1) || f>=1;
+      slides[k].style.visibility=couverte?'hidden':'';
+      if(couverte) continue;
+      var y=px((1-pin)*H);
+      if(k){ slides[k].style.transform='translate3d(0,'+y+'px,0)'; ins[k].style.transform='translate3d(0,'+(-y)+'px,0)'; }
+      var dy=px(Math.min(y*0.3, H*0.08) - 0.12*H*pout); // décalage borné : la photo couvre toujours tout le cadre
+      imgs[k].style.transform='translate3d(0,'+dy+'px,0) scale(1.2)';
     }
     // photo active avec hystérésis (évite le clignotement du texte autour du seuil)
     var cand=0; for(var m=1;m<n;m++){ var pm=ease(clamp((u-(PAUSE+(m-1)*PAS))/RIDEAU)); if(pm>(m>actif?0.6:0.4)) cand=m; }
     actif=cand;
     // panneau final : un disque qui grandit depuis le centre (transform seul → fluide, même sur téléphone)
-    var f=ease(clamp((u-FIN_DEB)/FIN_DUR));
     masque.style.transform='translate(-50%,-50%) scale('+f.toFixed(4)+')';
-    cadre.style.transform='scale('+(1-0.06*f).toFixed(4)+')';
+    // léger recul des photos sous le panneau : ordinateur seulement (trop lourd sur téléphone)
+    cadre.style.transform=mobile?'':'scale('+(1-0.06*f).toFixed(4)+')';
     if(f>0.92) fin.classList.add('vue'); else if(f<0.86) fin.classList.remove('vue');
     slides.forEach(function(s,i){ s.classList.toggle('actif', visible && i===actif && f<0.4); });
   }
