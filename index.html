@@ -112,13 +112,13 @@
   /* ----- BLOC 1 — HERO ----- */
   .hero { min-height: clamp(680px, 100vh, 940px); padding: 0; display: flex; align-items: stretch; background: var(--ink); color: #fff; overflow: hidden; isolation: isolate; }
   .hero__photo { position: absolute; inset: 0; z-index: -2; }
-  .hero__photo img, .hero__photo video { width: 100%; height: 100%; object-fit: cover; object-position: 72% 30%; display: block; }
+  .hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 68% 25%; display: block; }
   .hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
     background:
-      linear-gradient(90deg, rgba(25,35,96,0.96) 0%, rgba(25,35,96,0.82) 32%, rgba(25,35,96,0.25) 58%, rgba(25,35,96,0) 72%),
+      linear-gradient(90deg, rgba(25,35,96,0.97) 0%, rgba(25,35,96,0.9) 34%, rgba(25,35,96,0.45) 54%, rgba(25,35,96,0) 70%),
       linear-gradient(0deg, rgba(25,35,96,0.92) 0%, rgba(25,35,96,0) 30%),
       linear-gradient(180deg, rgba(25,35,96,0.7) 0%, rgba(25,35,96,0) 22%),
-      linear-gradient(rgba(25,35,96,0.28), rgba(25,35,96,0.28)); }
+      linear-gradient(rgba(25,35,96,0.12), rgba(25,35,96,0.12)); }
   .hero .shell { display: flex; flex-direction: column; justify-content: center; padding: 140px 0 40px; }
   .hero__texte { max-width: 640px; }
   .hero h1 { margin-top: 22px; font-family: var(--fh); font-weight: 600; font-size: clamp(36px, 4.4vw, 60px); line-height: 1.08; letter-spacing: -0.025em; }
@@ -139,6 +139,53 @@
   .hero__indice i { width: 1px; height: 54px; background: linear-gradient(var(--cyan), transparent); }
   .hero__mobile-img { display: none; }
 
+  /* ----- HERO « studio » : bureau en fond, expert devant une forme bleu SICARE ----- */
+  .hdr { background: rgba(25,35,96,0.94); backdrop-filter: blur(16px); }
+  .hero--studio { display: block; min-height: 0; padding: 0; position: relative; isolation: isolate; overflow: hidden; background: #eef3f8; color: var(--text); }
+  .hero--studio::after { display: none; }
+  .hs-fond { position: absolute; inset: 0; z-index: -2; }
+  .hs-fond img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 40%; display: block; }
+  /* voile clair : le texte reste lisible à gauche, le bureau transparaît à droite */
+  .hs-fond::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(244,247,251,0.97) 0%, rgba(244,247,251,0.93) 34%, rgba(244,247,251,0.55) 58%, rgba(244,247,251,0.25) 100%), linear-gradient(0deg, rgba(244,247,251,0.9) 0%, rgba(244,247,251,0) 25%); }
+  .hs { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: center; gap: 20px; width: min(var(--shell), 100% - 48px); margin-inline: auto; min-height: clamp(640px, 100svh, 900px); padding-top: 64px; }
+  .hs-texte { padding: 40px 0; }
+  .hs-texte .eyebrow { color: var(--cyan-600); }
+  .hero--studio h1 { margin-top: 20px; font-size: clamp(34px, 3.8vw, 56px); line-height: 1.08; letter-spacing: -0.025em; color: var(--navy); }
+  .hero--studio h1 em { font-style: normal; background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--cyan); }
+  .hs-accroche { margin-top: 20px; max-width: 30em; font-size: clamp(16px, 1.35vw, 19px); line-height: 1.6; color: #3a4670; }
+  .hero--studio .actions { margin-top: 30px; }
+  .hero--studio .lien { color: var(--navy); }
+  .hero--studio .hero__poles { margin-top: 44px; padding-top: 0; }
+  .hero--studio .hero__poles a { color: var(--navy); }
+  .hero--studio .hero__poles a + a { border-left-color: var(--line); }
+  .hero--studio .hero__poles small { color: var(--muted); }
+  .hero--studio .hero__poles .ic { background: #fff; border-color: rgba(76,191,223,0.5); color: var(--cyan-600); }
+  /* visuel : disque + traînées horizontales arrondies qui filent vers la droite */
+  .hs-visuel { position: relative; align-self: end; height: min(640px, calc(100svh - 110px)); min-height: 480px; }
+  .hs-disque { position: absolute; left: 50%; bottom: 6%; width: min(78%, 500px); aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle at 35% 30%, #8FE3F7 0%, #4CBFDF 55%, #2E9FC4 100%); box-shadow: 0 30px 70px rgba(46,159,196,0.35); }
+  .hs-trainee { position: absolute; z-index: 0; right: calc(-1 * max(24px, (100vw - var(--shell)) / 2)); height: 46px; border-radius: 999px 0 0 999px; background: linear-gradient(90deg, #4CBFDF, #7fd6ee); animation: hs-file 1.2s cubic-bezier(.22,1,.36,1) both; }
+  .hs-trainee--1 { top: 14%; width: 46%; animation-delay: .1s; }
+  .hs-trainee--2 { top: 27%; width: 34%; height: 34px; opacity: .75; animation-delay: .2s; }
+  .hs-trainee--3 { top: 43%; width: 52%; animation-delay: .3s; }
+  .hs-trainee--4 { top: 60%; width: 38%; height: 30px; opacity: .6; animation-delay: .4s; }
+  .hs-trainee--5 { top: 74%; width: 48%; animation-delay: .5s; }
+  @keyframes hs-file { from { transform: translateX(60%); opacity: 0; } }
+  .hs-point { position: absolute; z-index: 0; border-radius: 50%; background: #4CBFDF; }
+  .hs-point--1 { width: 46px; height: 46px; top: 14%; right: calc(46% + 14px - max(24px, (100vw - var(--shell)) / 2)); opacity: .55; }
+  .hs-point--2 { width: 30px; height: 30px; top: 60%; right: calc(38% + 12px - max(24px, (100vw - var(--shell)) / 2)); opacity: .45; }
+  .hs-homme { position: absolute; z-index: 2; left: 50%; bottom: 0; width: min(96%, 620px); height: auto; transform: translateX(-50%); filter: drop-shadow(0 24px 40px rgba(13,18,48,0.25)); }
+  @media (max-width: 1180px) { .hero--studio .hero__poles small { display: none; } }
+  @media (max-width: 900px) {
+    .hs { grid-template-columns: 1fr; min-height: 0; gap: 0; padding-top: 64px; }
+    .hs-texte { padding: 40px 0 10px; }
+    .hs-fond::after { background: linear-gradient(180deg, rgba(244,247,251,0.96) 0%, rgba(244,247,251,0.9) 55%, rgba(244,247,251,0.45) 100%); }
+    .hero--studio .hero__poles { display: none; }
+    .hs-visuel { height: clamp(340px, 88vw, 520px); min-height: 0; margin-top: 10px; }
+    .hs-trainee { right: -24px; height: 30px; }
+    .hs-trainee--2, .hs-trainee--4 { height: 22px; }
+    .hs-point { display: none; }
+    }
+  @media (prefers-reduced-motion: reduce) { .hs-trainee { animation: none; } }
   /* ----- plaques sombres (bdemerson) ----- */
   .plaque { width: min(1400px, 100% - 32px); margin-inline: auto; border-radius: 32px; background: var(--ink); color: #fff; overflow: hidden; position: relative; isolation: isolate; }
   .plaque::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse 60% 70% at 85% 0%, rgba(76,191,223,0.16), transparent 60%), radial-gradient(ellipse 50% 60% at 0% 100%, rgba(25,35,96,0.7), transparent 70%); }
@@ -257,6 +304,58 @@
     .cine-fin { position: static; padding: 70px 24px; }
     .cine-fin .actions { opacity: 1; transform: none; }
   }
+  /* ---- Encart « publicité » (après le catalogue de formations) ----
+     un grand disque blanc porte le message ; derrière, une colonne de photos défile vers le haut
+     et se découpe en arc sur le bord du disque (un anneau de la couleur du fond les sépare) */
+  .pub { padding: clamp(40px, 6vw, 80px) 0; overflow: clip; }
+  .pub-scene { --h: clamp(560px, 46vw, 720px); position: relative; height: var(--h); width: min(1320px, 100% - 32px); margin-inline: auto; border-radius: 32px; background: linear-gradient(135deg, #f7f8fa, #e4e7ec); overflow: hidden; isolation: isolate; box-shadow: 0 30px 60px -40px rgba(25,35,96,0.35); }
+  .pub-photos { position: absolute; top: 0; bottom: 0; left: 40%; right: clamp(230px, 20vw, 290px); overflow: hidden; }
+  .pub-piste { display: flex; flex-direction: column; gap: 14px; animation: pub-monte 38s linear infinite; }
+  @keyframes pub-monte { from { transform: translateY(0); } to { transform: translateY(calc(-50% - 7px)); } }
+  .pub-tuile { margin: 0; height: calc(var(--h) * 0.44); border-radius: 10px; overflow: hidden; }
+  .pub-tuile img { width: 100%; height: 100%; object-fit: cover; }
+  .pub-disque { position: absolute; z-index: 2; top: 50%; left: -14%; width: calc(var(--h) * 1.32); aspect-ratio: 1; transform: translateY(-50%); border-radius: 50%; background: radial-gradient(circle at 70% 40%, #fff 0%, #fbfbfc 60%, #f1f2f5 100%); box-shadow: 0 0 0 16px #eceef1, 0 30px 70px rgba(25,35,96,0.18); display: flex; align-items: center; }
+  .pub-texte { margin-left: 26%; max-width: 46%; }
+  .pub-titre { font-family: var(--fh) !important; font-size: clamp(30px, 3.3vw, 48px) !important; line-height: 1.08; letter-spacing: -0.01em; text-transform: uppercase; color: var(--navy); }
+  .pub-trait { display: block; width: 72%; height: 4px; margin: 22px 0 18px; border-radius: 4px; background: linear-gradient(90deg, #8FE3F7, var(--cyan)); }
+  .pub-sous { font-size: clamp(16px, 1.4vw, 20px); line-height: 1.45; color: #3a4670; }
+  .pub-texte .actions { margin-top: 26px; }
+  .pub-marque { position: absolute; z-index: 3; right: 4%; top: 7%; display: grid; justify-items: end; gap: 8px; }
+  .pub-marque img { height: 44px; width: auto; }
+  .pub-marque small { max-width: 190px; text-align: right; line-height: 1.7; font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  @media (max-width: 1100px) { .pub-photos { left: 44%; right: 250px; } .pub-marque img { height: 34px; } .pub-marque small { max-width: 170px; text-align: right; line-height: 1.6; } .pub-texte { margin-left: 24%; max-width: 50%; } }
+  /* VERSION BLEUE (essai) — toute la section au bleu SICARE (#4CBFDF).
+     Pour revenir à la version claire : retirer la classe « pub--bleu » de la section. */
+  .pub-marque .logo-fonce { display: none; }
+  .pub--bleu .pub-marque .logo-clair { display: none; }
+  .pub--bleu .pub-marque .logo-fonce { display: block; filter: brightness(0) invert(1); } /* logo entièrement blanc sur le bleu */
+  .pub--bleu { background: radial-gradient(ellipse 60% 80% at 85% 10%, rgba(143,227,247,0.55), transparent 60%), linear-gradient(135deg, #4CBFDF 0%, #2E9FC4 100%); }
+  .pub--bleu .pub-scene { background: transparent; box-shadow: none; }
+  .pub--bleu .pub-disque { background: radial-gradient(circle at 68% 35%, #7fd6ee 0%, #4CBFDF 45%, #2a95bb 100%); box-shadow: 0 0 0 14px rgba(255,255,255,0.28), 0 30px 70px rgba(13,18,48,0.28); }
+  .pub--bleu .pub-titre { color: #fff; }
+  .pub--bleu .pub-trait { background: #fff; }
+  .pub--bleu .pub-sous { color: rgba(255,255,255,0.92); }
+  .pub--bleu .pub-marque small { color: #fff; }
+  .pub--bleu .pub-tuile { box-shadow: 0 10px 30px rgba(13,18,48,0.25); }
+  /* téléphone et tablette : disque en haut, photos qui défilent en dessous (horizontalement), découpées en arc */
+  @media (max-width: 1023px) {
+    .pub-scene { height: auto; padding: 0 0 26px; display: flex; flex-direction: column; }
+    .pub-disque { order: 1; } .pub-photos { order: 2; } .pub-marque { order: 3; }
+    /* seule la partie basse du disque est visible (hauteur fixe), le texte est calé au-dessus des photos */
+    .pub-disque { position: relative; z-index: 2; top: auto; left: 50%; width: 150%; transform: translateX(-50%); margin-top: calc(480px - 150%); align-items: flex-end; box-shadow: 0 0 0 12px #eceef1, 0 20px 50px rgba(25,35,96,0.16); }
+    .pub-texte { margin: 0 auto 128px; max-width: min(58%, 420px); text-align: center; }
+    .pub-trait { margin-inline: auto; }
+    .pub-texte .actions { justify-content: center; }
+    /* les photos remontent sous le disque : son bord inférieur (et l'anneau clair) les découpe en arc, comme sur ordinateur */
+    .pub-photos { position: relative; z-index: 1; left: auto; right: auto; width: auto; height: 250px; margin-top: -96px; }
+    .pub-piste { flex-direction: row; height: 100%; width: max-content; animation-name: pub-glisse; }
+    @keyframes pub-glisse { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 7px)); } }
+    .pub-tuile { height: 100%; width: 150px; }
+    .pub-marque { position: static; justify-items: center; margin-top: 22px; }
+    .pub-marque small { max-width: none; text-align: center; }
+    }
+  @media (max-width: 1023px) { .pub--bleu .pub-disque { box-shadow: 0 0 0 12px rgba(255,255,255,0.28), 0 20px 50px rgba(13,18,48,0.28); } }
+  @media (prefers-reduced-motion: reduce) { .pub-piste { animation: none; } }
   /* schéma « prise en charge globale » : réticule central + 4 cartes reliées */
   .si-orbite { --r: 360px; --gap: 44px; display: grid; grid-template-columns: minmax(0,1fr) var(--r) minmax(0,1fr); column-gap: var(--gap); align-items: center; width: min(1080px, 100%); margin: clamp(44px, 5vw, 70px) auto 0; }
   .si-col { display: grid; grid-template-rows: 1fr 1fr; height: var(--r); align-items: center; gap: 0; }
@@ -355,6 +454,50 @@
   .conv-obj small { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--navy); opacity: .75; }
   .conv-obj b { display: block; font-family: var(--fh); font-size: 20px; font-weight: 700; color: var(--navy); }
   @media (prefers-reduced-motion: reduce) { .conv-ligne::after { animation: none; display: none; } }
+  /* ---- Les expertises cyber — VARIANTE B : photo plein fond, texte par-dessus, pastilles à droite ---- */
+  .c2-variante { margin-left: 8px; padding: 3px 9px; border-radius: 99px; background: var(--cyan-50); color: var(--cyan-600); font-size: 10px; letter-spacing: .12em; }
+  .cine2 { position: relative; height: 760svh; }
+  .c2-scene { position: sticky; top: 0; height: 100svh; overflow: hidden; background: var(--ink); }
+  .c2-cadre { position: absolute; inset: 0; transform-origin: 50% 50%; will-change: transform; }
+  .c2-fond { position: absolute; inset: 0; opacity: 0; will-change: opacity, transform; }
+  .c2-fond:first-child { opacity: 1; }
+  .c2-fond img { width: 100%; height: 100%; object-fit: cover; }
+  .c2-cadre::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(13,18,48,0.88) 0%, rgba(25,35,96,0.62) 38%, rgba(25,35,96,0.15) 66%, rgba(25,35,96,0.35) 100%), linear-gradient(180deg, rgba(13,18,48,0.35), transparent 30%, transparent 70%, rgba(13,18,48,0.55)); }
+  .c2-txt { position: absolute; z-index: 3; left: max(24px, (100% - 1240px) / 2); top: 50%; width: min(560px, 46%); transform: translateY(-50%); color: #fff; pointer-events: none; }
+  .c2-txt h3 { margin-top: 0; font-family: var(--fh); font-weight: 700; font-size: clamp(36px, 4.6vw, 72px); line-height: 1.04; letter-spacing: -0.02em; color: #fff; }
+  .c2-txt h3 abbr { text-decoration: none; }
+  .c2-trait { display: block; width: 0; height: 3px; margin: 22px 0 18px; border-radius: 3px; background: var(--cyan); transition: width .8s cubic-bezier(.22,1,.36,1) .25s; }
+  .c2-txt p { max-width: 30em; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.6; color: rgba(255,255,255,0.88); opacity: 0; transform: translateY(14px); transition: opacity .7s ease .3s, transform .8s cubic-bezier(.22,1,.36,1) .3s; }
+  .c2-txt.actif p { opacity: 1; transform: none; }
+  .c2-txt.actif .c2-trait { width: 90px; }
+  .c2-txt.actif .mot > span { transform: none; }
+  .c2-txt:not(.actif) .mot > span { transition: transform .35s cubic-bezier(.4,0,1,1); transition-delay: 0s; }
+  /* pastilles : collées au bord droit, 3 visibles, la piste remonte au fil des expertises */
+  .c2-pills { position: absolute; z-index: 4; right: 0; top: 50%; transform: translateY(-50%); width: min(380px, 34%); height: calc(3 * 104px + 2 * 18px); overflow: hidden; }
+  .c2-pills-piste { display: grid; gap: 18px; will-change: transform; }
+  .c2-pill { position: relative; display: flex; align-items: center; gap: 18px; height: 104px; width: 100%; padding: 0 22px 0 14px; border: 0; border-radius: 999px 0 0 999px; background: #fff; color: var(--navy); text-align: left; cursor: pointer; box-shadow: 0 18px 40px rgba(13,18,48,0.25); transform: translateX(28px); transition: background .45s ease, color .45s ease, transform .5s cubic-bezier(.22,1,.36,1); }
+  .c2-pill:hover { transform: translateX(14px); }
+  .c2-pill.actif { background: var(--cyan); color: #fff; transform: none; }
+  .c2-rond { flex: none; width: 76px; height: 76px; border-radius: 50%; overflow: hidden; border: 4px solid #fff; box-shadow: 0 8px 20px rgba(13,18,48,0.25); }
+  .c2-rond img { width: 100%; height: 100%; object-fit: cover; }
+  .c2-pill-txt small { display: block; font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan-600); }
+  .c2-pill.actif .c2-pill-txt small { color: rgba(255,255,255,0.85); }
+  .c2-pill-txt b { display: block; margin-top: 4px; font-family: var(--fh); font-size: 17px; line-height: 1.25; }
+  @media (max-width: 900px) {
+    .c2-txt { top: 18%; transform: none; width: auto; right: 24px; }
+      .c2-cadre::after { background: linear-gradient(180deg, rgba(13,18,48,0.85) 0%, rgba(25,35,96,0.55) 50%, rgba(13,18,48,0.75) 100%); }
+    .c2-pills { top: auto; bottom: 30px; transform: none; left: 0; right: 0; width: auto; height: auto; overflow: hidden; padding: 0 0 0 16px; }
+    .c2-pills-piste { display: flex; gap: 12px; width: max-content; }
+    .c2-pill { height: 76px; width: 230px; padding: 0 16px 0 8px; gap: 12px; border-radius: 999px; transform: none; }
+    .c2-pill:hover { transform: none; }
+    .c2-rond { width: 58px; height: 58px; border-width: 3px; }
+    .c2-pill-txt b { font-size: 15px; }
+    }
+  @media (prefers-reduced-motion: reduce) {
+    .cine2 { height: auto; }
+    .c2-scene { position: relative; height: 100svh; }
+    .c2-fond, .c2-pills-piste { transition: opacity .4s ease; }
+  }
   /* « Des réponses coordonnées » : photo de fond en parallaxe sous un voile navy */
   #coordination { position: relative; isolation: isolate; overflow: clip; background: var(--ink); color: #fff; }
   .coord-fond { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
@@ -493,7 +636,7 @@
     .hero .shell { padding: 120px 0 0; }
     .hero__poles { display: none; }
     .hero__mobile-img { display: block; position: relative; margin-top: 40px; height: clamp(320px, 80vw, 520px); overflow: hidden; }
-    .hero__mobile-img img, .hero__mobile-img video { width: 100%; height: 100%; object-fit: cover; object-position: 72% 30%; display: block; }
+    .hero__mobile-img img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 30%; display: block; }
     .hero__mobile-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, var(--ink) 0%, rgba(25,35,96,0) 28%, rgba(25,35,96,0) 80%, rgba(25,35,96,0.6) 100%); }
     .deux-col, .bandeau { grid-template-columns: 1fr; }
     .pos-visuel { width: min(460px, 100%); margin-bottom: 8px; }
@@ -590,49 +733,28 @@
 <main>
 
 <!-- ===================== BLOC 01 — HERO ===================== -->
-<section class="hero on-dark" id="top">
-  <div class="hero__photo"><video class="hero-video" muted playsinline preload="auto" poster="images/hero-video-debut.webp" data-src="images/sicare-hero.mp4" aria-hidden="true"></video></div>
-  <div class="shell">
-    <div class="hero__texte">
+<section class="hero hero--studio" id="top">
+  <!-- hero : photo du bureau en fond, texte à gauche, l'expert devant une forme bleu SICARE (disque + traînées) à droite -->
+  <div class="hs-fond" aria-hidden="true"><img src="images/hero-bureau-fond.webp" alt="" width="1859" height="846" fetchpriority="high"></div>
+  <div class="hs">
+    <div class="hs-texte">
       <span class="eyebrow rv">Cybersécurité · Conseil · Intervention</span>
       <h1 class="rv" style="--d:80ms"><span class="ligne">SICARE : vision globale,</span> <span class="ligne"><em>précision dans l'action.</em></span></h1>
-      <p class="hero__accroche rv" style="--d:160ms">Prestations, solutions et formations en cybersécurité.</p>
+      <p class="hs-accroche rv" style="--d:160ms">Prestations, solutions et formations en cybersécurité.</p>
       <div class="actions rv" style="--d:240ms">
         <a href="contact.html" class="sbtn"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd.png" alt=""></span><span class="sbtn__txt">Parler à un expert</span></span></a>
         <a href="#offre" class="lien">Découvrir notre offre <span class="fl" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
       </div>
     </div>
-    <div class="hero__poles rv" style="--d:320ms">
-      <a href="prestations.html"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg></span><span><b>Prestations</b><small>Conseil, audit, accompagnement</small></span></a>
-      <a href="formations.html"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-4 9 4-9 4-9-4z"/><path d="M7 10v5c0 1.7 2.2 3 5 3s5-1.3 5-3v-5"/></svg></span><span><b>Formations</b><small>100 % cybersécurité</small></span></a>
-      <a href="solutions.html"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span><span><b>Solutions</b><small>Matérielles et logicielles</small></span></a>
+    <div class="hs-visuel" aria-hidden="true">
+      <span class="hs-trainee hs-trainee--1"></span><span class="hs-trainee hs-trainee--2"></span><span class="hs-trainee hs-trainee--3"></span><span class="hs-trainee hs-trainee--4"></span><span class="hs-trainee hs-trainee--5"></span>
+      <span class="hs-point hs-point--1"></span><span class="hs-point hs-point--2"></span>
+      <span class="hs-disque"></span>
+      <img class="hs-homme" src="images/hero-homme.webp" alt="" width="1302" height="1197" decoding="async">
     </div>
   </div>
-  <div class="hero__mobile-img"><video class="hero-video" muted playsinline preload="none" poster="images/hero-video-debut.webp" data-src="images/sicare-hero.mp4" aria-label="Un expert SICARE en costume avance et prend une posture confiante"></video></div>
 </section>
-<script>
-/* ---- vidéo du hero : une seule lecture, elle s'arrête sur la pose finale ---- */
-(function(){
-  var vids=[].slice.call(document.querySelectorAll('.hero-video')); if(!vids.length) return;
-  var mobile=matchMedia('(max-width: 900px)'), reduit=matchMedia('(prefers-reduced-motion: reduce)'), FIN='images/hero-video-fin.webp';
-  function lance(){
-    var v=mobile.matches?vids[1]:vids[0], autre=mobile.matches?vids[0]:vids[1];
-    if(autre && !autre.paused) autre.pause();
-    if(!v || v.dataset.lu) return;
-    // animations réduites : directement l'image de la pose finale, pas de lecture
-    if(reduit.matches){ v.poster=FIN; v.dataset.lu=1; return; }
-    v.dataset.lu=1; v.loop=false;
-    // WebM (plus léger) quand le navigateur le lit, sinon MP4
-    v.src=v.canPlayType('video/webm; codecs="vp9"')?'images/sicare-hero.webm':v.dataset.src;
-    v.preload='auto'; v.load();
-    // on attend d'avoir assez de vidéo en mémoire avant de lancer : démarrage net, sans saccade
-    var go=function(){ v.removeEventListener('canplaythrough',go); var p=v.play(); if(p && p.catch) p.catch(function(){ v.poster=FIN; }); };
-    if(v.readyState>=4) go(); else { v.addEventListener('canplaythrough',go); setTimeout(go,2500); }
-  }
-  vids.forEach(function(v){ v.addEventListener('ended',function(){ v.pause(); }); }); // reste figée sur la dernière image
-  lance(); if(mobile.addEventListener) mobile.addEventListener('change',lance);
-})();
-</script>
+
 
 <!-- ===================== BLOC 02 — UN NOM, UNE POSTURE ===================== -->
 <section id="posture">
@@ -822,10 +944,27 @@
   </div>
 </section>
 
+<!-- ===================== BLOC 05 bis — ENCART « PUBLICITÉ » ===================== -->
+<!-- grand disque blanc avec le message, photos qui défilent le long de son arc -->
+<section class="pub" id="pub-sicare" aria-label="SICARE, de l'audit à l'intervention">
+  <div class="pub-scene">
+    <div class="pub-photos" aria-hidden="true"><div class="pub-piste"><figure class="pub-tuile"><img src="images/exp-01.webp" alt="" loading="lazy" decoding="async"></figure><figure class="pub-tuile"><img src="images/exp-02.webp" alt="" loading="lazy" decoding="async"></figure><figure class="pub-tuile"><img src="images/formation-02.webp" alt="" loading="lazy" decoding="async"></figure><figure class="pub-tuile"><img src="images/exp-03.webp" alt="" loading="lazy" decoding="async"></figure><figure class="pub-tuile"><img src="images/decrypte-01.webp" alt="" loading="lazy" decoding="async"></figure><figure class="pub-tuile"><img src="images/exp-05.webp" alt="" loading="lazy" decoding="async"></figure><figure class="pub-tuile"><img src="images/decrypte-02.webp" alt="" loading="lazy" decoding="async"></figure><figure class="pub-tuile"><img src="images/exp-04.webp" alt="" loading="lazy" decoding="async"></figure><figure class="pub-tuile" aria-hidden="true"><img src="images/exp-01.webp" alt="" loading="lazy" decoding="async"></figure><figure class="pub-tuile" aria-hidden="true"><img src="images/exp-02.webp" alt="" loading="lazy" decoding="async"></figure><figure class="pub-tuile" aria-hidden="true"><img src="images/formation-02.webp" alt="" loading="lazy" decoding="async"></figure><figure class="pub-tuile" aria-hidden="true"><img src="images/exp-03.webp" alt="" loading="lazy" decoding="async"></figure><figure class="pub-tuile" aria-hidden="true"><img src="images/decrypte-01.webp" alt="" loading="lazy" decoding="async"></figure><figure class="pub-tuile" aria-hidden="true"><img src="images/exp-05.webp" alt="" loading="lazy" decoding="async"></figure><figure class="pub-tuile" aria-hidden="true"><img src="images/decrypte-02.webp" alt="" loading="lazy" decoding="async"></figure><figure class="pub-tuile" aria-hidden="true"><img src="images/exp-04.webp" alt="" loading="lazy" decoding="async"></figure></div></div>
+    <div class="pub-disque">
+      <div class="pub-texte rv">
+        <h2 class="pub-titre">Audit,<br>défense<br>&amp; gestion<br>de crise</h2>
+        <span class="pub-trait"></span>
+        <p class="pub-sous">De l'évaluation des risques<br>à l'intervention sur le terrain.</p>
+        <div class="actions"><a href="contact.html" class="sbtn sbtn--navy"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd-blanc.png" alt=""></span><span class="sbtn__txt">Parler à un expert</span></span></a></div>
+      </div>
+    </div>
+    <div class="pub-marque rv"><img class="logo-clair" src="images/sicare-logo.png" alt="SICARE" width="377" height="128"><img class="logo-fonce" src="images/sicare-logo-blanc.png" alt="" width="377" height="128"><small>Prestations · Formations · Solutions</small></div>
+  </div>
+</section>
+
 <!-- ===================== BLOC 06 — LES EXPERTISES CYBER ===================== -->
-<!-- défilement « cinéma » : la scène se fige, les photos se révèlent une à une par le bas,
-     puis un panneau clair recouvre tout et le bouton apparaît -->
-<section class="expz" id="expertises">
+<!-- photo en fond de toute la scène, texte par-dessus, 3 pastilles à droite avec la petite photo de chaque expertise.
+     Au scroll, on passe d'une expertise à l'autre (fond, texte et pastille active changent), puis même final que la variante A. -->
+<section class="expz expz2" id="expertises">
   <div class="shell expz-intro">
     <div class="center">
       <span class="eyebrow rv">Les expertises cyber</span>
@@ -833,32 +972,31 @@
       <p class="lead rv" style="--d:160ms">La cybersécurité s'appuie sur des compétences complémentaires. Il faut comprendre les risques, éprouver les défenses, repérer les signaux utiles et savoir réagir lorsqu'un incident survient.</p>
     </div>
   </div>
-  <div class="cine" id="cine">
-    <div class="cine-scene">
-      <div class="cine-cadre" id="cine-cadre">
-        <article class="cine-slide">
-          <div class="cine-in"><div class="cine-img"><img src="images/exp-01.webp" alt="" decoding="async"></div>
-            <div class="cine-txt"><h3 class="decoupe">Gouvernance, risques et conformité</h3><p>Évaluer les risques, structurer la démarche de sécurité et accompagner la conformité.</p></div></div>
-        </article>
-        <article class="cine-slide">
-          <div class="cine-in"><div class="cine-img"><img src="images/exp-02.webp" alt="" loading="lazy" decoding="async"></div>
-            <div class="cine-txt"><h3 class="decoupe">Audit et tests d'intrusion</h3><p>Identifier les vulnérabilités et éprouver la résistance des systèmes dans un cadre défini.</p></div></div>
-        </article>
-        <article class="cine-slide">
-          <div class="cine-in"><div class="cine-img"><img src="images/exp-03.webp" alt="" loading="lazy" decoding="async"></div>
-            <div class="cine-txt"><h3 class="decoupe">OSINT et renseignement sur la menace</h3><p>Recueillir et analyser des informations ouvertes pour mieux comprendre les menaces et les expositions.</p></div></div>
-        </article>
-        <article class="cine-slide">
-          <div class="cine-in"><div class="cine-img"><img src="images/exp-04.webp" alt="" loading="lazy" decoding="async"></div>
-            <div class="cine-txt"><h3 class="decoupe"><abbr title="Security Operations Center">SOC</abbr> (centre opérationnel de sécurité) et détection</h3><p>Un centre opérationnel de sécurité surveille les événements, qualifie les alertes et contribue à la détection des incidents.</p></div></div>
-        </article>
-        <article class="cine-slide">
-          <div class="cine-in"><div class="cine-img"><img src="images/exp-05.webp" alt="" loading="lazy" decoding="async"></div>
-            <div class="cine-txt"><h3 class="decoupe">Réponse à incident et gestion de crise</h3><p>Organiser la réponse, limiter les effets de l'incident et accompagner le retour à une situation maîtrisée.</p></div></div>
-        </article>
+  <div class="cine2" id="cine2">
+    <div class="c2-scene">
+      <div class="c2-cadre" id="c2-cadre">
+        <div class="c2-fond"><img src="images/exp-01.webp" alt="" decoding="async"></div>
+        <div class="c2-fond"><img src="images/exp-02.webp" alt="" loading="lazy" decoding="async"></div>
+        <div class="c2-fond"><img src="images/exp-03.webp" alt="" loading="lazy" decoding="async"></div>
+        <div class="c2-fond"><img src="images/exp-04.webp" alt="" loading="lazy" decoding="async"></div>
+        <div class="c2-fond"><img src="images/exp-05.webp" alt="" loading="lazy" decoding="async"></div>
+        <div class="c2-txt"><h3 class="decoupe">Gouvernance, risques et conformité</h3><span class="c2-trait"></span><p>Évaluer les risques, structurer la démarche de sécurité et accompagner la conformité.</p></div>
+        <div class="c2-txt"><h3 class="decoupe">Audit et tests d'intrusion</h3><span class="c2-trait"></span><p>Identifier les vulnérabilités et éprouver la résistance des systèmes dans un cadre défini.</p></div>
+        <div class="c2-txt"><h3 class="decoupe">OSINT et renseignement sur la menace</h3><span class="c2-trait"></span><p>Recueillir et analyser des informations ouvertes pour mieux comprendre les menaces et les expositions.</p></div>
+        <div class="c2-txt"><h3 class="decoupe"><abbr title="Security Operations Center">SOC</abbr> (centre opérationnel de sécurité) et détection</h3><span class="c2-trait"></span><p>Un centre opérationnel de sécurité surveille les événements, qualifie les alertes et contribue à la détection des incidents.</p></div>
+        <div class="c2-txt"><h3 class="decoupe">Réponse à incident et gestion de crise</h3><span class="c2-trait"></span><p>Organiser la réponse, limiter les effets de l'incident et accompagner le retour à une situation maîtrisée.</p></div>
+        <div class="c2-pills" aria-label="Choisir une expertise">
+          <div class="c2-pills-piste" id="c2-piste">
+          <button type="button" class="c2-pill" data-i="0"><span class="c2-rond"><img src="images/exp-01.webp" alt=""></span><span class="c2-pill-txt"><small>Expertise 01</small><b>Gouvernance & conformité</b></span></button>
+          <button type="button" class="c2-pill" data-i="1"><span class="c2-rond"><img src="images/exp-02.webp" alt=""></span><span class="c2-pill-txt"><small>Expertise 02</small><b>Audit & intrusion</b></span></button>
+          <button type="button" class="c2-pill" data-i="2"><span class="c2-rond"><img src="images/exp-03.webp" alt=""></span><span class="c2-pill-txt"><small>Expertise 03</small><b>OSINT & menace</b></span></button>
+          <button type="button" class="c2-pill" data-i="3"><span class="c2-rond"><img src="images/exp-04.webp" alt=""></span><span class="c2-pill-txt"><small>Expertise 04</small><b>SOC & détection</b></span></button>
+          <button type="button" class="c2-pill" data-i="4"><span class="c2-rond"><img src="images/exp-05.webp" alt=""></span><span class="c2-pill-txt"><small>Expertise 05</small><b>Réponse à incident</b></span></button>
+          </div>
+        </div>
       </div>
-      <div class="cine-masque" id="cine-masque" aria-hidden="true"></div>
-      <div class="cine-fin" id="cine-fin">
+      <div class="cine-masque" id="c2-masque" aria-hidden="true"></div>
+      <div class="cine-fin" id="c2-fin">
         <h3 class="decoupe">Cinq expertises, <em>une même exigence.</em></h3>
         <div class="actions">
           <a href="expertises.html" class="sbtn sbtn--navy"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd-blanc.png" alt=""></span><span class="sbtn__txt">Explorer nos expertises</span></span></a>
@@ -1173,7 +1311,8 @@
     } else { mv.setAttribute('src','images/sicare-shield.glb'); }
   }
   if(mv){
-    var hv=document.querySelector('.hero-video[data-lu]')||document.querySelector('.hero-video');
+    var hv=null; // plus de vidéo dans le hero : le bouclier se charge dès la page affichée
+    addEventListener('load',plusTard);
     var plusTard=function(){ (window.requestIdleCallback||setTimeout)(charge3D,{timeout:1500}); };
     if(hv && !reduit.matches){
       hv.addEventListener('timeupdate',function f(){ if(hv.currentTime>1.2){ hv.removeEventListener('timeupdate',f); plusTard(); } });
@@ -1207,8 +1346,8 @@
 
 /* ---- expertises : défilement « cinéma » (rideau + parallaxe + panneau final), lissé ---- */
 (function(){
-  var cine=document.getElementById('cine'); if(!cine) return;
-  var slides=[].slice.call(cine.querySelectorAll('.cine-slide')), n=slides.length;
+  var cine=document.getElementById('cine');
+  var slides=cine?[].slice.call(cine.querySelectorAll('.cine-slide')):[], n=slides.length;
   var cadre=document.getElementById('cine-cadre'), masque=document.getElementById('cine-masque'), fin=document.getElementById('cine-fin');
   // découpe des titres en mots pour l'apparition
   [].forEach.call(document.querySelectorAll('.decoupe'),function(el){
@@ -1226,6 +1365,7 @@
       });
     })(el);
   });
+  if(!cine) return; // ancienne version de la section retirée : seule la découpe des titres sert encore
   if(matchMedia('(prefers-reduced-motion: reduce)').matches){ slides.forEach(function(s){s.classList.add('actif');}); fin.classList.add('vue'); return; }
   // déroulé (en écrans) : pause sur chaque photo, rideau vers la suivante, puis le panneau final
   // TENUE : la scène reste figée après le panneau final, le temps de lire la phrase et voir le bouton
@@ -1341,6 +1481,73 @@
       ev.preventDefault(); lenis.scrollTo(cible,{offset:-64, duration:1.4});
     });
   });
+})();
+
+/* ---- expertises VARIANTE B : fond en fondu enchaîné, texte et pastille active, même final que la variante A ---- */
+(function(){
+  var box=document.getElementById('cine2'); if(!box) return;
+  var scene=box.querySelector('.c2-scene'), cadre=document.getElementById('c2-cadre');
+  var fonds=[].slice.call(box.querySelectorAll('.c2-fond')), txts=[].slice.call(box.querySelectorAll('.c2-txt'));
+  var pills=[].slice.call(box.querySelectorAll('.c2-pill')), piste=document.getElementById('c2-piste');
+  var masque=document.getElementById('c2-masque'), fin=document.getElementById('c2-fin'), n=fonds.length;
+  var reduit=matchMedia('(prefers-reduced-motion: reduce)').matches, mobile=matchMedia('(max-width: 900px)');
+  function clamp(v){return v<0?0:v>1?1:v;}
+  function ease(t){return -(Math.cos(Math.PI*t)-1)/2;}
+  var PAUSE=0.55, TRANS=0.9, PAS=PAUSE+TRANS, FIN_DEB=PAUSE+(n-1)*PAS+0.4, FIN_DUR=1, TENUE=0.6, TOTAL=FIN_DEB+FIN_DUR+TENUE;
+  var cur=0, cible=0, run=false, visible=false, epingle=false, actif=0, H=scene.offsetHeight;
+  function pose(i){
+    actif=i;
+    txts.forEach(function(t,k){ t.classList.toggle('actif', visible && k===i && !fin.classList.contains('vue')); });
+    pills.forEach(function(p,k){ p.classList.toggle('actif', k===i); p.setAttribute('aria-pressed', k===i); });
+  }
+  // clic sur une pastille : on fait défiler jusqu'à cette expertise
+  pills.forEach(function(p,k){ p.addEventListener('click',function(){
+    if(reduit){ fonds.forEach(function(f,j){ f.style.opacity=j===k?1:0; }); visible=true; pose(k); return; }
+    var course=box.offsetHeight-H, y=box.getBoundingClientRect().top+scrollY+course*((PAUSE*0.5+k*PAS)/TOTAL);
+    if(window.sicareLenis) window.sicareLenis.scrollTo(y,{duration:1.2}); else scrollTo({top:y,behavior:'smooth'});
+  }); });
+  if(reduit){ visible=true; pose(0); fin.classList.add('vue'); return; }
+  function lire(){
+    H=scene.offsetHeight||innerHeight;
+    var r=box.getBoundingClientRect(), course=Math.max(1,box.offsetHeight-H);
+    cible=clamp(-r.top/course)*TOTAL;
+    visible=r.top<H*0.45 && r.bottom>H*0.3;
+    epingle=r.top<=1 && r.bottom>=H-1;
+    if(r.bottom<=H*0.15 || r.top>=H*0.85) cur=cible;
+  }
+  function dessine(u){
+    var pos=0, cand=0;
+    for(var k=1;k<n;k++){
+      var pk=ease(clamp((u-(PAUSE+(k-1)*PAS))/TRANS));
+      fonds[k].style.opacity=pk.toFixed(3);
+      pos+=pk;
+      if(pk>(k>actif?0.6:0.4)) cand=k;
+    }
+    // léger zoom lent de chaque fond pendant qu'il est à l'écran
+    fonds.forEach(function(f,k){ var z=1.08-0.06*clamp(u/PAS-k+0.5); f.style.transform='scale('+z.toFixed(4)+')'; });
+    // la piste des pastilles remonte pour garder l'expertise active en haut (3 visibles)
+    var step=pills[0].offsetHeight+18;
+    if(mobile.matches){ step=pills[0].offsetWidth+12; piste.style.transform='translate3d('+(-Math.min(pos,n-1)*step).toFixed(1)+'px,0,0)'; }
+    else piste.style.transform='translate3d(0,'+(-Math.min(pos,n-3)*step).toFixed(1)+'px,0)';
+    var f=ease(clamp((u-FIN_DEB)/FIN_DUR));
+    masque.style.transform='translate(-50%,-50%) scale('+f.toFixed(4)+')';
+    cadre.style.transform='scale('+(1-0.06*f).toFixed(4)+')';
+    if(f>0.92) fin.classList.add('vue'); else if(f<0.86) fin.classList.remove('vue');
+    visible=visible && f<0.4;
+    pose(cand);
+  }
+  var t0=0;
+  function boucle(t){
+    var dt=t0?Math.min(64,t-t0):16.7; t0=t;
+    var ecart=Math.abs(cible-cur), k=0.12+Math.min(0.3,ecart*0.12);
+    if(!epingle) k=Math.max(k,0.35);
+    cur+=(cible-cur)*(1-Math.pow(1-k,dt/16.7));
+    if(Math.abs(cible-cur)<0.0003) cur=cible;
+    dessine(cur);
+    if(cur!==cible) requestAnimationFrame(boucle); else { run=false; t0=0; }
+  }
+  function maj(){ lire(); if(!run){ run=true; requestAnimationFrame(boucle); } }
+  addEventListener('scroll',maj,{passive:true}); addEventListener('resize',maj); addEventListener('load',maj); maj();
 })();
 </script>
 </body>
