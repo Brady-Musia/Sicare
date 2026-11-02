@@ -141,17 +141,18 @@
 
   /* ----- HERO « studio » : bureau en fond, expert devant une forme bleu SICARE ----- */
   .hdr { background: rgba(25,35,96,0.94); backdrop-filter: blur(16px); }
-  .hero--studio { display: block; min-height: 0; padding: 0; position: relative; isolation: isolate; overflow: hidden; background: #eef3f8; color: var(--text); }
+  .hero--studio { display: block; min-height: 0; padding: 0; position: relative; isolation: isolate; overflow: hidden; background: #d6e2f0; color: var(--text); }
   .hero--studio::after { display: none; }
   .hs-fond { position: absolute; inset: 0; z-index: -2; }
   .hs-fond img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 40%; display: block; }
   /* voile clair : le texte reste lisible à gauche, le bureau transparaît à droite */
-  .hs-fond::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(244,247,251,0.97) 0%, rgba(244,247,251,0.93) 34%, rgba(244,247,251,0.55) 58%, rgba(244,247,251,0.25) 100%), linear-gradient(0deg, rgba(244,247,251,0.9) 0%, rgba(244,247,251,0) 25%); }
+  /* voile bleuté doux (moins blanc) : le texte reste lisible sans éblouir */
+  .hs-fond::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(214,226,240,0.9) 0%, rgba(214,226,240,0.78) 32%, rgba(214,226,240,0.35) 56%, rgba(214,226,240,0.05) 100%), linear-gradient(rgba(25,35,96,0.10), rgba(25,35,96,0.10)); }
   .hs { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: center; gap: 20px; width: min(var(--shell), 100% - 48px); margin-inline: auto; min-height: clamp(640px, 100svh, 900px); padding-top: 64px; }
   .hs-texte { padding: 40px 0; }
   .hs-texte .eyebrow { color: var(--cyan-600); }
   .hero--studio h1 { margin-top: 20px; font-size: clamp(34px, 3.8vw, 56px); line-height: 1.08; letter-spacing: -0.025em; color: var(--navy); }
-  .hero--studio h1 em { font-style: normal; background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--cyan); }
+  .hero--studio h1 em { font-style: normal; background: none; -webkit-background-clip: border-box; background-clip: border-box; color: #1f8fb8; }
   .hs-accroche { margin-top: 20px; max-width: 30em; font-size: clamp(16px, 1.35vw, 19px); line-height: 1.6; color: #3a4670; }
   .hero--studio .actions { margin-top: 30px; }
   .hero--studio .lien { color: var(--navy); }
@@ -178,7 +179,7 @@
   @media (max-width: 900px) {
     .hs { grid-template-columns: 1fr; min-height: 0; gap: 0; padding-top: 64px; }
     .hs-texte { padding: 40px 0 10px; }
-    .hs-fond::after { background: linear-gradient(180deg, rgba(244,247,251,0.96) 0%, rgba(244,247,251,0.9) 55%, rgba(244,247,251,0.45) 100%); }
+    .hs-fond::after { background: linear-gradient(180deg, rgba(214,226,240,0.9) 0%, rgba(214,226,240,0.8) 55%, rgba(214,226,240,0.35) 100%), linear-gradient(rgba(25,35,96,0.10), rgba(25,35,96,0.10)); }
     .hero--studio .hero__poles { display: none; }
     .hs-visuel { height: clamp(340px, 88vw, 520px); min-height: 0; margin-top: 10px; }
     .hs-trainee { right: -24px; height: 30px; }
@@ -190,7 +191,7 @@
   .plaque { width: min(1400px, 100% - 32px); margin-inline: auto; border-radius: 32px; background: var(--ink); color: #fff; overflow: hidden; position: relative; isolation: isolate; }
   .plaque::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse 60% 70% at 85% 0%, rgba(76,191,223,0.16), transparent 60%), radial-gradient(ellipse 50% 60% at 0% 100%, rgba(25,35,96,0.7), transparent 70%); }
   /* Notre offre : photo du bouclier en fond, bouclier bien visible en haut */
-  #offre::before { inset: 0 auto auto 50%; width: max(100%, 980px); aspect-ratio: 1672 / 941; transform: translateX(-50%); background: linear-gradient(180deg, rgba(25,35,96,0) 0%, rgba(25,35,96,0) 38%, rgba(25,35,96,0.6) 62%, var(--ink) 97%), url(images/sicare-offre-bouclier.webp) 50% 0 / cover no-repeat; }
+  #offre::before { inset: 0 auto auto 50%; width: max(100%, 980px); aspect-ratio: 1672 / 941; transform: translateX(-50%); background: linear-gradient(180deg, rgba(25,35,96,0) 0%, rgba(25,35,96,0) 38%, rgba(25,35,96,0.6) 62%, var(--ink) 97%), url(images/offre-fond.webp) 50% 0 / cover no-repeat; }
   #offre > section { padding-top: clamp(200px, 20vw, 290px); }
 
   /* ----- BLOC 2 — UN NOM, UNE POSTURE ----- */
