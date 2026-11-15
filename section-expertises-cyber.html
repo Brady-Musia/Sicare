@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SICARE — Section « Les expertises cyber » (copie réutilisable)</title>
+<link rel="icon" href="images/sicare-symbole-hd.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     COPIE AUTONOME DE LA SECTION « LES EXPERTISES CYBER » (index.html, bloc 06)
+     À réutiliser sur une autre page : copier le bloc <section id="expertises">,
+     les styles ci-dessous et les deux scripts en bas de page.
+     Elle fonctionne seule : styles de base (couleurs, typographie, boutons) inclus.
+     ============================================================ */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    /* bleus navy identiques à Brydge */
+    --navy: #192360;
+    --navy-700: #1b2356;
+    --navy-800: #121a44;
+    --navy-900: #0d1230;
+    --ink: #192360;
+    --cyan: #4CBFDF;
+    --cyan-600: #2A9CC0;
+    --cyan-200: #8FE3F7;
+    --cyan-50: #E9F8FC;
+    --paper: #eceef1; /* fond gris clair de Brydge */
+    --line: #DFE4EE;
+    --text: #0B0E26;
+    --muted: #5A6280;
+    --muted-dark: #9AA3C2;
+    --shell: 1240px;
+    --fh: 'Comfortaa', Arial, sans-serif;
+    --fb: 'Plus Jakarta Sans', Arial, Helvetica, sans-serif;
+  }
+  html { scroll-behavior: smooth; overflow-x: clip; }
+  body { background: var(--paper); color: var(--text); font-family: var(--fb); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  .shell { width: min(var(--shell), 100% - 8vw); margin-inline: auto; }
+  section { padding: clamp(80px, 9vw, 128px) 0; position: relative; }
+
+  /* ----- typographie ----- */
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan-600); }
+  .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 4px rgba(76,191,223,0.18); }
+  .on-dark .eyebrow { color: var(--cyan-200); }
+  .titre { margin-top: 18px; font-family: var(--fh); font-weight: 600; font-size: clamp(32px, 4.2vw, 56px); line-height: 1.08; letter-spacing: -0.02em; color: var(--text); }
+  .titre em { font-style: normal; color: var(--cyan-600); }
+  .on-dark .titre { color: #fff; }
+  .on-dark .titre em { color: var(--cyan); }
+  .lead { margin-top: 20px; font-size: 17px; line-height: 1.75; color: var(--muted); max-width: 640px; }
+  .on-dark .lead { color: var(--muted-dark); }
+  .prose p + p { margin-top: 14px; }
+  .center { text-align: center; }
+  /* typographie Brydge : titres en Comfortaa 700, textes en Plus Jakarta Sans */
+  h1, h2, h3, .titre, .hero h1 { font-family: var(--fh) !important; font-weight: 700 !important; font-size-adjust: 0.51; letter-spacing: -0.02em; }
+  .center .lead { margin-inline: auto; }
+
+  /* ----- les boutons (structure BD Emerson, symbole SICARE dans le carré) ----- */
+  .sbtn { display: inline-block; padding: 3px; border-radius: 13px; background: rgba(76,191,223,0.28); text-decoration: none; transition: transform .3s ease, background .3s ease; }
+  .sbtn:hover { transform: translateY(-2px); }
+  .sbtn__in { position: relative; display: flex; align-items: center; gap: 12px; height: 46px; padding-right: 18px; border-radius: 10px; overflow: hidden; isolation: isolate; background: linear-gradient(#4CBFDF 50%, #2E9FC4); }
+  .sbtn__fill { position: absolute; inset: 0 auto 0 0; width: 0; z-index: -1; border-radius: 10px; background: linear-gradient(#1b2356 50%, var(--navy)); transition: width .45s cubic-bezier(.65,0,.35,1); }
+  .sbtn:hover .sbtn__fill { width: 100%; }
+  .sbtn__ico { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 10px; background: linear-gradient(#fff, #EEF3FA); box-shadow: 0 2px 8px rgba(7,10,28,0.12); }
+  .sbtn__ico img { width: 26px; height: auto; transition: transform .45s cubic-bezier(.65,0,.35,1); }
+  .sbtn:hover .sbtn__ico img { transform: rotate(-120deg); }
+  .sbtn__txt { font-weight: 700; font-size: 15.5px; letter-spacing: -0.005em; color: var(--ink); white-space: nowrap; transition: color .3s ease; }
+  .sbtn:hover .sbtn__txt { color: #fff; }
+  /* variante navy (sur fond clair) */
+  .sbtn--navy { background: rgba(25,35,96,0.18); }
+  .sbtn--navy .sbtn__in { background: linear-gradient(#1b2356 50%, var(--navy)); }
+  .sbtn--navy .sbtn__fill { background: linear-gradient(#4CBFDF 50%, #2E9FC4); }
+  .sbtn--navy .sbtn__ico { background: linear-gradient(#4CBFDF, #2E9FC4); }
+  .sbtn--navy .sbtn__txt { color: #fff; }
+  .sbtn--navy:hover .sbtn__txt { color: var(--ink); }
+  /* variante blanche (sur fond sombre) */
+  .sbtn--blanc { background: rgba(255,255,255,0.22); }
+  .sbtn--blanc .sbtn__in { background: linear-gradient(#fff 50%, #EEF2F8); }
+  .sbtn--blanc .sbtn__ico { background: linear-gradient(#1b2356, var(--navy)); }
+  /* lien texte avec flèche */
+  .lien { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15.5px; text-decoration: none; color: var(--navy); }
+  .lien .fl { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid currentColor; transition: transform .3s ease, background .3s ease, color .3s ease; }
+  .lien:hover .fl { transform: translateX(4px); background: var(--navy); color: #fff; border-color: var(--navy); }
+  .on-dark .lien { color: #fff; }
+  .on-dark .lien:hover .fl { background: #fff; color: var(--navy); border-color: #fff; }
+  .actions { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-top: 34px; }
+
+  /* ----- en-tête ----- */
+  .hdr { position: fixed; inset: 0 0 auto 0; z-index: 50; transition: background .35s ease, box-shadow .35s ease, backdrop-filter .35s ease; }
+  .hdr .shell { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 64px; }
+  .hdr.solide { background: rgba(25,35,96,0.86); backdrop-filter: blur(16px); box-shadow: 0 1px 0 rgba(143,227,247,0.12); }
+  .hdr .logo img { height: 30px; width: auto; }
+  .menu { display: flex; align-items: center; gap: 26px; }
+  .menu a { position: relative; font-size: 13.5px; font-weight: 600; color: rgba(255,255,255,0.78); text-decoration: none; padding: 6px 0; transition: color .2s ease; }
+  .menu a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; border-radius: 2px; background: var(--cyan); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
+  .menu a:hover, .menu a.actif { color: #fff; }
+  .menu a:hover::after, .menu a.actif::after { transform: scaleX(1); }
+  .hdr .sbtn__in { height: 34px; }
+  .hdr .sbtn__txt { font-size: 13.5px; }
+  .hdr .sbtn__ico img { width: 20px; }
+  .hdr .sbtn__ico { width: 34px; height: 34px; }
+  .burger { display: none; width: 38px; height: 38px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.06); cursor: pointer; }
+  .burger i { display: block; width: 18px; height: 2px; margin: 4px auto; border-radius: 2px; background: #fff; }
+  .menu .menu-cta { display: none; }
+
+  /* ---- Les expertises cyber : défilement « cinéma » plein écran ----
+     la scène se fige, chaque photo est révélée par le bas (rideau) avec un léger parallaxe,
+     puis un panneau clair grandit depuis le centre et le bouton apparaît */
+  .expz { padding-bottom: 0; }
+  .expz-intro { padding-bottom: clamp(40px, 5vw, 70px); }
+  .cine { --n: 5; position: relative; height: 920svh; }
+  .cine-scene { position: sticky; top: 0; height: 100svh; overflow: hidden; background: var(--ink); }
+  .cine-cadre { position: absolute; inset: 0; transform-origin: 50% 50%; will-change: transform; }
+  .cine-slide { position: absolute; inset: 0; overflow: hidden; will-change: transform; backface-visibility: hidden; }
+  .cine-slide + .cine-slide { transform: translate3d(0,100svh,0); }
+  .cine-in { position: absolute; inset: 0; overflow: hidden; will-change: transform; }
+  .cine-img { position: absolute; inset: 0; will-change: transform; transform: scale(1.2); }
+  .cine-img img { width: 100%; height: 100%; object-fit: cover; }
+  .cine-in::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(25,35,96,0.35) 0%, rgba(25,35,96,0) 28%, rgba(25,35,96,0.15) 52%, rgba(25,35,96,0.88) 100%), linear-gradient(90deg, rgba(25,35,96,0.55) 0%, rgba(25,35,96,0) 60%); }
+  .cine-in .cine-img { z-index: 0; }
+  .cine-in::after { z-index: 1; }
+  .cine-txt { position: absolute; z-index: 2; left: max(24px, (100% - 1240px) / 2); bottom: clamp(36px, 7svh, 80px); width: min(660px, 100% - 48px); color: #fff; }
+  .cine-txt h3 { margin-top: 0; font-family: var(--fh); font-weight: 700; font-size: clamp(32px, 4.4vw, 66px); line-height: 1.06; letter-spacing: -0.01em; color: #8FE3F7; }
+  .cine-txt h3 abbr { text-decoration: none; }
+  .cine-txt p { margin-top: 18px; max-width: 30em; font-size: clamp(16px, 1.35vw, 20px); line-height: 1.55; color: rgba(255,255,255,0.92); }
+  /* apparition des mots, ligne par ligne */
+  .mot { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
+  .mot > span { display: inline-block; transform: translateY(105%); transition: transform .9s cubic-bezier(.22,1,.36,1); transition-delay: calc(var(--k) * 28ms); }
+  .cine-slide.actif .mot > span { transform: none; }
+  .cine-txt p { opacity: 0; transform: translateY(14px); transition: opacity .8s ease .25s, transform .9s cubic-bezier(.22,1,.36,1) .25s; }
+  .cine-slide.actif .cine-txt p { opacity: 1; transform: none; }
+  /* fin : panneau clair qui grandit depuis le centre, puis le bouton */
+  /* disque assez grand pour couvrir toute la scène (diagonale < 150vmax) ; seule sa taille est animée */
+  .cine-masque { position: absolute; left: 50%; top: 50%; z-index: 5; width: 150vmax; height: 150vmax; border-radius: 50%; background: var(--paper); transform: translate(-50%,-50%) scale(0); will-change: transform; }
+  .cine-fin { position: absolute; inset: 0; z-index: 6; display: grid; place-content: center; justify-items: center; gap: 26px; text-align: center; padding: 24px; pointer-events: none; }
+  .cine-fin h3 { font-family: var(--fh); font-weight: 700; font-size: clamp(28px, 3.4vw, 50px); line-height: 1.15; color: var(--navy); }
+  .cine-fin h3 em { font-style: normal; color: var(--cyan); }
+  /* sortie rapide (au retour), entrée douce et décalée */
+  .cine-fin .mot > span { transition: transform .3s cubic-bezier(.4,0,1,1); transition-delay: 0s; }
+  .cine-fin.vue .mot > span { transform: none; transition: transform 1s cubic-bezier(.22,1,.36,1); transition-delay: calc(var(--k) * 28ms); }
+  .cine-fin .actions { margin-top: 0; opacity: 0; transform: translateY(18px) scale(.96); transition: opacity .2s ease, transform .3s ease; }
+  .cine-fin.vue .actions { opacity: 1; transform: none; pointer-events: auto; transition: opacity .7s ease .45s, transform .9s cubic-bezier(.22,1,.36,1) .45s; }
+  .cine-fin.vue { pointer-events: auto; }
+  @media (max-width: 768px) {
+    .cine-txt { left: 20px; width: calc(100% - 40px); bottom: 34px; }
+  }
+  /* téléphone et tablette : le panneau final reste plus longtemps à l'écran (un glissement de doigt va vite) */
+  @media (max-width: 900px) { .cine { height: 1000svh; } }
+  /* animations réduites : photos empilées, sans figer la page */
+  @media (prefers-reduced-motion: reduce) {
+    .cine { height: auto; }
+    .cine-scene { position: static; height: auto; background: none; }
+    .cine-cadre { position: static; }
+    .cine-slide, .cine-slide + .cine-slide { position: relative; height: 80svh; transform: none; }
+    .cine-in, .cine-img { transform: none !important; }
+    .mot > span, .cine-txt p { transform: none; opacity: 1; transition: none; }
+    .cine-fin { position: static; padding: 70px 24px; }
+    .cine-fin .actions { opacity: 1; transform: none; }
+  }
+  /* ---- Les expertises cyber — VARIANTE B : photo plein fond, texte par-dessus, pastilles à droite ---- */
+  .c2-variante { margin-left: 8px; padding: 3px 9px; border-radius: 99px; background: var(--cyan-50); color: var(--cyan-600); font-size: 10px; letter-spacing: .12em; }
+  .cine2 { position: relative; height: 760svh; }
+  .c2-scene { position: sticky; top: 0; height: 100svh; overflow: hidden; background: var(--ink); }
+  .c2-cadre { position: absolute; inset: 0; transform-origin: 50% 50%; will-change: transform; }
+  .c2-fond { position: absolute; inset: 0; opacity: 0; will-change: opacity, transform; }
+  .c2-fond:first-child { opacity: 1; }
+  .c2-fond img { width: 100%; height: 100%; object-fit: cover; }
+  .c2-cadre::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(13,18,48,0.88) 0%, rgba(25,35,96,0.62) 38%, rgba(25,35,96,0.15) 66%, rgba(25,35,96,0.35) 100%), linear-gradient(180deg, rgba(13,18,48,0.35), transparent 30%, transparent 70%, rgba(13,18,48,0.55)); }
+  .c2-txt { position: absolute; z-index: 3; left: max(24px, (100% - 1240px) / 2); top: 50%; width: min(560px, 46%); transform: translateY(-50%); color: #fff; pointer-events: none; }
+  .c2-txt h3 { margin-top: 0; font-family: var(--fh); font-weight: 700; font-size: clamp(36px, 4.6vw, 72px); line-height: 1.04; letter-spacing: -0.02em; color: #fff; }
+  .c2-txt h3 abbr { text-decoration: none; }
+  .c2-trait { display: block; width: 0; height: 3px; margin: 22px 0 18px; border-radius: 3px; background: var(--cyan); transition: width .8s cubic-bezier(.22,1,.36,1) .25s; }
+  .c2-txt p { max-width: 30em; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.6; color: rgba(255,255,255,0.88); opacity: 0; transform: translateY(14px); transition: opacity .7s ease .3s, transform .8s cubic-bezier(.22,1,.36,1) .3s; }
+  .c2-txt.actif p { opacity: 1; transform: none; }
+  .c2-txt.actif .c2-trait { width: 90px; }
+  .c2-txt.actif .mot > span { transform: none; }
+  .c2-txt:not(.actif) .mot > span { transition: transform .35s cubic-bezier(.4,0,1,1); transition-delay: 0s; }
+  /* pastilles : collées au bord droit, 3 visibles, la piste remonte au fil des expertises */
+  .c2-pills { position: absolute; z-index: 4; right: 0; top: 50%; transform: translateY(-50%); width: min(380px, 34%); height: calc(3 * 104px + 2 * 18px); overflow: hidden; }
+  .c2-pills-piste { display: grid; gap: 18px; will-change: transform; }
+  .c2-pill { position: relative; display: flex; align-items: center; gap: 18px; height: 104px; width: 100%; padding: 0 22px 0 14px; border: 0; border-radius: 999px 0 0 999px; background: #fff; color: var(--navy); text-align: left; cursor: pointer; box-shadow: 0 18px 40px rgba(13,18,48,0.25); transform: translateX(28px); transition: background .45s ease, color .45s ease, transform .5s cubic-bezier(.22,1,.36,1); }
+  .c2-pill:hover { transform: translateX(14px); }
+  .c2-pill.actif { background: var(--cyan); color: #fff; transform: none; }
+  .c2-rond { flex: none; width: 76px; height: 76px; border-radius: 50%; overflow: hidden; border: 4px solid #fff; box-shadow: 0 8px 20px rgba(13,18,48,0.25); }
+  .c2-rond img { width: 100%; height: 100%; object-fit: cover; }
+  .c2-pill-txt small { display: block; font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan-600); }
+  .c2-pill.actif .c2-pill-txt small { color: rgba(255,255,255,0.85); }
+  .c2-pill-txt b { display: block; margin-top: 4px; font-family: var(--fh); font-size: 17px; line-height: 1.25; }
+  @media (max-width: 900px) {
+    .c2-txt { top: 18%; transform: none; width: auto; right: 24px; }
+      .c2-cadre::after { background: linear-gradient(180deg, rgba(13,18,48,0.85) 0%, rgba(25,35,96,0.55) 50%, rgba(13,18,48,0.75) 100%); }
+    .c2-pills { top: auto; bottom: 30px; transform: none; left: 0; right: 0; width: auto; height: auto; overflow: hidden; padding: 0 0 0 16px; }
+    .c2-pills-piste { display: flex; gap: 12px; width: max-content; }
+    .c2-pill { height: 76px; width: 230px; padding: 0 16px 0 8px; gap: 12px; border-radius: 999px; transform: none; }
+    .c2-pill:hover { transform: none; }
+    .c2-rond { width: 58px; height: 58px; border-width: 3px; }
+    .c2-pill-txt b { font-size: 15px; }
+    }
+  @media (prefers-reduced-motion: reduce) {
+    .cine2 { height: auto; }
+    .c2-scene { position: relative; height: 100svh; }
+    .c2-fond, .c2-pills-piste { transition: opacity .4s ease; }
+  }
+  /* ----- apparition au défilement (désactivée si réduction des animations) ----- */
+  /* sections hors écran : leurs animations décoratives sont mises en pause (navigation plus fluide) */
+  .hors-ecran, .hors-ecran *, .hors-ecran *::before, .hors-ecran *::after { animation-play-state: paused !important; }
+  /* défilement amorti (Lenis) */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+  .lenis.lenis-stopped { overflow: hidden; }
+  .rv { opacity: 0; transform: translateY(24px); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); transition-delay: var(--d, 0ms); }
+  .rv.vu { opacity: 1; transform: none; }
+  .trace { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s cubic-bezier(.45,.05,.25,1); transition-delay: var(--d, 0ms); }
+  .vu .trace, .trace.vu { stroke-dashoffset: 0; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .rv { opacity: 1; transform: none; transition: none; }
+    .trace { stroke-dashoffset: 0; transition: none; }
+    .sbtn, .sbtn * , .pole, .carte, .article { transition: none !important; }
+  }
+
+  /* ============================================================
+     GRANDS ÉCRANS (1281 px et plus)
+     Même rendu que sur un portable (1280 px) : chaque bloc garde la même
+     part de l'écran, et textes, cartes, schémas et boutons grandissent
+     ensemble du même facteur (--z ≈ largeur de l'écran ÷ 1280).
+     ============================================================ */
+  @media (min-width: 1281px) {
+    :root { --z: 1; }
+    /* contenu : 92 % de la largeur (comme sur le portable), agrandi d'un bloc */
+    .shell { width: 92%; zoom: var(--z); }
+    /* tailles calculées en « vw » à l'intérieur des blocs agrandis : figées à leur valeur du portable */
+    .titre { font-size: 53.8px; }
+    .hero h1 { font-size: 56.3px; }
+    .hero__accroche { font-size: 19.2px; }
+    .bandeau .titre { font-size: 46.1px; }
+    .deux-col { gap: 76.8px; }
+    .si-orbite { margin-top: 64px; }
+    .poles, .eco { margin-top: 60px; }
+    .cartes3, .defile-zone { margin-top: 56px; }
+    .carrousel { margin-top: 51.2px; }
+    .expz-intro { padding-bottom: 64px; }
+    .bandeau { padding: 76.8px; }
+    .bandeau__femme { right: 64px; }
+    /* espacements des sections et plaques sombres : proportionnels à l'écran */
+    section { padding-top: 9vw; padding-bottom: 9vw; }
+    .contact-cta { padding-top: 10vw !important; padding-bottom: 8vw; }
+    #offre > section { padding-top: 20vw; }
+    .plaque { width: calc(100% - 2.5vw); border-radius: 2.5vw; }
+    .hero { min-height: 100vh; }
+    .pos-filet { width: 20vw; }
+    /* défilement « cinéma » des expertises : textes et panneau final agrandis */
+    .cine-txt { zoom: var(--z); left: 24px; bottom: calc(7svh / var(--z)); }
+    .cine-txt h3 { font-size: 56.3px; }
+    .cine-txt p { font-size: 17.3px; }
+    .cine-fin { zoom: var(--z); }
+    .cine-fin h3 { font-size: 43.5px; }
+    /* hero « studio » (photo du bureau + expert) : texte et visuel agrandis d'un bloc,
+       la hauteur reste celle de l'écran */
+    .hs { zoom: var(--z); min-height: clamp(640px, calc(100svh / var(--z)), 900px); }
+    .hs-visuel { height: min(640px, calc(100svh / var(--z) - 110px)); }
+    .hs-trainee { right: calc(-1 * max(24px, (100vw / var(--z) - var(--shell)) / 2)); }
+    .hs-point--1 { right: calc(46% + 14px - max(24px, (100vw / var(--z) - var(--shell)) / 2)); }
+    .hs-point--2 { right: calc(38% + 12px - max(24px, (100vw / var(--z) - var(--shell)) / 2)); }
+    .hero--studio h1 { font-size: 48.6px; }
+    .hs-accroche { font-size: 17.3px; }
+    /* « Audit, défense & gestion de crise » : la carte entière grandit d'un bloc */
+    .pub { padding: 6vw 0; }
+    .pub-scene { zoom: var(--z); --h: 588.8px; }
+    .pub-photos { right: 256px; }
+    html body .pub-titre { font-size: 42.2px !important; }
+    .pub-sous { font-size: 17.9px; }
+    /* « Les expertises cyber » (photos plein écran) : textes et pastilles agrandis */
+    .c2-txt { zoom: var(--z); left: 24px; }
+    .c2-txt h3 { font-size: 58.9px; }
+    .c2-txt p { font-size: 16.6px; }
+    .c2-pills { zoom: var(--z); }
+  }
+  /* facteur d'agrandissement selon la largeur de l'écran (par paliers de 80 px) */
+  @media (min-width: 1360px) { :root { --z: 1.0625; } }
+  @media (min-width: 1440px) { :root { --z: 1.125; } }
+  @media (min-width: 1520px) { :root { --z: 1.1875; } }
+  @media (min-width: 1600px) { :root { --z: 1.25; } }
+  @media (min-width: 1680px) { :root { --z: 1.3125; } }
+  @media (min-width: 1760px) { :root { --z: 1.375; } }
+  @media (min-width: 1840px) { :root { --z: 1.4375; } }
+  @media (min-width: 1920px) { :root { --z: 1.5; } }
+  @media (min-width: 2080px) { :root { --z: 1.625; } }
+  @media (min-width: 2240px) { :root { --z: 1.75; } }
+  @media (min-width: 2400px) { :root { --z: 1.875; } }
+  @media (min-width: 2560px) { :root { --z: 2; } }
+  /* page de démonstration : un peu d'espace avant et après la section pour pouvoir la faire défiler */
+  .demo-espace { height: 60vh; display: grid; place-items: center; color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+
+<div class="demo-espace">↓ Faites défiler pour voir la section</div>
+
+<!-- ===================== BLOC 06 — LES EXPERTISES CYBER ===================== -->
+<!-- photo en fond de toute la scène, texte par-dessus, 3 pastilles à droite avec la petite photo de chaque expertise.
+     Au scroll, on passe d'une expertise à l'autre (fond, texte et pastille active changent), puis même final que la variante A. -->
+<section class="expz expz2" id="expertises">
+  <div class="shell expz-intro">
+    <div class="center">
+      <span class="eyebrow rv">Les expertises cyber</span>
+      <h2 class="titre rv" style="--d:80ms">La maîtrise cyber mobilise<br><em>plusieurs expertises.</em></h2>
+      <p class="lead rv" style="--d:160ms">La cybersécurité s'appuie sur des compétences complémentaires. Il faut comprendre les risques, éprouver les défenses, repérer les signaux utiles et savoir réagir lorsqu'un incident survient.</p>
+    </div>
+  </div>
+  <div class="cine2" id="cine2">
+    <div class="c2-scene">
+      <div class="c2-cadre" id="c2-cadre">
+        <div class="c2-fond"><img src="images/exp-01.webp" alt="" decoding="async"></div>
+        <div class="c2-fond"><img src="images/exp-02.webp" alt="" loading="lazy" decoding="async"></div>
+        <div class="c2-fond"><img src="images/exp-03.webp" alt="" loading="lazy" decoding="async"></div>
+        <div class="c2-fond"><img src="images/exp-04.webp" alt="" loading="lazy" decoding="async"></div>
+        <div class="c2-fond"><img src="images/exp-05.webp" alt="" loading="lazy" decoding="async"></div>
+        <div class="c2-txt"><h3 class="decoupe">Gouvernance, risques et conformité</h3><span class="c2-trait"></span><p>Évaluer les risques, structurer la démarche de sécurité et accompagner la conformité.</p></div>
+        <div class="c2-txt"><h3 class="decoupe">Audit et tests d'intrusion</h3><span class="c2-trait"></span><p>Identifier les vulnérabilités et éprouver la résistance des systèmes dans un cadre défini.</p></div>
+        <div class="c2-txt"><h3 class="decoupe">OSINT et renseignement sur la menace</h3><span class="c2-trait"></span><p>Recueillir et analyser des informations ouvertes pour mieux comprendre les menaces et les expositions.</p></div>
+        <div class="c2-txt"><h3 class="decoupe"><abbr title="Security Operations Center">SOC</abbr> (centre opérationnel de sécurité) et détection</h3><span class="c2-trait"></span><p>Un centre opérationnel de sécurité surveille les événements, qualifie les alertes et contribue à la détection des incidents.</p></div>
+        <div class="c2-txt"><h3 class="decoupe">Réponse à incident et gestion de crise</h3><span class="c2-trait"></span><p>Organiser la réponse, limiter les effets de l'incident et accompagner le retour à une situation maîtrisée.</p></div>
+        <div class="c2-pills" aria-label="Choisir une expertise">
+          <div class="c2-pills-piste" id="c2-piste">
+          <button type="button" class="c2-pill" data-i="0"><span class="c2-rond"><img src="images/exp-01.webp" alt=""></span><span class="c2-pill-txt"><small>Expertise 01</small><b>Gouvernance & conformité</b></span></button>
+          <button type="button" class="c2-pill" data-i="1"><span class="c2-rond"><img src="images/exp-02.webp" alt=""></span><span class="c2-pill-txt"><small>Expertise 02</small><b>Audit & intrusion</b></span></button>
+          <button type="button" class="c2-pill" data-i="2"><span class="c2-rond"><img src="images/exp-03.webp" alt=""></span><span class="c2-pill-txt"><small>Expertise 03</small><b>OSINT & menace</b></span></button>
+          <button type="button" class="c2-pill" data-i="3"><span class="c2-rond"><img src="images/exp-04.webp" alt=""></span><span class="c2-pill-txt"><small>Expertise 04</small><b>SOC & détection</b></span></button>
+          <button type="button" class="c2-pill" data-i="4"><span class="c2-rond"><img src="images/exp-05.webp" alt=""></span><span class="c2-pill-txt"><small>Expertise 05</small><b>Réponse à incident</b></span></button>
+          </div>
+        </div>
+      </div>
+      <div class="cine-masque" id="c2-masque" aria-hidden="true"></div>
+      <div class="cine-fin" id="c2-fin">
+        <h3 class="decoupe">Cinq expertises, <em>une même exigence.</em></h3>
+        <div class="actions">
+          <a href="expertises.html" class="sbtn sbtn--navy"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd-blanc.png" alt=""></span><span class="sbtn__txt">Explorer nos expertises</span></span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="demo-espace">Fin de la section</div>
+
+<script>
+  /* apparition au défilement (rien ne bouge si l'utilisateur réduit les animations) */
+  (function () {
+    var els = document.querySelectorAll('.rv, .trace');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      els.forEach(function (e) { e.classList.add('vu'); }); return;
+    }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('vu'); io.unobserve(e.target); } });
+    }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+
+/* ---- expertises : défilement « cinéma » (rideau + parallaxe + panneau final), lissé ---- */
+(function(){
+  var cine=document.getElementById('cine');
+  var slides=cine?[].slice.call(cine.querySelectorAll('.cine-slide')):[], n=slides.length;
+  var cadre=document.getElementById('cine-cadre'), masque=document.getElementById('cine-masque'), fin=document.getElementById('cine-fin');
+  // découpe des titres en mots pour l'apparition
+  [].forEach.call(document.querySelectorAll('.decoupe'),function(el){
+    var k=0;
+    (function walk(node){
+      [].slice.call(node.childNodes).forEach(function(c){
+        if(c.nodeType===3){
+          var f=document.createDocumentFragment();
+          c.textContent.split(/(\s+)/).forEach(function(w){
+            if(!w) return; if(/^\s+$/.test(w)){ f.appendChild(document.createTextNode(w)); return; }
+            var o=document.createElement('span'); o.className='mot'; var i=document.createElement('span'); i.textContent=w; i.style.setProperty('--k',k++); o.appendChild(i); f.appendChild(o);
+          });
+          c.parentNode.replaceChild(f,c);
+        } else if(c.nodeType===1){ walk(c); }
+      });
+    })(el);
+  });
+  if(!cine) return; // ancienne version de la section retirée : seule la découpe des titres sert encore
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ slides.forEach(function(s){s.classList.add('actif');}); fin.classList.add('vue'); return; }
+  // déroulé (en écrans) : pause sur chaque photo, rideau vers la suivante, puis le panneau final
+  // TENUE : la scène reste figée après le panneau final, le temps de lire la phrase et voir le bouton
+  // téléphone / tablette : tenue plus longue (la hauteur de #cine est allongée d'autant dans le CSS)
+  var mobile=matchMedia('(max-width: 900px)').matches;
+  var PAUSE=0.5, RIDEAU=1, PAS=PAUSE+RIDEAU, FIN_DEB=PAUSE+(n-1)*PAS+0.4, FIN_DUR=1, TENUE=mobile?1.4:0.6, TOTAL=FIN_DEB+FIN_DUR+TENUE;
+  var ins=slides.map(function(s){return s.firstElementChild;}), imgs=slides.map(function(s){return s.querySelector('.cine-img');});
+  var cur=0, cible=0, run=false, visible=false, epingle=false;
+  // les 5 photos sont chargées et décodées AVANT d'arriver sur la scène :
+  // sur téléphone, une photo décodée pendant l'animation (la dernière surtout) saccade et tremble
+  var prets=false;
+  function precharge(){ if(prets) return; prets=true;
+    [].forEach.call(cine.querySelectorAll('.cine-img img'),function(im){ im.loading='eager'; if(im.decode) im.decode().catch(function(){}); }); }
+  if('IntersectionObserver' in window){ var ioc=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ precharge(); ioc.disconnect(); } },{rootMargin:'200% 0px'}); ioc.observe(cine); } else precharge();
+  // positions arrondies au pixel réel de l'écran : la photo et son cadre (déplacés en sens inverse)
+  // tombent exactement l'un sur l'autre, sans tremblement
+  var dpr=window.devicePixelRatio||1;
+  function px(v){ return Math.round(v*dpr)/dpr; }
+  function clamp(v){return v<0?0:v>1?1:v;}
+  function ease(t){return -(Math.cos(Math.PI*t)-1)/2;} // sinusoïdale : départ et arrivée très doux
+  // Toutes les mesures se font sur la scène figée elle-même (hauteur réelle, 100svh) et non sur innerHeight :
+  // sur téléphone, innerHeight change quand la barre d'adresse apparaît/disparaît, ce qui décalait
+  // la fin du déroulé, l'arrivée de la dernière photo et l'apparition du bouton.
+  var scene=cine.querySelector('.cine-scene'), H=scene.offsetHeight, actif=0;
+  function lire(){
+    H=scene.offsetHeight||innerHeight;
+    var r=cine.getBoundingClientRect(), course=Math.max(1,cine.offsetHeight-H);
+    cible=clamp(-r.top/course)*TOTAL;
+    visible=r.top<H*0.45 && r.bottom>H*0.3;
+    epingle=r.top<=1 && r.bottom>=H-1;
+    if(r.bottom<=H*0.15 || r.top>=H*0.85) cur=cible;
+  }
+  function dessine(u){
+    var f=ease(clamp((u-FIN_DEB)/FIN_DUR)); // avancée du panneau final (0 → 1)
+    // une seule transformation par photo : entrée (rideau + parallaxe) ET sortie (glisse vers le haut).
+    // Avant, la sortie écrasait l'entrée pour les photos 2 à 4, mais pas pour la dernière :
+    // « Réponse à incident » entrait décalée de 30 % et laissait apparaître une bande vide.
+    for(var k=0;k<n;k++){
+      var pin=k?ease(clamp((u-(PAUSE+(k-1)*PAS))/RIDEAU)):1;          // entrée
+      var pout=k<n-1?ease(clamp((u-(PAUSE+k*PAS))/RIDEAU)):0;         // sortie
+      // photo entièrement recouverte (par la suivante ou par le panneau final) : masquée,
+      // le téléphone n'a plus à la redessiner à chaque image
+      var couverte=(k<n-1 && pout>=1) || f>=1;
+      slides[k].style.visibility=couverte?'hidden':'';
+      if(couverte) continue;
+      var y=px((1-pin)*H);
+      if(k){ slides[k].style.transform='translate3d(0,'+y+'px,0)'; ins[k].style.transform='translate3d(0,'+(-y)+'px,0)'; }
+      var dy=px(Math.min(y*0.3, H*0.08) - 0.12*H*pout); // décalage borné : la photo couvre toujours tout le cadre
+      imgs[k].style.transform='translate3d(0,'+dy+'px,0) scale(1.2)';
+    }
+    // photo active avec hystérésis (évite le clignotement du texte autour du seuil)
+    var cand=0; for(var m=1;m<n;m++){ var pm=ease(clamp((u-(PAUSE+(m-1)*PAS))/RIDEAU)); if(pm>(m>actif?0.6:0.4)) cand=m; }
+    actif=cand;
+    // panneau final : un disque qui grandit depuis le centre (transform seul → fluide, même sur téléphone)
+    masque.style.transform='translate(-50%,-50%) scale('+f.toFixed(4)+')';
+    // léger recul des photos sous le panneau : ordinateur seulement (trop lourd sur téléphone)
+    cadre.style.transform=mobile?'':'scale('+(1-0.06*f).toFixed(4)+')';
+    if(f>0.92) fin.classList.add('vue'); else if(f<0.86) fin.classList.remove('vue');
+    slides.forEach(function(s,i){ s.classList.toggle('actif', visible && i===actif && f<0.4); });
+  }
+  // lissage indépendant de la fréquence d'affichage (comme un scroll amorti)
+  var t0=0;
+  function boucle(t){
+    var dt=t0?Math.min(64,t-t0):16.7; t0=t;
+    // lissage adaptatif : doux pour un scroll normal, plus rapide quand l'écart est grand (scroll rapide)
+    var ecart=Math.abs(cible-cur), k=0.12+Math.min(0.3,ecart*0.12);
+    if(!epingle) k=Math.max(k,0.35); // la scène se déplace avec la page : on rattrape vite
+    cur+=(cible-cur)*(1-Math.pow(1-k,dt/16.7));
+    if(Math.abs(cible-cur)<0.0003) cur=cible;
+    dessine(cur);
+    if(cur!==cible) requestAnimationFrame(boucle); else { run=false; t0=0; }
+  }
+  function maj(){ lire(); if(!run){ run=true; requestAnimationFrame(boucle); } }
+  addEventListener('scroll',maj,{passive:true}); addEventListener('resize',maj); addEventListener('load',maj); maj();
+})();
+
+/* ---- expertises VARIANTE B : fond en fondu enchaîné, texte et pastille active, même final que la variante A ---- */
+(function(){
+  var box=document.getElementById('cine2'); if(!box) return;
+  var scene=box.querySelector('.c2-scene'), cadre=document.getElementById('c2-cadre');
+  var fonds=[].slice.call(box.querySelectorAll('.c2-fond')), txts=[].slice.call(box.querySelectorAll('.c2-txt'));
+  var pills=[].slice.call(box.querySelectorAll('.c2-pill')), piste=document.getElementById('c2-piste');
+  var masque=document.getElementById('c2-masque'), fin=document.getElementById('c2-fin'), n=fonds.length;
+  var reduit=matchMedia('(prefers-reduced-motion: reduce)').matches, mobile=matchMedia('(max-width: 900px)');
+  function clamp(v){return v<0?0:v>1?1:v;}
+  function ease(t){return -(Math.cos(Math.PI*t)-1)/2;}
+  var PAUSE=0.55, TRANS=0.9, PAS=PAUSE+TRANS, FIN_DEB=PAUSE+(n-1)*PAS+0.4, FIN_DUR=1, TENUE=0.6, TOTAL=FIN_DEB+FIN_DUR+TENUE;
+  var cur=0, cible=0, run=false, visible=false, epingle=false, actif=0, H=scene.offsetHeight;
+  function pose(i){
+    actif=i;
+    txts.forEach(function(t,k){ t.classList.toggle('actif', visible && k===i && !fin.classList.contains('vue')); });
+    pills.forEach(function(p,k){ p.classList.toggle('actif', k===i); p.setAttribute('aria-pressed', k===i); });
+  }
+  // clic sur une pastille : on fait défiler jusqu'à cette expertise
+  pills.forEach(function(p,k){ p.addEventListener('click',function(){
+    if(reduit){ fonds.forEach(function(f,j){ f.style.opacity=j===k?1:0; }); visible=true; pose(k); return; }
+    var course=box.offsetHeight-H, y=box.getBoundingClientRect().top+scrollY+course*((PAUSE*0.5+k*PAS)/TOTAL);
+    if(window.sicareLenis) window.sicareLenis.scrollTo(y,{duration:1.2}); else scrollTo({top:y,behavior:'smooth'});
+  }); });
+  if(reduit){ visible=true; pose(0); fin.classList.add('vue'); return; }
+  function lire(){
+    H=scene.offsetHeight||innerHeight;
+    var r=box.getBoundingClientRect(), course=Math.max(1,box.offsetHeight-H);
+    cible=clamp(-r.top/course)*TOTAL;
+    visible=r.top<H*0.45 && r.bottom>H*0.3;
+    epingle=r.top<=1 && r.bottom>=H-1;
+    if(r.bottom<=H*0.15 || r.top>=H*0.85) cur=cible;
+  }
+  function dessine(u){
+    var pos=0, cand=0;
+    for(var k=1;k<n;k++){
+      var pk=ease(clamp((u-(PAUSE+(k-1)*PAS))/TRANS));
+      fonds[k].style.opacity=pk.toFixed(3);
+      pos+=pk;
+      if(pk>(k>actif?0.6:0.4)) cand=k;
+    }
+    // léger zoom lent de chaque fond pendant qu'il est à l'écran
+    fonds.forEach(function(f,k){ var z=1.08-0.06*clamp(u/PAS-k+0.5); f.style.transform='scale('+z.toFixed(4)+')'; });
+    // la piste des pastilles remonte pour garder l'expertise active en haut (3 visibles)
+    var step=pills[0].offsetHeight+18;
+    if(mobile.matches){ step=pills[0].offsetWidth+12; piste.style.transform='translate3d('+(-Math.min(pos,n-1)*step).toFixed(1)+'px,0,0)'; }
+    else piste.style.transform='translate3d(0,'+(-Math.min(pos,n-3)*step).toFixed(1)+'px,0)';
+    var f=ease(clamp((u-FIN_DEB)/FIN_DUR));
+    masque.style.transform='translate(-50%,-50%) scale('+f.toFixed(4)+')';
+    cadre.style.transform='scale('+(1-0.06*f).toFixed(4)+')';
+    if(f>0.92) fin.classList.add('vue'); else if(f<0.86) fin.classList.remove('vue');
+    visible=visible && f<0.4;
+    pose(cand);
+  }
+  var t0=0;
+  function boucle(t){
+    var dt=t0?Math.min(64,t-t0):16.7; t0=t;
+    var ecart=Math.abs(cible-cur), k=0.12+Math.min(0.3,ecart*0.12);
+    if(!epingle) k=Math.max(k,0.35);
+    cur+=(cible-cur)*(1-Math.pow(1-k,dt/16.7));
+    if(Math.abs(cible-cur)<0.0003) cur=cible;
+    dessine(cur);
+    if(cur!==cible) requestAnimationFrame(boucle); else { run=false; t0=0; }
+  }
+  function maj(){ lire(); if(!run){ run=true; requestAnimationFrame(boucle); } }
+  addEventListener('scroll',maj,{passive:true}); addEventListener('resize',maj); addEventListener('load',maj); maj();
+})();
+
+</script>
+</body>
+</html>

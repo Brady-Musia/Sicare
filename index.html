@@ -141,52 +141,101 @@
 
   /* ----- HERO « studio » : bureau en fond, expert devant une forme bleu SICARE ----- */
   .hdr { background: rgba(25,35,96,0.94); backdrop-filter: blur(16px); }
-  .hero--studio { display: block; min-height: 0; padding: 0; position: relative; isolation: isolate; overflow: hidden; background: #d6e2f0; color: var(--text); }
-  .hero--studio::after { display: none; }
-  .hs-fond { position: absolute; inset: 0; z-index: -2; }
-  .hs-fond img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 40%; display: block; }
-  /* voile clair : le texte reste lisible à gauche, le bureau transparaît à droite */
-  /* voile bleuté doux (moins blanc) : le texte reste lisible sans éblouir */
-  .hs-fond::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(214,226,240,0.9) 0%, rgba(214,226,240,0.78) 32%, rgba(214,226,240,0.35) 56%, rgba(214,226,240,0.05) 100%), linear-gradient(rgba(25,35,96,0.10), rgba(25,35,96,0.10)); }
-  .hs { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: center; gap: 20px; width: min(var(--shell), 100% - 48px); margin-inline: auto; min-height: clamp(640px, 100svh, 900px); padding-top: 64px; }
-  .hs-texte { padding: 40px 0; }
-  .hs-texte .eyebrow { color: var(--cyan-600); }
-  .hero--studio h1 { margin-top: 20px; font-size: clamp(34px, 3.8vw, 56px); line-height: 1.08; letter-spacing: -0.025em; color: var(--navy); }
-  .hero--studio h1 em { font-style: normal; background: none; -webkit-background-clip: border-box; background-clip: border-box; color: #1f8fb8; }
-  .hs-accroche { margin-top: 20px; max-width: 30em; font-size: clamp(16px, 1.35vw, 19px); line-height: 1.6; color: #3a4670; }
-  .hero--studio .actions { margin-top: 30px; }
-  .hero--studio .lien { color: var(--navy); }
-  .hero--studio .hero__poles { margin-top: 44px; padding-top: 0; }
-  .hero--studio .hero__poles a { color: var(--navy); }
-  .hero--studio .hero__poles a + a { border-left-color: var(--line); }
-  .hero--studio .hero__poles small { color: var(--muted); }
-  .hero--studio .hero__poles .ic { background: #fff; border-color: rgba(76,191,223,0.5); color: var(--cyan-600); }
-  /* visuel : disque + traînées horizontales arrondies qui filent vers la droite */
-  .hs-visuel { position: relative; align-self: end; height: min(640px, calc(100svh - 110px)); min-height: 480px; }
-  .hs-disque { position: absolute; left: 50%; bottom: 6%; width: min(78%, 500px); aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle at 35% 30%, #8FE3F7 0%, #4CBFDF 55%, #2E9FC4 100%); box-shadow: 0 30px 70px rgba(46,159,196,0.35); }
-  .hs-trainee { position: absolute; z-index: 0; right: calc(-1 * max(24px, (100vw - var(--shell)) / 2)); height: 46px; border-radius: 999px 0 0 999px; background: linear-gradient(90deg, #4CBFDF, #7fd6ee); animation: hs-file 1.2s cubic-bezier(.22,1,.36,1) both; }
-  .hs-trainee--1 { top: 14%; width: 46%; animation-delay: .1s; }
-  .hs-trainee--2 { top: 27%; width: 34%; height: 34px; opacity: .75; animation-delay: .2s; }
-  .hs-trainee--3 { top: 43%; width: 52%; animation-delay: .3s; }
-  .hs-trainee--4 { top: 60%; width: 38%; height: 30px; opacity: .6; animation-delay: .4s; }
-  .hs-trainee--5 { top: 74%; width: 48%; animation-delay: .5s; }
-  @keyframes hs-file { from { transform: translateX(60%); opacity: 0; } }
-  .hs-point { position: absolute; z-index: 0; border-radius: 50%; background: #4CBFDF; }
-  .hs-point--1 { width: 46px; height: 46px; top: 14%; right: calc(46% + 14px - max(24px, (100vw - var(--shell)) / 2)); opacity: .55; }
-  .hs-point--2 { width: 30px; height: 30px; top: 60%; right: calc(38% + 12px - max(24px, (100vw - var(--shell)) / 2)); opacity: .45; }
-  .hs-homme { position: absolute; z-index: 2; left: 50%; bottom: 0; width: min(96%, 620px); height: auto; transform: translateX(-50%); filter: drop-shadow(0 24px 40px rgba(13,18,48,0.25)); }
-  @media (max-width: 1180px) { .hero--studio .hero__poles small { display: none; } }
+  /* ----- HERO éditorial « portiques » : photo plein écran, SICARE derrière le bouclier 3D, texte à gauche ----- */
+  /* ============================================================
+     HERO ÉDITORIAL « PORTIQUES » — essai
+     Composition : le mot SICARE, très grand, derrière le bouclier 3D ; textes et descriptions à gauche, photo en plein écran.
+     Parallaxe : 4 plans de profondeur (fond · mot · bouclier · texte) qui réagissent à la souris ET au défilement.
+       fond (le plus loin)  → bouge peu, suit lentement le défilement
+       mot SICARE           → plan intermédiaire, grossit légèrement en défilant
+       bouclier 3D          → plan le plus proche : bouge le plus à la souris
+       texte                → glisse doucement et s'efface en quittant l'écran
+     Les valeurs de chaque plan sont dans le tableau « plans » du script en bas de page.
+     ============================================================ */
+  .hp .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  .hp { --cx: 50%; position: relative; padding: 0; color: var(--navy); height: 100svh; min-height: 680px; overflow: hidden; isolation: isolate; background: #e3ecf8; }
+
+  /* ---- plan 1 : la photo, plein écran — dépasse un peu du cadre pour laisser la place à la parallaxe ---- */
+  .hp-fond { position: absolute; top: -12%; bottom: -3%; left: -5%; right: -5%; z-index: -3; will-change: translate;
+    background: url(images/hero-portiques-clair.webp) 50% 58% / cover no-repeat; /* même photo, mêmes couleurs que hero-portiques.html */ transform: scale(1.03); }
+  /* voile : éclaircit le côté gauche (texte) et les bords */
+  .hp::before { content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none;
+    background: linear-gradient(90deg, #e3ecf8 0%, rgba(227,236,248,.97) 10%, rgba(232,240,251,.85) 24%, rgba(232,240,251,.45) 38%, rgba(232,240,251,0) 54%),
+                linear-gradient(180deg, rgba(232,240,251,.35) 0%, rgba(232,240,251,0) 22%),
+                linear-gradient(0deg, rgba(232,240,251,.45) 0%, rgba(232,240,251,0) 18%); }
+
+  /* ---- plan 2 : le mot SICARE, derrière le bouclier ---- */
+  .hp-mot { position: absolute; z-index: 0; left: var(--cx); top: 25%; transform: translate(-50%, -50%); will-change: translate, scale;
+    font-family: var(--fh); font-weight: 700; font-size: 11.5vw; line-height: 1.1; padding: 0 .06em; letter-spacing: -.035em; white-space: nowrap;
+    color: var(--navy); user-select: none; pointer-events: none; }
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .hp-mot { color: transparent; -webkit-background-clip: text; background-clip: text;
+      background-image: linear-gradient(180deg, #121a4d 8%, #223384 52%, #3f9fcf 100%); }
+  }
+
+  /* ---- plan 3 : le bouclier, au premier plan ---- */
+  .hp-objet { position: absolute; left: var(--cx); bottom: 21%; width: min(32vw, 56vh); aspect-ratio: 1; transform: translateX(-50%); z-index: 1; will-change: translate; }
+  /* contre-jour : halo cyan derrière le bouclier */
+  .hp-objet::before { content: ""; position: absolute; left: 50%; top: 46%; width: 120%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,.7) 0%, rgba(143,227,247,.28) 35%, rgba(143,227,247,0) 65%); z-index: -1; animation: hp-respire 6s ease-in-out infinite; }
+  /* ombre de contact sur le sol */
+  .hp-objet::after { content: ""; position: absolute; left: 50%; bottom: 3%; width: 58%; height: 9%; transform: translateX(-50%); border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(25,35,96,.38) 0%, rgba(25,35,96,0) 70%); filter: blur(5px); z-index: -1; }
+  @keyframes hp-respire { 0%, 100% { opacity: .75; scale: .96; } 50% { opacity: 1; scale: 1.04; } }
+
+  /* ---- plan 4 : colonne éditoriale à gauche ---- */
+  .hp-texte { position: absolute; z-index: 3; left: max(24px, 3.6vw); width: min(40vw, 720px); top: 34%; will-change: translate, opacity; }
+  /* label : pastille jaune, texte bleu navy, en bas à droite */
+  .hp-label { position: absolute; z-index: 3; right: max(24px, 3.6vw); bottom: 14%; display: flex; flex-direction: column; justify-content: center; gap: 6px;
+    width: 186px; padding: 18px 22px; border-radius: 16px;
+    background: #FFD23F; color: var(--navy); font-size: 15px; font-weight: 800; letter-spacing: .08em; line-height: 1.25; text-transform: uppercase;
+    box-shadow: 0 10px 26px rgba(25,35,96,.18), inset 0 -2px 0 rgba(25,35,96,.12); will-change: translate, opacity; }
+  .hp-texte h1 { margin-top: 0; font-family: var(--fh); font-weight: 700; font-size: clamp(28px, 3vw, 56px); line-height: 1.12; letter-spacing: -0.025em; color: var(--navy); text-wrap: balance; }
+  .hp-texte h1 .ligne { display: block; }
+  .hp-texte h1 em { font-style: normal; color: #1f8fb8; }
+  .hp-accroche { margin-top: 32px; max-width: 34em; font-size: clamp(16px, 1.4vw, 24px); line-height: 1.6; color: #3a4670; }
+
+  .hp .actions { display: flex; align-items: center; gap: 22px 40px; flex-wrap: wrap; margin-top: 52px; }
+
+  /* entrée en scène */
+  @keyframes hp-monte { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+  @keyframes hp-mot-in { from { opacity: 0; filter: blur(12px); } to { opacity: 1; filter: blur(0); } }
+  .hp-mot { animation: hp-mot-in 1.4s cubic-bezier(.22,1,.36,1) both; }
+  .hp-texte > * { animation: hp-monte .9s cubic-bezier(.22,1,.36,1) both; }
+  .hp-label { animation: hp-monte .9s cubic-bezier(.22,1,.36,1) .7s both; }
+  .hp-texte > :nth-child(1) { animation-delay: .25s; } .hp-texte > :nth-child(2) { animation-delay: .35s; } .hp-texte > :nth-child(3) { animation-delay: .45s; }
+  .hp-texte > :nth-child(4) { animation-delay: .55s; } .hp-texte > :nth-child(5) { animation-delay: .65s; }
+
+  /* ordinateur : scène (photo, SICARE, bouclier) décalée vers la droite — la photo reste plein écran */
+  @media (min-width: 901px) {
+    .hp { --cx: 57%; }
+    .hp-fond { left: -2%; right: -16%; }   /* photo un peu élargie à droite : son centre (le podium) suit le bouclier */
+  }
+
+  /* ordinateur : boutons un peu plus grands */
+  @media (min-width: 901px) {
+    .hp .sbtn__in { height: 54px; } .hp .sbtn__ico { width: 54px; height: 54px; } .hp .sbtn__ico img { width: 30px; }
+    .hp .sbtn__txt, .hp .lien { font-size: 17.5px; } .hp .lien .fl { width: 38px; height: 38px; }
+  }
+
+  /* mobile : tout tient dans le premier écran — la scène (photo, mot, bouclier) en haut, le texte en bas */
   @media (max-width: 900px) {
-    .hs { grid-template-columns: 1fr; min-height: 0; gap: 0; padding-top: 64px; }
-    .hs-texte { padding: 40px 0 10px; }
-    .hs-fond::after { background: linear-gradient(180deg, rgba(214,226,240,0.9) 0%, rgba(214,226,240,0.8) 55%, rgba(214,226,240,0.35) 100%), linear-gradient(rgba(25,35,96,0.10), rgba(25,35,96,0.10)); }
-    .hero--studio .hero__poles { display: none; }
-    .hs-visuel { height: clamp(340px, 88vw, 520px); min-height: 0; margin-top: 10px; }
-    .hs-trainee { right: -24px; height: 30px; }
-    .hs-trainee--2, .hs-trainee--4 { height: 22px; }
-    .hs-point { display: none; }
-    }
-  @media (prefers-reduced-motion: reduce) { .hs-trainee { animation: none; } }
+    .hp { --h: 64px; --scene: calc(100svh - 300px - var(--h)); --sw: min(60vw, calc(var(--scene) * .72)); height: 100svh; min-height: 640px; padding: 0; }
+    .hp-fond { top: 0; bottom: auto; left: -20%; right: -20%; height: calc(var(--h) + var(--scene) + 60px); background-position: 50% 62%; }
+    .hp::before { background: linear-gradient(180deg, rgba(232,240,251,0) 0%, rgba(232,240,251,0) calc(var(--h) + var(--scene) * .6), #e3ecf8 calc(var(--h) + var(--scene) + 30px)); }
+    .hp-mot { font-size: 21vw; top: calc(var(--h) + var(--scene) * .3); }
+    .hp-objet { width: var(--sw); bottom: auto; top: calc(var(--h) + var(--scene) * .3); }
+    .hp-texte { left: 20px; right: 20px; width: auto; top: auto; bottom: 22px; }
+    .hp-texte h1 { font-size: min(7vw, 34px); }
+    .hp-accroche { margin-top: 12px; font-size: 15px; }
+    .hp .actions { margin-top: 18px; gap: 14px 20px; }
+    .hp-label { right: auto; left: 20px; bottom: auto; top: calc(var(--h) + 14px); width: auto; aspect-ratio: auto; flex-direction: row; align-items: center; gap: 0; padding: 10px 15px; border-radius: 12px; font-size: 10.5px; }
+    .hp-label span + span::before { content: "·"; margin: 0 .5em; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hp-objet::before, .hp-mot, .hp-texte > * { animation: none; }
+  }
   /* ----- plaques sombres (bdemerson) ----- */
   .plaque { width: min(1400px, 100% - 32px); margin-inline: auto; border-radius: 32px; background: var(--ink); color: #fff; overflow: hidden; position: relative; isolation: isolate; }
   .plaque::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse 60% 70% at 85% 0%, rgba(76,191,223,0.16), transparent 60%), radial-gradient(ellipse 50% 60% at 0% 100%, rgba(25,35,96,0.7), transparent 70%); }
@@ -197,7 +246,8 @@
   /* ----- BLOC 2 — UN NOM, UNE POSTURE ----- */
   .deux-col { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(36px, 6vw, 96px); align-items: center; }
   /* ---- Bloc 2 « Un nom. Une posture. » — maquette claire et vivante ---- */
-  #posture { padding: clamp(36px, 5svh, 56px) 0; position: relative; isolation: isolate; overflow: clip; background: linear-gradient(135deg, #f4f8fd 0%, #eaf3fb 55%, #e3eff9 100%); }
+  /* section claire et épurée : même fond que la section suivante, sans décor ni icônes flottantes */
+  #posture { padding: clamp(80px, 9vw, 128px) 0 clamp(10px, 2vw, 30px); position: relative; overflow: clip; background: transparent; }
   .pos-decor { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
   .pos-rai { position: absolute; width: 38%; height: 220%; top: -60%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0)); transform: rotate(35deg); animation: pos-rai 14s ease-in-out infinite alternate; }
   .pos-rai--1 { left: -12%; } .pos-rai--2 { left: 22%; width: 18%; opacity: .7; animation-delay: -5s; } .pos-rai--3 { left: 70%; width: 26%; opacity: .6; animation-delay: -9s; }
@@ -358,8 +408,18 @@
   @media (max-width: 1023px) { .pub--bleu .pub-disque { box-shadow: 0 0 0 12px rgba(255,255,255,0.28), 0 20px 50px rgba(13,18,48,0.28); } }
   @media (prefers-reduced-motion: reduce) { .pub-piste { animation: none; } }
   /* schéma « prise en charge globale » : réticule central + 4 cartes reliées */
-  .si-orbite { --r: 360px; --gap: 44px; display: grid; grid-template-columns: minmax(0,1fr) var(--r) minmax(0,1fr); column-gap: var(--gap); align-items: center; width: min(1080px, 100%); margin: clamp(44px, 5vw, 70px) auto 0; }
+  .si-orbite { --r: 480px; --gap: 48px; display: grid; grid-template-columns: minmax(0,1fr) var(--r) minmax(0,1fr); column-gap: var(--gap); align-items: center; width: min(1280px, 100%); margin: clamp(44px, 5vw, 70px) auto 0; }
   .si-col { display: grid; grid-template-rows: 1fr 1fr; height: var(--r); align-items: center; gap: 0; }
+  /* cartes photo : l'image remplit la carte, le texte blanc est posé dessus, l'icône reste au-dessus */
+  .si-orbite .si-carte { display: flex; flex-direction: column; justify-content: flex-end; height: 186px; padding: 0 26px 22px; border: 0; background: var(--navy); box-shadow: 0 26px 50px -22px rgba(13,18,48,0.45); }
+  .si-fond { position: absolute; inset: 0; z-index: 0; border-radius: inherit; overflow: hidden; }
+  .si-fond img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.22,1,.36,1); }
+  .si-fond::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,18,48,0.15) 0%, rgba(13,18,48,0.45) 45%, rgba(13,18,48,0.88) 100%); }
+  .si-carte:hover .si-fond img { transform: scale(1.07); }
+  .si-orbite .si-ic { z-index: 2; }
+  .si-txt { position: relative; z-index: 1; }
+  .si-orbite .si-carte b { font-size: 21px; color: #fff; text-shadow: 0 2px 12px rgba(13,18,48,0.5); }
+  .si-orbite .si-carte small { font-size: 14.5px; color: rgba(255,255,255,0.86); }
   .si-carte { position: relative; display: block; padding: 50px 24px 22px; border-radius: 18px; background: #fff; border: 1px solid var(--line); text-align: center; box-shadow: 0 18px 40px -18px rgba(25,35,96,0.18); transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease; }
   .si-carte:hover { transform: translateY(-3px); border-color: rgba(76,191,223,0.6); box-shadow: 0 24px 48px -18px rgba(25,35,96,0.28); }
   .si-ic { position: absolute; left: 50%; top: 0; transform: translate(-50%, -50%); display: grid; place-items: center; width: 76px; height: 76px; border-radius: 50%; background: #fff; border: 1px solid rgba(76,191,223,0.45); box-shadow: 0 0 0 6px rgba(76,191,223,0.10), 0 14px 30px rgba(25,35,96,0.16); }
@@ -382,7 +442,7 @@
   /* animations réduites : pas de second vol, le symbole reste dans le disque */
   @media (prefers-reduced-motion: reduce) { .si-disque img { display: block; } .si-cible { display: none; } }
   .si-disque b { font-family: var(--fh); font-size: 13px; line-height: 1.3; color: #fff; }
-  @media (max-width: 1100px) { .si-orbite { --r: 320px; --gap: 30px; } .si-carte { padding: 40px 16px 16px; } .si-ic { width: 64px; height: 64px; } .si-carte b { font-size: 17px; } }
+  @media (max-width: 1100px) { .si-orbite { --r: 380px; --gap: 30px; } .si-orbite .si-carte { height: 140px; padding: 0 16px 16px; } .si-carte { padding: 40px 16px 16px; } .si-ic { width: 64px; height: 64px; } .si-carte b { font-size: 17px; } }
   @media (prefers-reduced-motion: reduce) { .si-tourne, .si-balayage, .si-carte::after { animation: none; } }
 
   /* ----- BLOC 4 — LES TROIS PÔLES (plaque sombre) ----- */
@@ -399,6 +459,117 @@
   .pole .bas { margin-top: auto; padding-top: 30px; display: flex; align-items: center; justify-content: space-between; font-size: 14.5px; font-weight: 700; color: #fff; }
   .pole .bas .fl { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--cyan); color: var(--ink); transition: transform .3s ease; }
   .pole:hover .bas .fl { transform: translateX(4px); }
+
+
+  /* ----- BLOC 4 — NOTRE OFFRE : chemin jaune reliant les trois pôles ----- */
+  .offre-ch { --jaune: #FFBE1A; position: relative; overflow: clip; padding-block: clamp(110px, 12vw, 190px) 0; }
+  .offre-tete { position: relative; z-index: 2; max-width: 820px; margin-inline: auto; text-align: center; transform: translate3d(0, var(--ty, 0), 0); }
+  .offre-tete .titre { font-size: clamp(38px, 5vw, 70px); }
+  .offre-tete .lead { margin-inline: auto; }
+  .ch { position: relative; margin-top: clamp(30px, 4vw, 60px); padding-top: clamp(90px, 9vw, 140px); padding-bottom: 160px; }
+  .ch-svg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 0; }
+  .ch-svg path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ch-piste { stroke: #d3d7df; stroke-width: 20; }
+  .ch-jaune { stroke: var(--jaune); stroke-width: 26; }
+  .ch-liste { list-style: none; position: relative; z-index: 1; display: grid; gap: clamp(130px, 14vw, 210px); }
+  .ch-item { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  /* une offre : petite photo au-dessus, point numéroté à hauteur du titre, texte et bouton */
+  .ch-offre { position: relative; display: grid; column-gap: 26px; align-items: start; }
+  .ch-item--d .ch-offre { grid-column: 2; justify-self: start; margin-left: var(--decal, 8%);
+    grid-template-columns: 76px minmax(0, 470px); grid-template-areas: ". photo" "pt texte"; }
+  .ch-item--g .ch-offre { grid-column: 1; justify-self: end; margin-right: var(--decal, 8%); text-align: right;
+    grid-template-columns: minmax(0, 470px) 76px; grid-template-areas: "photo ." "texte pt"; }
+  /* effet cinéma : la photo se dévoile comme un rideau, puis cadre et image glissent à des vitesses différentes */
+  .ch-photo { grid-area: photo; position: relative; z-index: 1; margin: 0 0 46px; width: min(440px, 100%); aspect-ratio: 16 / 10; border-radius: 22px; overflow: hidden;
+    box-shadow: 0 34px 60px -28px rgba(13,18,48,0.55); transform: translate3d(0, var(--py, 0), 0);
+    clip-path: inset(100% 0 0 0 round 22px); transition: clip-path 1.3s cubic-bezier(.77,0,.18,1) .1s; }
+  .ch-offre.vu .ch-photo { clip-path: inset(0 0 0 0 round 22px); }
+  .ch-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,18,48,0) 55%, rgba(13,18,48,0.28)); }
+  .ch-item--g .ch-photo { justify-self: end; }
+  .ch-photo img { width: 100%; height: 100%; object-fit: cover; transform: translate3d(0, var(--iy, 0), 0) scale(1.3); will-change: transform; }
+  .ch-pt { grid-area: pt; position: relative; z-index: 2; display: grid; place-items: center; width: 76px; height: 76px; margin-top: -10px; border-radius: 50%;
+    background: #c3c8d3; color: #fff; font-family: var(--fh); font-weight: 700; font-size: 21px;
+    box-shadow: 0 0 0 9px var(--paper); transition: background .5s ease, transform .6s cubic-bezier(.34,1.56,.64,1), box-shadow .5s ease; }
+  .ch-pt.actif { background: var(--navy); transform: scale(1.08); box-shadow: 0 0 0 9px var(--paper), 0 0 0 12px var(--jaune), 0 14px 30px rgba(25,35,96,0.3); }
+  @media (prefers-reduced-motion: reduce) { .ch-photo { clip-path: none; transition: none; } }
+  /* scène de fin : épinglée à l'écran pendant que la liane tourne, grossit puis vire au bleu */
+  .ch-fin { position: relative; height: 265vh; }
+  .ch-fin-scene { position: sticky; top: 0; height: 100vh; overflow: hidden; transition: background-color .25s ease; }
+  .ch-fin-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .ch-fin-svg path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ch-fin-piste { display: none; }
+  .ch-fin-jaune { stroke: var(--jaune); stroke-width: 26; transition: stroke .35s ease; }
+  .ch-fin.boum .ch-fin-jaune { stroke: #4CBFDF; }
+  .ch-fin.boum .ch-fin-scene { background: #4CBFDF; animation: ch-boum .55s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes ch-boum { 0% { filter: brightness(1.25); transform: scale(1.04); } 100% { filter: none; transform: none; } }
+  /* la section suivante continue sur le bleu SICARE */
+  #formations { background: #4CBFDF; }
+  #formations .eyebrow { color: var(--navy); }
+  #formations .eyebrow::before { background: var(--navy); box-shadow: 0 0 0 4px rgba(25,35,96,0.18); }
+  #formations .titre { color: #fff; }
+  #formations .titre em { color: var(--navy); }
+  #formations .lead { color: rgba(13,18,48,0.78); }
+  #formations .sous-cartes { border-color: transparent; box-shadow: 0 18px 40px -20px rgba(13,18,48,0.35); }
+  @media (prefers-reduced-motion: reduce) { .ch-fin { height: 40vh; } .ch-fin-scene { position: static; height: 40vh; background: #4CBFDF; } .ch-fin-svg { display: none; } }
+
+  .ch-texte { grid-area: texte; position: relative; z-index: 1; transform: translate3d(0, var(--ty, 0), 0); }
+  .ch-texte h3 { font-size: clamp(34px, 3.8vw, 56px); line-height: 1.02; color: var(--navy); }
+  .ch-texte p { margin-top: 14px; max-width: 30em; font-size: 17px; line-height: 1.7; color: var(--muted); }
+  .ch-item--g .ch-texte p { margin-left: auto; }
+  .ch-texte .actions { margin-top: 26px; }
+  .ch-item--g .ch-texte .actions { justify-content: flex-end; }
+  @media (max-width: 900px) {
+    .ch-item { grid-template-columns: 1fr; }
+    .ch-item--g .ch-offre, .ch-item--d .ch-offre { grid-column: 1; justify-self: stretch; margin: 0; text-align: left;
+      grid-template-columns: 56px minmax(0, 1fr); grid-template-areas: ". photo" "pt texte"; column-gap: 18px; }
+    .ch-item--g .ch-photo { justify-self: start; }
+    .ch-item--g .ch-texte .actions { justify-content: flex-start; }
+    .ch-pt { width: 56px; height: 56px; font-size: 17px; margin-top: -8px; }
+    .ch-liste { gap: 90px; }
+    .ch-photo { width: 100%; }
+    .ch-piste { stroke-width: 12; } .ch-jaune { stroke-width: 16; }
+  }
+  @media (min-width: 1281px) {
+    .offre-ch { padding-block: 12vw 0; }
+    .offre-tete .titre { font-size: 64px; }
+    .ch { margin-top: 50px; }
+    .ch-texte h3 { font-size: 50px; }
+    .ch-liste { gap: 190px; }
+  }
+
+  /* ----- BLOC 6 — LES EXPERTISES CYBER : cinq cartes posées librement, qui montent à des vitesses différentes ----- */
+  .expo { overflow: clip; }
+  .expo-grille { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(36px, 4vw, 56px) clamp(20px, 2.4vw, 32px); margin-top: clamp(50px, 6vw, 80px); align-items: start; }
+  .expo-carte.rv { transition: opacity .9s cubic-bezier(.22,1,.36,1); }
+  .expo-carte.rv:not(.vu) { opacity: 0; }
+  /* aspect éditorial : angles droits, sans ombre, filets fins, numéro et titre comme dans un magazine */
+  .expo-photo { margin: 0; aspect-ratio: 5 / 4; border-radius: 0; overflow: hidden; }
+  .expo-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.22,1,.36,1); }
+  .expo-carte:hover .expo-photo img { transform: scale(1.05); }
+  .expo-carte h3 { margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(25,35,96,0.25); font-size: clamp(22px, 2vw, 28px); line-height: 1.12; letter-spacing: -0.02em; color: var(--navy); }
+  .expo-carte h3 abbr { text-decoration: none; }
+  .expo-carte p { margin-top: 12px; max-width: 34em; font-size: 15px; line-height: 1.75; color: var(--muted); }
+  .expo-fin { margin-top: clamp(70px, 8vw, 120px); }
+  .expo-fin h3 { font-size: clamp(26px, 3vw, 42px); line-height: 1.15; color: var(--navy); }
+  .expo-fin h3 em { font-style: normal; color: var(--cyan-600); }
+  @media (max-width: 1000px) { .expo-grille { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .expo-grille { grid-template-columns: 1fr; } }
+  @media (min-width: 1281px) { .expo-carte h3 { font-size: 26px; } .expo-fin h3 { font-size: 38px; } .expo-grille { margin-top: 90px; } }
+
+  /* ----- ÉCOSYSTÈME → RÉFÉRENCES : liane cyan qui serpente au défilement, puis le fond passe au cyan ----- */
+  main { position: relative; }
+  #liane-eco { position: absolute; left: 0; width: 100%; pointer-events: none; overflow: visible; z-index: 0; }
+  #liane-eco path { fill: none; stroke: var(--liane-eco, #4CBFDF); stroke-linecap: round; stroke-linejoin: round; transition: stroke .8s ease; }
+  #liane-eco .ombre { stroke: rgba(25,35,96,.12); }
+  body { transition: background-color .9s cubic-bezier(.22,1,.36,1); }
+  body.theme-cyan { background-color: #4CBFDF; --liane-eco: #fff; }
+  body.theme-cyan #references .titre, body.theme-cyan #ecosysteme .titre, body.theme-cyan #decrypte .titre { color: #fff; }
+  body.theme-cyan #references .titre em, body.theme-cyan #ecosysteme .titre em, body.theme-cyan #decrypte .titre em { color: var(--navy); }
+  body.theme-cyan #references .eyebrow, body.theme-cyan #ecosysteme .eyebrow, body.theme-cyan #decrypte .eyebrow { color: var(--navy); }
+  body.theme-cyan #references .lead, body.theme-cyan #ecosysteme .eco-note, body.theme-cyan #decrypte .lead { color: rgba(13,18,48,.78); }
+  body.theme-cyan #ecosysteme .lien, body.theme-cyan #references .lien { color: var(--navy); }
+  #ecosysteme .titre, #ecosysteme .eyebrow, #references .titre, #references .eyebrow, #references .lead, #decrypte .titre, #decrypte .eyebrow, #decrypte .lead { transition: color .6s ease; }
+  @media (prefers-reduced-motion: reduce) { #liane-eco { display: none; } body { transition: none; } }
 
   /* ----- BLOC 5 — FORMATIONS ----- */
   .tete { display: flex; align-items: end; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
@@ -682,7 +853,6 @@
     .bandeau__femme { right: 64px; }
     /* espacements des sections et plaques sombres : proportionnels à l'écran */
     section { padding-top: 9vw; padding-bottom: 9vw; }
-    #posture { padding: 4.375vw 0; }
     .contact-cta { padding-top: 10vw !important; padding-bottom: 8vw; }
     #offre > section { padding-top: 20vw; }
     .plaque { width: calc(100% - 2.5vw); border-radius: 2.5vw; }
@@ -694,15 +864,6 @@
     .cine-txt p { font-size: 17.3px; }
     .cine-fin { zoom: var(--z); }
     .cine-fin h3 { font-size: 43.5px; }
-    /* hero « studio » (photo du bureau + expert) : texte et visuel agrandis d'un bloc,
-       la hauteur reste celle de l'écran */
-    .hs { zoom: var(--z); min-height: clamp(640px, calc(100svh / var(--z)), 900px); }
-    .hs-visuel { height: min(640px, calc(100svh / var(--z) - 110px)); }
-    .hs-trainee { right: calc(-1 * max(24px, (100vw / var(--z) - var(--shell)) / 2)); }
-    .hs-point--1 { right: calc(46% + 14px - max(24px, (100vw / var(--z) - var(--shell)) / 2)); }
-    .hs-point--2 { right: calc(38% + 12px - max(24px, (100vw / var(--z) - var(--shell)) / 2)); }
-    .hero--studio h1 { font-size: 48.6px; }
-    .hs-accroche { font-size: 17.3px; }
     /* « Audit, défense & gestion de crise » : la carte entière grandit d'un bloc */
     .pub { padding: 6vw 0; }
     .pub-scene { zoom: var(--z); --h: 588.8px; }
@@ -728,6 +889,10 @@
   @media (min-width: 2240px) { :root { --z: 1.75; } }
   @media (min-width: 2400px) { :root { --z: 1.875; } }
   @media (min-width: 2560px) { :root { --z: 2; } }
+
+  /* menu à 8 entrées : les libellés ne passent jamais à la ligne, et l'espacement se resserre sur les écrans moyens */
+  .menu a { white-space: nowrap; }
+  @media (min-width: 1101px) and (max-width: 1280px) { .menu { gap: 16px; } .menu a { font-size: 13px; } .hdr .shell { gap: 16px; } }
 </style>
 </head>
 <body>
@@ -744,6 +909,7 @@
       <a href="expertises.html">Expertises</a>
       <a href="decrypte.html">SICARE décrypte</a>
       <a href="a-propos.html">À propos</a>
+      <a href="brydge-group.html">Brydge Group</a>
       <a href="contact.html" class="sbtn menu-cta"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd.png" alt=""></span><span class="sbtn__txt">Parler à un expert</span></span></a>
     </nav>
     <a href="contact.html" class="sbtn"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd.png" alt=""></span><span class="sbtn__txt">Parler à un expert</span></span></a>
@@ -754,24 +920,26 @@
 <main>
 
 <!-- ===================== BLOC 01 — HERO ===================== -->
-<section class="hero hero--studio" id="top">
-  <!-- hero : photo du bureau en fond, texte à gauche, l'expert devant une forme bleu SICARE (disque + traînées) à droite -->
-  <div class="hs-fond" aria-hidden="true"><img src="images/hero-bureau-fond.webp" alt="" width="1859" height="846" fetchpriority="high"></div>
-  <div class="hs">
-    <div class="hs-texte">
-      <span class="eyebrow rv">Cybersécurité · Conseil · Intervention</span>
-      <h1 class="rv" style="--d:80ms"><span class="ligne">SICARE : vision globale,</span> <span class="ligne"><em>précision dans l'action.</em></span></h1>
-      <p class="hs-accroche rv" style="--d:160ms">Prestations, solutions et formations en cybersécurité.</p>
-      <div class="actions rv" style="--d:240ms">
-        <a href="contact.html" class="sbtn"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd.png" alt=""></span><span class="sbtn__txt">Parler à un expert</span></span></a>
-        <a href="#offre" class="lien">Découvrir notre offre <span class="fl" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-      </div>
-    </div>
-    <div class="hs-visuel" aria-hidden="true">
-      <span class="hs-trainee hs-trainee--1"></span><span class="hs-trainee hs-trainee--2"></span><span class="hs-trainee hs-trainee--3"></span><span class="hs-trainee hs-trainee--4"></span><span class="hs-trainee hs-trainee--5"></span>
-      <span class="hs-point hs-point--1"></span><span class="hs-point hs-point--2"></span>
-      <span class="hs-disque"></span>
-      <img class="hs-homme" src="images/hero-homme.webp" alt="" width="1302" height="1197" decoding="async">
+<section class="hp" id="top">
+  <!-- plan 1 : fond -->
+  <div class="hp-fond" aria-hidden="true"></div>
+
+  <!-- plan 2 : le mot SICARE, derrière le bouclier -->
+  <div class="hp-mot" aria-hidden="true">SICARE</div>
+
+  <!-- plan 3 : emplacement du bouclier 3D — le bouclier volant de l'accueil (#bouclier) part d'ici -->
+  <div class="hp-objet" id="hp-objet" aria-hidden="true"></div>
+
+  <!-- label, en bas à droite : pastille jaune, texte bleu navy -->
+  <div class="hp-label"><span>Cybersécurité</span><span>Conseil</span><span>Intervention</span></div>
+
+  <!-- plan 4 : textes, descriptions et boutons, en bas à gauche -->
+  <div class="hp-texte">
+    <h1><span class="sr">SICARE : </span><span class="ligne">Vision globale,</span> <span class="ligne"><em>précision dans l'action.</em></span></h1>
+    <p class="hp-accroche">Prestations, solutions et formations en cybersécurité.</p>
+    <div class="actions">
+      <a href="contact.html" class="sbtn"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd.png" alt=""></span><span class="sbtn__txt">Parler à un expert</span></span></a>
+      <a href="#offre" class="lien">Découvrir notre offre <span class="fl" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
     </div>
   </div>
 </section>
@@ -780,12 +948,6 @@
 <!-- ===================== BLOC 02 — UN NOM, UNE POSTURE ===================== -->
 <section id="posture">
   <!-- décor vivant : rais de lumière, filets cyan en coin et trames de points qui scintillent -->
-  <div class="pos-decor" aria-hidden="true">
-    <span class="pos-rai pos-rai--1"></span><span class="pos-rai pos-rai--2"></span><span class="pos-rai pos-rai--3"></span>
-    <svg class="pos-filet pos-filet--hg" viewBox="0 0 300 220" fill="none"><path d="M0 150 L150 0" stroke="#4CBFDF" stroke-width="1.5"/><path d="M0 200 L40 160 L60 160" stroke="#4CBFDF" stroke-opacity=".6"/></svg>
-    <svg class="pos-filet pos-filet--bd" viewBox="0 0 320 200" fill="none"><path d="M320 40 L200 160 L60 160 L20 200" stroke="#4CBFDF" stroke-width="1.5"/></svg>
-    <span class="pos-points pos-points--hd"></span><span class="pos-points pos-points--bd"></span>
-  </div>
   <div class="shell deux-col deux-col--inv">
     <!-- visuel vivant : la femme au premier plan, le réticule lumineux derrière elle (le bouclier 3D s'y pose),
          des tuiles de verre qui flottent autour -->
@@ -802,9 +964,6 @@
         <span class="marque__cible" id="cible-bouclier"></span>
       </div>
       <img class="pos-femme" src="images/posture-femme.webp" alt="Une experte SICARE, ordinateur portable en main" width="1145" height="1374" loading="lazy" decoding="async">
-      <span class="pos-tuile pos-tuile--cadenas" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/></svg></span>
-      <span class="pos-tuile pos-tuile--bouclier" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
-      <span class="pos-tuile pos-tuile--serveur" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="5" rx="1.5"/><rect x="4" y="10" width="16" height="5" rx="1.5"/><rect x="4" y="16" width="16" height="4" rx="1.5"/><path d="M8 6.5h.01M8 12.5h.01M8 18h.01"/></svg></span>
     </div>
     <div class="nom-texte">
       <span class="eyebrow rv">Un nom, une posture</span>
@@ -838,8 +997,8 @@
     <!-- schéma : le S.I. au centre d'un réticule, quatre dimensions reliées -->
     <div class="si-orbite rv" style="--d:120ms">
       <div class="si-col si-col--g">
-      <article class="si-carte si-carte--g" style="--o:1"><span class="si-ic"><img src="images/icone-si-1.png" alt="" width="256" height="256"></span><div><b>Risques</b><small>Mesurer l'exposition et prioriser</small></div></article>
-      <article class="si-carte si-carte--g" style="--o:3"><span class="si-ic"><img src="images/icone-si-3.png" alt="" width="256" height="256"></span><div><b>Équipes</b><small>Préparer à agir</small></div></article>
+      <article class="si-carte si-carte--g" style="--o:1"><span class="si-fond" aria-hidden="true"><img src="images/exp-03.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 35%"></span><span class="si-ic"><img src="images/icone-si-1.png" alt="" width="256" height="256"></span><div class="si-txt"><b>Risques</b><small>Mesurer l'exposition et prioriser</small></div></article>
+      <article class="si-carte si-carte--g" style="--o:3"><span class="si-fond" aria-hidden="true"><img src="images/exp-02.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 30%"></span><span class="si-ic"><img src="images/icone-si-3.png" alt="" width="256" height="256"></span><div class="si-txt"><b>Équipes</b><small>Préparer à agir</small></div></article>
       </div>
       <div class="si-coeur" aria-hidden="true">
         <span class="si-balayage"></span>
@@ -854,8 +1013,8 @@
         <div class="si-disque"><img src="images/sicare-symbole-hd-blanc.png" alt=""><span class="si-cible" id="cible-bouclier-2"></span><b>Système<br>d'information</b></div>
       </div>
       <div class="si-col si-col--d">
-      <article class="si-carte si-carte--d" style="--o:2"><span class="si-ic"><img src="images/icone-si-2.png" alt="" width="256" height="256"></span><div><b>Protections</b><small>Renforcer les défenses</small></div></article>
-      <article class="si-carte si-carte--d" style="--o:4"><span class="si-ic"><img src="images/icone-si-4.png" alt="" width="256" height="256"></span><div><b>Technologies</b><small>Choisir et intégrer les bons outils</small></div></article>
+      <article class="si-carte si-carte--d" style="--o:2"><span class="si-fond" aria-hidden="true"><img src="images/sicare-offre-bouclier.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 15%"></span><span class="si-ic"><img src="images/icone-si-2.png" alt="" width="256" height="256"></span><div class="si-txt"><b>Protections</b><small>Renforcer les défenses</small></div></article>
+      <article class="si-carte si-carte--d" style="--o:4"><span class="si-fond" aria-hidden="true"><img src="images/exp-04.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 40%"></span><span class="si-ic"><img src="images/icone-si-4.png" alt="" width="256" height="256"></span><div class="si-txt"><b>Technologies</b><small>Choisir et intégrer les bons outils</small></div></article>
       </div>
     </div>
 
@@ -865,43 +1024,67 @@
   </div>
 </section>
 
-<!-- ===================== BLOC 04 — LES TROIS PÔLES ===================== -->
-<div class="plaque on-dark" id="offre">
-  <section>
-    <div class="shell">
-      <div class="tete">
-        <div>
-          <span class="eyebrow rv">Notre offre</span>
-          <h2 class="titre rv" style="--d:80ms">Les trois pôles <em>de SICARE.</em></h2>
-        </div>
-        <p class="lead rv" style="--d:160ms">Trois familles d'offre complémentaires, pour éclairer les décisions, développer les compétences et équiper les organisations.</p>
-      </div>
-      <div class="poles">
-        <a class="pole rv" href="prestations.html">
-          <span class="num">01</span>
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
-          <h3>Prestations</h3>
-          <p>Conseil, audit et accompagnement opérationnel pour éclairer les décisions et conduire les actions cyber.</p>
-          <span class="bas">Découvrir nos prestations <span class="fl" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
-        </a>
-        <a class="pole rv" href="formations.html" style="--d:100ms">
-          <span class="num">02</span>
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-4 9 4-9 4-9-4z"/><path d="M7 10v5c0 1.7 2.2 3 5 3s5-1.3 5-3v-5"/></svg></span>
-          <h3>Formations</h3>
-          <p>Des formations courtes et professionnalisantes pour développer des compétences directement mobilisables en cybersécurité.</p>
-          <span class="bas">Découvrir nos formations <span class="fl" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
-        </a>
-        <a class="pole rv" href="solutions.html" style="--d:200ms">
-          <span class="num">03</span>
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
-          <h3>Solutions</h3>
-          <p>Des solutions matérielles et logicielles sélectionnées ou développées pour répondre à des besoins de cybersécurité.</p>
-          <span class="bas">Découvrir nos solutions <span class="fl" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
-        </a>
-      </div>
+<!-- ===================== BLOC 04 — NOTRE OFFRE : LE CHEMIN ===================== -->
+<!-- Un chemin jaune relie les trois pôles ; il se remplit au défilement (le tracé gris montre la suite).
+     Les offres alternent gauche / droite ; photos, numéros et textes défilent à des vitesses différentes (parallaxe). -->
+<section id="offre" class="offre-ch">
+  <div class="shell">
+    <div class="offre-tete">
+      <span class="eyebrow rv">Notre offre</span>
+      <h2 class="titre rv" style="--d:80ms">Les trois pôles <em>de SICARE.</em></h2>
+      <p class="lead rv" style="--d:160ms">Trois familles d'offre complémentaires, pour éclairer les décisions, développer les compétences et équiper les organisations.</p>
     </div>
-  </section>
-</div>
+
+    <div class="ch" id="chemin">
+      <svg class="ch-svg" aria-hidden="true"><path class="ch-piste"/><path class="ch-jaune"/></svg>
+      <ol class="ch-liste" role="list">
+        <li class="ch-item ch-item--g" style="--decal:4%">
+          <div class="ch-offre rv">
+            <figure class="ch-photo"><img src="images/exp-01.webp" alt="Une équipe SICARE en réunion de conseil avec un client" width="1400" height="787" loading="lazy" decoding="async"></figure>
+            <span class="ch-pt">01</span>
+            <div class="ch-texte">
+              <h3>Prestations</h3>
+              <p>Conseil, audit et accompagnement opérationnel pour éclairer les décisions et conduire les actions cyber.</p>
+              <div class="actions">
+                <a href="prestations.html" class="sbtn sbtn--navy"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd-blanc.png" alt=""></span><span class="sbtn__txt">Découvrir nos prestations</span></span></a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="ch-item ch-item--d" style="--decal:14%">
+          <div class="ch-offre rv">
+            <figure class="ch-photo"><img src="images/formation-02.webp" alt="Une session de formation SICARE en salle" width="900" height="601" loading="lazy" decoding="async"></figure>
+            <span class="ch-pt">02</span>
+            <div class="ch-texte">
+              <h3>Formations</h3>
+              <p>Des formations courtes et professionnalisantes pour développer des compétences directement mobilisables en cybersécurité.</p>
+              <div class="actions">
+                <a href="formations.html" class="sbtn sbtn--navy"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd-blanc.png" alt=""></span><span class="sbtn__txt">Découvrir nos formations</span></span></a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="ch-item ch-item--g" style="--decal:2%">
+          <div class="ch-offre rv">
+            <figure class="ch-photo"><img src="images/exp-03.webp" alt="Deux experts analysent des tableaux de bord de sécurité" width="1400" height="1050" loading="lazy" decoding="async"></figure>
+            <span class="ch-pt">03</span>
+            <div class="ch-texte">
+              <h3>Solutions</h3>
+              <p>Des solutions matérielles et logicielles sélectionnées ou développées pour répondre à des besoins de cybersécurité.</p>
+              <div class="actions">
+                <a href="solutions.html" class="sbtn sbtn--navy"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd-blanc.png" alt=""></span><span class="sbtn__txt">Découvrir nos solutions</span></span></a>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <!-- fin du chemin : la liane fait un tour, s'épaissit jusqu'à remplir l'écran, puis passe au bleu SICARE -->
+  <div class="ch-fin" id="ch-fin" aria-hidden="true">
+    <div class="ch-fin-scene"><svg class="ch-fin-svg"><path class="ch-fin-piste"/><path class="ch-fin-jaune"/></svg></div>
+  </div>
+</section>
 
 <!-- ===================== BLOC 05 — CATALOGUE DE FORMATIONS ===================== -->
 <!-- CONTENU SIMULÉ (démonstration) : intitulés, publics, durées et formats à remplacer par les fiches validées. -->
@@ -983,45 +1166,49 @@
 </section>
 
 <!-- ===================== BLOC 06 — LES EXPERTISES CYBER ===================== -->
-<!-- photo en fond de toute la scène, texte par-dessus, 3 pastilles à droite avec la petite photo de chaque expertise.
-     Au scroll, on passe d'une expertise à l'autre (fond, texte et pastille active changent), puis même final que la variante A. -->
-<section class="expz expz2" id="expertises">
-  <div class="shell expz-intro">
+<!-- présentation simple : six cartes (photo + texte en dessous), trois en haut et trois en bas. -->
+<section class="expo" id="expertises">
+  <div class="shell">
     <div class="center">
       <span class="eyebrow rv">Les expertises cyber</span>
       <h2 class="titre rv" style="--d:80ms">La maîtrise cyber mobilise<br><em>plusieurs expertises.</em></h2>
-      <p class="lead rv" style="--d:160ms">La cybersécurité s'appuie sur des compétences complémentaires. Il faut comprendre les risques, éprouver les défenses, repérer les signaux utiles et savoir réagir lorsqu'un incident survient.</p>
+      <p class="lead rv" style="--d:160ms; max-width:760px">Définir une stratégie, vérifier l'efficacité des protections, détecter une attaque ou préparer une reprise d'activité : chaque enjeu exige des compétences spécifiques et une compréhension de l'ensemble.</p>
     </div>
-  </div>
-  <div class="cine2" id="cine2">
-    <div class="c2-scene">
-      <div class="c2-cadre" id="c2-cadre">
-        <div class="c2-fond"><img src="images/exp-01.webp" alt="" decoding="async"></div>
-        <div class="c2-fond"><img src="images/exp-02.webp" alt="" loading="lazy" decoding="async"></div>
-        <div class="c2-fond"><img src="images/exp-03.webp" alt="" loading="lazy" decoding="async"></div>
-        <div class="c2-fond"><img src="images/exp-04.webp" alt="" loading="lazy" decoding="async"></div>
-        <div class="c2-fond"><img src="images/exp-05.webp" alt="" loading="lazy" decoding="async"></div>
-        <div class="c2-txt"><h3 class="decoupe">Gouvernance, risques et conformité</h3><span class="c2-trait"></span><p>Évaluer les risques, structurer la démarche de sécurité et accompagner la conformité.</p></div>
-        <div class="c2-txt"><h3 class="decoupe">Audit et tests d'intrusion</h3><span class="c2-trait"></span><p>Identifier les vulnérabilités et éprouver la résistance des systèmes dans un cadre défini.</p></div>
-        <div class="c2-txt"><h3 class="decoupe">OSINT et renseignement sur la menace</h3><span class="c2-trait"></span><p>Recueillir et analyser des informations ouvertes pour mieux comprendre les menaces et les expositions.</p></div>
-        <div class="c2-txt"><h3 class="decoupe"><abbr title="Security Operations Center">SOC</abbr> (centre opérationnel de sécurité) et détection</h3><span class="c2-trait"></span><p>Un centre opérationnel de sécurité surveille les événements, qualifie les alertes et contribue à la détection des incidents.</p></div>
-        <div class="c2-txt"><h3 class="decoupe">Réponse à incident et gestion de crise</h3><span class="c2-trait"></span><p>Organiser la réponse, limiter les effets de l'incident et accompagner le retour à une situation maîtrisée.</p></div>
-        <div class="c2-pills" aria-label="Choisir une expertise">
-          <div class="c2-pills-piste" id="c2-piste">
-          <button type="button" class="c2-pill" data-i="0"><span class="c2-rond"><img src="images/exp-01.webp" alt=""></span><span class="c2-pill-txt"><small>Expertise 01</small><b>Gouvernance & conformité</b></span></button>
-          <button type="button" class="c2-pill" data-i="1"><span class="c2-rond"><img src="images/exp-02.webp" alt=""></span><span class="c2-pill-txt"><small>Expertise 02</small><b>Audit & intrusion</b></span></button>
-          <button type="button" class="c2-pill" data-i="2"><span class="c2-rond"><img src="images/exp-03.webp" alt=""></span><span class="c2-pill-txt"><small>Expertise 03</small><b>OSINT & menace</b></span></button>
-          <button type="button" class="c2-pill" data-i="3"><span class="c2-rond"><img src="images/exp-04.webp" alt=""></span><span class="c2-pill-txt"><small>Expertise 04</small><b>SOC & détection</b></span></button>
-          <button type="button" class="c2-pill" data-i="4"><span class="c2-rond"><img src="images/exp-05.webp" alt=""></span><span class="c2-pill-txt"><small>Expertise 05</small><b>Réponse à incident</b></span></button>
-          </div>
-        </div>
-      </div>
-      <div class="cine-masque" id="c2-masque" aria-hidden="true"></div>
-      <div class="cine-fin" id="c2-fin">
-        <h3 class="decoupe">Cinq expertises, <em>une même exigence.</em></h3>
-        <div class="actions">
-          <a href="expertises.html" class="sbtn sbtn--navy"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd-blanc.png" alt=""></span><span class="sbtn__txt">Explorer nos expertises</span></span></a>
-        </div>
+    <div class="expo-grille">
+    <article class="expo-carte expo-carte--01 rv">
+      <figure class="expo-photo"><img src="images/exp-01.webp" alt="Une équipe SICARE en réunion de gouvernance avec un client" loading="lazy" decoding="async" style="object-position:50% 50%"></figure>
+      <h3>Gouvernance, risques et conformité</h3>
+      <p>Évaluer vos risques, définir les responsabilités et piloter une démarche de sécurité alignée sur votre activité et vos obligations.</p>
+    </article>
+    <article class="expo-carte expo-carte--02 rv">
+      <figure class="expo-photo"><img src="images/exp-04.webp" alt="Des experts testent la résistance de systèmes sur leurs ordinateurs" loading="lazy" decoding="async" style="object-position:40% 50%"></figure>
+      <h3>Audit et sécurité offensive</h3>
+      <p>Évaluer votre organisation et vos dispositifs techniques, tester la résistance de vos systèmes et hiérarchiser les corrections selon les risques identifiés.</p>
+    </article>
+    <article class="expo-carte expo-carte--03 rv">
+      <figure class="expo-photo"><img src="images/exp-03.webp" alt="Deux analystes surveillent des tableaux de bord de sécurité" loading="lazy" decoding="async" style="object-position:50% 40%"></figure>
+      <h3><abbr title="Security Operations Center">SOC</abbr>, détection et réponse</h3>
+      <p>Structurer votre centre opérationnel de sécurité, améliorer la détection et organiser le traitement des alertes jusqu'à la réponse à incident.</p>
+    </article>
+    <article class="expo-carte expo-carte--04 rv">
+      <figure class="expo-photo"><img src="images/exp-02.webp" alt="Un expert SICARE prépare une équipe à la gestion de crise" loading="lazy" decoding="async" style="object-position:50% 40%"></figure>
+      <h3>Résilience et gestion de crise</h3>
+      <p>Préparer les décisions, entraîner les équipes et tester les dispositifs de continuité et de reprise de vos activités critiques.</p>
+    </article>
+    <article class="expo-carte expo-carte--05 rv">
+      <figure class="expo-photo"><img src="images/coordination-fond.webp" alt="Une équipe observe et analyse son environnement" loading="lazy" decoding="async" style="object-position:60% 50%"></figure>
+      <h3>OSINT et renseignement sur la menace</h3>
+      <p>Analyser les informations ouvertes et les menaces pour repérer vos expositions et orienter vos mesures de protection.</p>
+    </article>
+    <article class="expo-carte expo-carte--06 rv">
+      <figure class="expo-photo"><img src="images/decrypte-03.webp" alt="Un globe relié à des circuits, symbole de l'intelligence artificielle" loading="lazy" decoding="async" style="object-position:50% 50%"></figure>
+      <h3>Sécurité de l'intelligence artificielle</h3>
+      <p>Évaluer les risques des systèmes et usages d'IA, protéger les données et les accès, et encadrer leur intégration dans votre organisation.</p>
+    </article>
+    </div>
+    <div class="expo-fin center rv">
+      <div class="actions" style="justify-content:center">
+        <a href="expertises.html" class="sbtn sbtn--navy"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd-blanc.png" alt=""></span><span class="sbtn__txt">Explorer nos expertises</span></span></a>
       </div>
     </div>
   </div>
@@ -1085,7 +1272,7 @@
       </article>
     </div>
     <div class="actions rv">
-      <a href="https://brydge-group.com/groupe/" class="lien">Découvrir Brydge Group <span class="fl" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a href="brydge-group.html" class="lien">Découvrir Brydge Group <span class="fl" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
     </div>
   </div>
 </section>
@@ -1189,7 +1376,7 @@
       </div>
       <div>
         <h4>SICARE</h4>
-        <ul><li><a href="a-propos.html">À propos</a></li><li><a href="decrypte.html">SICARE décrypte</a></li><li><a href="https://brydge-group.com/">Brydge Group</a></li><li><a href="contact.html">Contact</a></li></ul>
+        <ul><li><a href="a-propos.html">À propos</a></li><li><a href="decrypte.html">SICARE décrypte</a></li><li><a href="brydge-group.html">Brydge Group</a></li><li><a href="contact.html">Contact</a></li></ul>
       </div>
       <div>
         <h4>Coordonnées</h4>
@@ -1283,7 +1470,11 @@
     if(reduit.matches){ vol=0; return poser(fin.x,fin.y,fin.s,0); }
     // ---- étape 1 : hero (bas droite) -> cercle « Un nom. Une posture. »
     var hb=hero.offsetTop+hero.offsetHeight;
-    var dep=mobile.matches
+    // départ : l'emplacement du bouclier dans le hero (position au scroll 0, parallaxe souris comprise)
+    var ph=document.getElementById('hp-objet'), pr=ph&&ph.getBoundingClientRect(),
+    dep=ph
+      ? {x:pr.left+pr.width/2, y:pr.top+pr.height/2+y, s:pr.width/1.25}
+      : mobile.matches
       // téléphone / tablette : bas droite de l'écran au chargement, sans déborder
       ? {x:vw-fin.s*0.75, y:Math.min(hb, vh)-fin.s*0.8, s:fin.s}
       : {x:vw*0.86, y:Math.min(hb, vh)-vh*0.2, s:fin.s};
@@ -1363,6 +1554,7 @@
   function demande(){ if(!enCours){ enCours=true; requestAnimationFrame(boucle); } }
   addEventListener('scroll',demande,{passive:true}); addEventListener('resize',demande);
   addEventListener('load',demande); document.addEventListener('transitionend',demande); demande();
+  window.sicareBouclier=demande; // le hero le rappelle quand son emplacement bouge (parallaxe)
 })();
 
 /* ---- expertises : défilement « cinéma » (rideau + parallaxe + panneau final), lissé ---- */
@@ -1569,6 +1761,240 @@
   }
   function maj(){ lire(); if(!run){ run=true; requestAnimationFrame(boucle); } }
   addEventListener('scroll',maj,{passive:true}); addEventListener('resize',maj); addEventListener('load',maj); maj();
+})();
+
+/* ---- Notre offre : chemin jaune qui relie les pôles et se remplit au défilement ---- */
+(function(){
+  var ch=document.getElementById('chemin'); if(!ch) return;
+  var svg=ch.querySelector('.ch-svg'), piste=svg.querySelector('.ch-piste'), jaune=svg.querySelector('.ch-jaune');
+  var pts=[].slice.call(ch.querySelectorAll('.ch-pt'));
+  var reduit=matchMedia('(prefers-reduced-motion: reduce)').matches, mobile=matchMedia('(max-width: 900px)');
+  var L=1, echantillons=[], centres=[];
+  function centre(el){ // position du centre d'un élément dans le repère du chemin (sans le zoom des grands écrans)
+    var x=el.offsetWidth/2, y=el.offsetHeight/2, n=el;
+    while(n && n!==ch){ x+=n.offsetLeft; y+=n.offsetTop; n=n.offsetParent; }
+    return {x:x,y:y};
+  }
+  function trace(){
+    var W=ch.offsetWidth, H=ch.offsetHeight;
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    centres=pts.map(centre);
+    var d, p=centres;
+    if(mobile.matches){
+      var x=p[0].x; d='M'+x+' '+(p[0].y-140);
+      d+=' C'+(x+30)+' '+(p[0].y-90)+' '+(x-30)+' '+(p[0].y-50)+' '+x+' '+p[0].y;
+      for(var i=1;i<p.length;i++){ var dy=p[i].y-p[i-1].y; d+=' C'+(x+34)+' '+(p[i-1].y+dy*.45)+' '+(x-34)+' '+(p[i].y-dy*.45)+' '+x+' '+p[i].y; }
+      d+=' C'+x+' '+(p[p.length-1].y+90)+' '+x+' '+(H-40)+' '+x+' '+H;
+    } else {
+      // arrivée depuis le bord gauche de l'écran, au-dessus de la première offre
+      var gauche=-(ch.getBoundingClientRect().left/(ch.getBoundingClientRect().width/W||1))-30;
+      // la liane arrive au-dessus de la première photo, puis descend à sa droite jusqu'au point 01 (elle n'est jamais cachée)
+      var ph=ch.querySelector('.ch-photo'), haut=centre(ph).y-ph.offsetHeight/2-60;
+      d='M'+gauche+' '+haut;
+      d+=' C'+(p[0].x*0.6)+' '+(haut-10)+' '+(p[0].x+150)+' '+(haut+10)+' '+(p[0].x+110)+' '+(haut+(p[0].y-haut)*0.45);
+      d+=' S'+p[0].x+' '+(p[0].y-90)+' '+p[0].x+' '+p[0].y;
+      for(var k=1;k<p.length;k++){
+        var a=p[k-1], b=p[k], h=b.y-a.y;
+        if(k===2){ // une boucle entre la 2e et la 3e offre, comme sur la référence
+          var A={x:(a.x+b.x)/2+30, y:a.y+h*0.55}, r=Math.min(78, h*0.17);
+          d+=' C'+a.x+' '+(a.y+h*0.32)+' '+(A.x+170)+' '+A.y+' '+A.x+' '+A.y;
+          d+=' A'+r+' '+r+' 0 0 1 '+A.x+' '+(A.y-2*r)+' A'+r+' '+r+' 0 0 1 '+A.x+' '+A.y;
+          d+=' C'+(A.x-170)+' '+A.y+' '+b.x+' '+(b.y-h*0.3)+' '+b.x+' '+b.y;
+        } else {
+          d+=' C'+a.x+' '+(a.y+h*0.55)+' '+b.x+' '+(b.y-h*0.55)+' '+b.x+' '+b.y;
+        }
+      }
+      var z=p[p.length-1];
+      d+=' C'+z.x+' '+(z.y+120)+' '+(z.x+120)+' '+(H-80)+' '+(z.x+120)+' '+H;
+    }
+    piste.setAttribute('d',d); jaune.setAttribute('d',d);
+    L=jaune.getTotalLength(); jaune.style.strokeDasharray=L+' '+L;
+    // repères le long du tracé : départ, chaque point numéroté, arrivée (longueur, hauteur)
+    var ech=[]; for(var s=0;s<=600;s++){ var l=L*s/600, q=jaune.getPointAtLength(l); ech.push([l,q.x,q.y]); }
+    echantillons=[[0, ech[0][2]]];
+    centres.forEach(function(c){ var best=ech[0], dmin=1e12;
+      ech.forEach(function(e){ var dd=(e[1]-c.x)*(e[1]-c.x)+(e[2]-c.y)*(e[2]-c.y); if(dd<dmin){ dmin=dd; best=e; } });
+      echantillons.push([best[0], c.y]); });
+    echantillons.push([L, Math.max(ech[600][2], echantillons[echantillons.length-1][1]+1)]);
+    // le tracé gris s'arrête au dernier point : au-delà, la liane n'apparaît qu'en se dessinant (effet de surprise)
+    var dernier=echantillons[echantillons.length-2][0];
+    piste.style.strokeDasharray=dernier+' '+(L+10);
+    remplit();
+  }
+  function remplit(){
+    var r=ch.getBoundingClientRect(), e=r.height/(ch.offsetHeight||1);
+    var ligne=reduit? 1e9 : (innerHeight*0.62 - r.top)/e; // ligne de progression dans le repère du chemin
+    // la longueur jaune avance de façon continue d'un repère au suivant (la boucle se dessine progressivement)
+    var fin=0, E=echantillons;
+    if(ligne>=E[E.length-1][1]) fin=L;
+    else for(var i=1;i<E.length;i++){ if(ligne<E[i][1]){ var t=(ligne-E[i-1][1])/((E[i][1]-E[i-1][1])||1); fin=t<=0? (i===1?0:E[i-1][0]) : E[i-1][0]+(E[i][0]-E[i-1][0])*t; break; } }
+    if(ligne<E[0][1]) fin=0;
+    jaune.style.strokeDashoffset=L-fin;
+    // un point ne change de couleur que lorsque le jaune l'a réellement atteint
+    pts.forEach(function(pt,i){ pt.classList.toggle('actif', fin>=E[i+1][0]-2); });
+  }
+  var tic=false;
+  addEventListener('scroll',function(){ if(!tic){ tic=true; requestAnimationFrame(function(){ tic=false; remplit(); }); } },{passive:true});
+  addEventListener('resize',trace); addEventListener('load',trace);
+  if('ResizeObserver' in window){ var to; new ResizeObserver(function(){ clearTimeout(to); to=setTimeout(trace,120); }).observe(ch); }
+  trace();
+})();
+
+
+/* ---- Notre offre : parallaxe « cinéma » (photos, textes et titre à des vitesses différentes) ---- */
+(function(){
+  var sec=document.getElementById('offre'); if(!sec || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var offres=[].slice.call(sec.querySelectorAll('.ch-offre')), tete=sec.querySelector('.offre-tete'), visible=true;
+  function anime(){
+    if(!visible) return;
+    var vh=innerHeight, m=matchMedia('(max-width: 900px)').matches? 0.5 : 1;
+    offres.forEach(function(o){
+      var r=o.getBoundingClientRect(), p=((r.top+r.height/2)-vh/2)/vh; // -1 (haut) … 0 (centre) … 1 (bas)
+      if(p<-1.6||p>1.6) return;
+      o.style.setProperty('--py',(p*-34*m).toFixed(1)+'px');  // cadre photo : plus rapide
+      o.style.setProperty('--iy',(p*26*m).toFixed(1)+'px');   // image dans le cadre : sens inverse
+      o.style.setProperty('--ty',(p*-24*m).toFixed(1)+'px');  // texte : léger décalage
+    });
+    if(tete){ var rt=tete.getBoundingClientRect(), pt=((rt.top+rt.height/2)-vh/2)/vh; tete.style.setProperty('--ty',(pt*60*m).toFixed(1)+'px'); }
+  }
+  var tic=false;
+  addEventListener('scroll',function(){ if(!tic){ tic=true; requestAnimationFrame(function(){ tic=false; anime(); }); } },{passive:true});
+  addEventListener('resize',anime);
+  if('IntersectionObserver' in window) new IntersectionObserver(function(es){ visible=es[0].isIntersecting; if(visible) anime(); },{rootMargin:'200px 0px'}).observe(sec);
+  anime();
+})();
+
+/* ---- fin du chemin : la liane tourne, remplit l'écran, puis « boum » : bleu SICARE ---- */
+(function(){
+  var fin=document.getElementById('ch-fin'), ch=document.getElementById('chemin'); if(!fin||!ch) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ fin.classList.add('boum'); return; }
+  var svg=fin.querySelector('.ch-fin-svg'), piste=fin.querySelector('.ch-fin-piste'), jaune=fin.querySelector('.ch-fin-jaune'), source=ch.querySelector('.ch-jaune');
+  var L=1, vw=0, vh=0, diag=1, x0=0, base=26;
+  function clamp(v){ return v<0?0:v>1?1:v; }
+  function trace(){
+    vw=fin.clientWidth; vh=innerHeight; diag=Math.sqrt(vw*vw+vh*vh);
+    // épaisseur réelle de la liane du chemin à l'écran (16 px sur téléphone, 26 px sur ordinateur, zoom des grands écrans compris)
+    var rc=ch.getBoundingClientRect(); base=(parseFloat(getComputedStyle(source).strokeWidth)||26)*(rc.width/(ch.offsetWidth||1));
+    svg.setAttribute('viewBox','0 0 '+vw+' '+vh);
+    // départ exactement sous le bout de la liane du chemin
+    try { var r=ch.getBoundingClientRect(), e=r.width/(ch.offsetWidth||1), q=source.getPointAtLength(source.getTotalLength());
+          x0=r.left+q.x*e - fin.getBoundingClientRect().left; } catch(err){ x0=vw*0.5; }
+    var m=vw<900, cx=vw*0.5, cy=vh*0.52, R=Math.min(vw,vh)*(m?0.2:0.17);
+    var d='M'+x0+' -2'
+      +' C'+x0+' '+(vh*0.28)+' '+(cx+R*1.9)+' '+(cy+R)+' '+cx+' '+(cy+R)
+      +' A'+R+' '+R+' 0 0 1 '+cx+' '+(cy-R)
+      +' A'+R+' '+R+' 0 0 1 '+cx+' '+(cy+R)
+      +' C'+(cx-R*0.9)+' '+(cy+R)+' '+(cx-R*1.4)+' '+(cy+R*0.4)+' '+(cx-R*1.4)+' '+cy;
+    piste.setAttribute('d',d); jaune.setAttribute('d',d);
+    L=jaune.getTotalLength(); jaune.style.strokeDasharray=L+' '+L;
+    maj();
+  }
+  function maj(){
+    var top=fin.getBoundingClientRect().top;
+    // 1) la liane se dessine et fait son tour
+    var f=clamp((vh*0.62-top)/(vh*0.62+vh*0.9));
+    jaune.style.strokeDashoffset=L*(1-f);
+    // 2) elle s'épaissit jusqu'à couvrir tout l'écran
+    var g=clamp((-top-vh*0.9)/(vh*0.75)), eg=g*g*(3-2*g);
+    jaune.style.strokeWidth=(base+eg*diag*2.4).toFixed(1);
+    fin.classList.toggle('large', g>0.02);
+    piste.style.opacity=g>0? 0 : 1;
+    // 3) « boum » : bascule au bleu ciel SICARE
+    fin.classList.toggle('boum', g>=0.92);
+  }
+  var tic=false;
+  addEventListener('scroll',function(){ if(!tic){ tic=true; requestAnimationFrame(function(){ tic=false; maj(); }); } },{passive:true});
+  addEventListener('resize',trace); addEventListener('load',function(){ setTimeout(trace,60); });
+  if('ResizeObserver' in window){ var to; new ResizeObserver(function(){ clearTimeout(to); to=setTimeout(trace,160); }).observe(ch); }
+  setTimeout(trace,0);
+})();
+
+
+
+/* ---- écosystème → références : la liane cyan se dessine en serpentant au défilement,
+        puis le fond de la page passe au cyan sur la section des références ---- */
+(function(){
+  var eco=document.getElementById('ecosysteme'), ref=document.getElementById('references'), main=document.querySelector('main');
+  if(!eco||!ref||!main) return;
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var ns='http://www.w3.org/2000/svg', svg=document.createElementNS(ns,'svg'); svg.id='liane-eco'; svg.setAttribute('aria-hidden','true');
+    var ombre=document.createElementNS(ns,'path'); ombre.setAttribute('class','ombre');
+    var trait=document.createElementNS(ns,'path'); svg.appendChild(ombre); svg.appendChild(trait);
+    main.insertBefore(svg, main.firstChild);
+    var y0=0, y1=1, L=1;
+    function trace(){
+      var W=main.clientWidth;
+      // le départ de la liane est caché derrière la photo de la section précédente (elle « sort » de dessous)
+      y0=eco.offsetTop-220; y1=ref.offsetTop+ref.offsetHeight-40;
+      var H=y1-y0+200;
+      svg.style.top=y0+'px'; svg.style.height=H+'px'; svg.setAttribute('viewBox','0 0 '+W+' '+H);
+      var ep=Math.max(26,Math.min(58,W*0.036)), pas=Math.max(560,Math.min(900,innerHeight*0.95));
+      var n=Math.max(2,Math.round((y1-y0)/pas)), dy=(y1-y0)/n, x=W*0.12, y=0, d='M'+x+' 0';
+      for(var i=1;i<=n;i++){ var nx=(i%2)? W*0.93 : W*0.07, ny=dy*i; if(i===n) nx=W*0.5;
+        d+=' C'+x+' '+(y+dy*0.62)+' '+nx+' '+(ny-dy*0.62)+' '+nx+' '+ny; x=nx; y=ny; }
+      [trait,ombre].forEach(function(p){ p.setAttribute('d',d); p.style.strokeWidth=ep; });
+      ombre.setAttribute('transform','translate(0 '+Math.round(ep*0.28)+')');
+      L=trait.getTotalLength(); [trait,ombre].forEach(function(p){ p.style.strokeDasharray=L+' '+L; });
+      dessine();
+    }
+    function dessine(){
+      var top=main.getBoundingClientRect().top+scrollY;
+      var p=(scrollY+innerHeight*0.72-(top+y0))/(y1-y0); p=p<0?0:p>1?1:p;
+      trait.style.strokeDashoffset=L*(1-p); ombre.style.strokeDashoffset=L*(1-p);
+    }
+    var tic=false;
+    addEventListener('scroll',function(){ if(!tic){ tic=true; requestAnimationFrame(function(){ tic=false; dessine(); }); } },{passive:true});
+    addEventListener('resize',trace); addEventListener('load',trace);
+    if('ResizeObserver' in window){ var to; new ResizeObserver(function(){ clearTimeout(to); to=setTimeout(trace,150); }).observe(main); }
+    trace();
+  }
+  // la section suivante (références) change la couleur du fond quand elle occupe le centre de l'écran
+  if('IntersectionObserver' in window) new IntersectionObserver(function(es){
+    es.forEach(function(e){ document.body.classList.toggle('theme-cyan', e.isIntersecting); });
+  },{ rootMargin:'-40% 0px -40% 0px' }).observe(ref);
+})();
+</script>
+<script>
+/* ---------- hero : parallaxe souris + défilement (fond · mot SICARE · bouclier · texte) ----------
+   Pour chaque plan : mx/my = déplacement max à la souris (px) ; sy = vitesse relative au défilement ; zoom ; fondu. */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var hp=document.querySelector('.hp'), $=function(s){ return hp.querySelector(s); };
+  var plans=[
+    { el:$('.hp-fond'),   mx:-16, my:-10, sy:.16 },
+    { el:$('.hp-mot'),    mx: 12, my:  7, sy:.30, zoom:.10 },
+    { el:$('.hp-objet'),  mx: 26, my: 15, sy:.04 },
+    { el:$('.hp-texte'),  mx: -4, my: -3, sy:.12, fondu:true },
+    { el:$('.hp-label'),  mx: -4, my: -3, sy:.12, fondu:true }
+  ];
+  var cible={x:0,y:0}, cur={x:0,y:0}, tourne=false;
+  var mobile=matchMedia('(max-width: 900px)');
+
+  function applique(){
+    var h=hp.offsetHeight, top=hp.getBoundingClientRect().top, defil=Math.max(0,-top), p=Math.min(1,defil/h);
+    var k=mobile.matches?.5:1;                       // mouvements atténués sur mobile
+    plans.forEach(function(l){
+      l.el.style.translate=(cur.x*l.mx*k).toFixed(2)+'px '+(cur.y*l.my*k+defil*l.sy*k).toFixed(2)+'px';
+      if(l.zoom) l.el.style.scale=(1+p*l.zoom).toFixed(4);
+      if(l.fondu) l.el.style.opacity=Math.max(0,1-p*1.25).toFixed(3);
+    });
+    if(window.sicareBouclier) window.sicareBouclier();
+  }
+  function boucle(){
+    cur.x+=(cible.x-cur.x)*.08; cur.y+=(cible.y-cur.y)*.08;
+    applique();
+    if(Math.abs(cible.x-cur.x)>.0008||Math.abs(cible.y-cur.y)>.0008) requestAnimationFrame(boucle); else tourne=false;
+  }
+  function relance(){ if(!tourne){ tourne=true; requestAnimationFrame(boucle); } }
+
+  hp.addEventListener('mousemove',function(e){
+    var r=hp.getBoundingClientRect();
+    cible.x=(e.clientX-r.left)/r.width-.5; cible.y=(e.clientY-r.top)/r.height-.5; relance();
+  });
+  hp.addEventListener('mouseleave',function(){ cible.x=0; cible.y=0; relance(); });
+  addEventListener('scroll',applique,{passive:true});
+  addEventListener('resize',applique);
+  applique();
 })();
 </script>
 </body>

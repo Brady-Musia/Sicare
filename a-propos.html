@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>À propos — SICARE, cybersécurité : prestations, solutions et formations</title>
+<meta name="description" content="SICARE, entreprise de services numériques spécialisée en cybersécurité et filiale de Brydge Group : notre posture, notre méthode, nos engagements et nos carrières.">
+<link rel="icon" href="images/sicare-symbole-hd.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     SICARE — PAGE « À PROPOS »
+     Styles communs repris de la page d'accueil (index.html), puis
+     composants propres à la page en fin de feuille.
+     ============================================================ */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    /* bleus navy identiques à Brydge */
+    --navy: #192360;
+    --navy-700: #1b2356;
+    --navy-800: #121a44;
+    --navy-900: #0d1230;
+    --ink: #192360;
+    --cyan: #4CBFDF;
+    --cyan-600: #2A9CC0;
+    --cyan-200: #8FE3F7;
+    --cyan-50: #E9F8FC;
+    --paper: #eceef1; /* fond gris clair de Brydge */
+    --line: #DFE4EE;
+    --text: #0B0E26;
+    --muted: #5A6280;
+    --muted-dark: #9AA3C2;
+    --shell: 1240px;
+    --fh: 'Comfortaa', Arial, sans-serif;
+    --fb: 'Plus Jakarta Sans', Arial, Helvetica, sans-serif;
+  }
+  html { scroll-behavior: smooth; overflow-x: clip; }
+  body { background: var(--paper); color: var(--text); font-family: var(--fb); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  .shell { width: min(var(--shell), 100% - 8vw); margin-inline: auto; }
+  section { padding: clamp(80px, 9vw, 128px) 0; position: relative; }
+
+  /* ----- typographie ----- */
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan-600); }
+  .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 4px rgba(76,191,223,0.18); }
+  .on-dark .eyebrow { color: var(--cyan-200); }
+  .titre { margin-top: 18px; font-family: var(--fh); font-weight: 600; font-size: clamp(32px, 4.2vw, 56px); line-height: 1.08; letter-spacing: -0.02em; color: var(--text); }
+  .titre em { font-style: normal; color: var(--cyan-600); }
+  .on-dark .titre { color: #fff; }
+  .on-dark .titre em { color: var(--cyan); }
+  .lead { margin-top: 20px; font-size: 17px; line-height: 1.75; color: var(--muted); max-width: 640px; }
+  .on-dark .lead { color: var(--muted-dark); }
+  .prose p + p { margin-top: 14px; }
+  .center { text-align: center; }
+  /* typographie Brydge : titres en Comfortaa 700, textes en Plus Jakarta Sans */
+  h1, h2, h3, .titre, .hero h1 { font-family: var(--fh) !important; font-weight: 700 !important; font-size-adjust: 0.51; letter-spacing: -0.02em; }
+  .center .lead { margin-inline: auto; }
+
+  /* ----- les boutons (structure BD Emerson, symbole SICARE dans le carré) ----- */
+  .sbtn { display: inline-block; padding: 3px; border-radius: 13px; background: rgba(76,191,223,0.28); text-decoration: none; transition: transform .3s ease, background .3s ease; }
+  .sbtn:hover { transform: translateY(-2px); }
+  .sbtn__in { position: relative; display: flex; align-items: center; gap: 12px; height: 46px; padding-right: 18px; border-radius: 10px; overflow: hidden; isolation: isolate; background: linear-gradient(#4CBFDF 50%, #2E9FC4); }
+  .sbtn__fill { position: absolute; inset: 0 auto 0 0; width: 0; z-index: -1; border-radius: 10px; background: linear-gradient(#1b2356 50%, var(--navy)); transition: width .45s cubic-bezier(.65,0,.35,1); }
+  .sbtn:hover .sbtn__fill { width: 100%; }
+  .sbtn__ico { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 10px; background: linear-gradient(#fff, #EEF3FA); box-shadow: 0 2px 8px rgba(7,10,28,0.12); }
+  .sbtn__ico img { width: 26px; height: auto; transition: transform .45s cubic-bezier(.65,0,.35,1); }
+  .sbtn:hover .sbtn__ico img { transform: rotate(-120deg); }
+  .sbtn__txt { font-weight: 700; font-size: 15.5px; letter-spacing: -0.005em; color: var(--ink); white-space: nowrap; transition: color .3s ease; }
+  .sbtn:hover .sbtn__txt { color: #fff; }
+  /* variante navy (sur fond clair) */
+  .sbtn--navy { background: rgba(25,35,96,0.18); }
+  .sbtn--navy .sbtn__in { background: linear-gradient(#1b2356 50%, var(--navy)); }
+  .sbtn--navy .sbtn__fill { background: linear-gradient(#4CBFDF 50%, #2E9FC4); }
+  .sbtn--navy .sbtn__ico { background: linear-gradient(#4CBFDF, #2E9FC4); }
+  .sbtn--navy .sbtn__txt { color: #fff; }
+  .sbtn--navy:hover .sbtn__txt { color: var(--ink); }
+  /* variante blanche (sur fond sombre) */
+  .sbtn--blanc { background: rgba(255,255,255,0.22); }
+  .sbtn--blanc .sbtn__in { background: linear-gradient(#fff 50%, #EEF2F8); }
+  .sbtn--blanc .sbtn__ico { background: linear-gradient(#1b2356, var(--navy)); }
+  /* lien texte avec flèche */
+  .lien { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15.5px; text-decoration: none; color: var(--navy); }
+  .lien .fl { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid currentColor; transition: transform .3s ease, background .3s ease, color .3s ease; }
+  .lien:hover .fl { transform: translateX(4px); background: var(--navy); color: #fff; border-color: var(--navy); }
+  .on-dark .lien { color: #fff; }
+  .on-dark .lien:hover .fl { background: #fff; color: var(--navy); border-color: #fff; }
+  .actions { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-top: 34px; }
+
+  /* ----- en-tête ----- */
+  .hdr { position: fixed; inset: 0 0 auto 0; z-index: 50; transition: background .35s ease, box-shadow .35s ease, backdrop-filter .35s ease; }
+  .hdr .shell { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 64px; }
+  .hdr.solide { background: rgba(25,35,96,0.86); backdrop-filter: blur(16px); box-shadow: 0 1px 0 rgba(143,227,247,0.12); }
+  .hdr .logo img { height: 30px; width: auto; }
+  .menu { display: flex; align-items: center; gap: 26px; }
+  .menu a { position: relative; font-size: 13.5px; font-weight: 600; color: rgba(255,255,255,0.78); text-decoration: none; padding: 6px 0; transition: color .2s ease; }
+  .menu a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; border-radius: 2px; background: var(--cyan); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
+  .menu a:hover, .menu a.actif { color: #fff; }
+  .menu a:hover::after, .menu a.actif::after { transform: scaleX(1); }
+  .hdr .sbtn__in { height: 34px; }
+  .hdr .sbtn__txt { font-size: 13.5px; }
+  .hdr .sbtn__ico img { width: 20px; }
+  .hdr .sbtn__ico { width: 34px; height: 34px; }
+  .burger { display: none; width: 38px; height: 38px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.06); cursor: pointer; }
+  .burger i { display: block; width: 18px; height: 2px; margin: 4px auto; border-radius: 2px; background: #fff; }
+  .menu .menu-cta { display: none; }
+
+  .hdr { background: rgba(25,35,96,0.94); backdrop-filter: blur(16px); }
+  /* ----- plaques sombres (bdemerson) ----- */
+  .plaque { width: min(1400px, 100% - 32px); margin-inline: auto; border-radius: 32px; background: var(--ink); color: #fff; overflow: hidden; position: relative; isolation: isolate; }
+  .plaque::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse 60% 70% at 85% 0%, rgba(76,191,223,0.16), transparent 60%), radial-gradient(ellipse 50% 60% at 0% 100%, rgba(25,35,96,0.7), transparent 70%); }
+  /* ----- BLOC 2 — UN NOM, UNE POSTURE ----- */
+  .deux-col { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(36px, 6vw, 96px); align-items: center; }
+  /* ---- Bloc 2 « Un nom. Une posture. » — maquette claire et vivante ---- */
+  #posture { padding: clamp(36px, 5svh, 56px) 0; position: relative; isolation: isolate; overflow: clip; background: linear-gradient(135deg, #f4f8fd 0%, #eaf3fb 55%, #e3eff9 100%); }
+  .pos-decor { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+  .pos-rai { position: absolute; width: 38%; height: 220%; top: -60%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0)); transform: rotate(35deg); animation: pos-rai 14s ease-in-out infinite alternate; }
+  .pos-rai--1 { left: -12%; } .pos-rai--2 { left: 22%; width: 18%; opacity: .7; animation-delay: -5s; } .pos-rai--3 { left: 70%; width: 26%; opacity: .6; animation-delay: -9s; }
+  @keyframes pos-rai { from { translate: -40px 0; } to { translate: 60px 0; } }
+  .pos-filet { position: absolute; width: clamp(160px, 20vw, 300px); }
+  .pos-filet--hg { left: 0; top: 0; } .pos-filet--bd { right: 0; bottom: 0; }
+  .pos-filet path { stroke-dasharray: 600; stroke-dashoffset: 600; animation: pos-trait 2.4s cubic-bezier(.22,1,.36,1) .3s forwards; }
+  @keyframes pos-trait { to { stroke-dashoffset: 0; } }
+  .pos-points { position: absolute; width: 130px; height: 100px; background-image: radial-gradient(circle, rgba(76,191,223,0.7) 1.4px, transparent 1.8px); background-size: 16px 16px; animation: pos-scint 3.6s ease-in-out infinite; }
+  .pos-points--hd { right: 5%; top: 7%; } .pos-points--bd { right: 3%; bottom: 10%; width: 100px; animation-delay: -1.8s; }
+  @keyframes pos-scint { 0%, 100% { opacity: .35; } 50% { opacity: .9; } }
+  .marque__halo { position: absolute; left: 50%; top: 50%; width: 62%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, rgba(76,191,223,0.38) 0%, rgba(76,191,223,0.12) 45%, rgba(76,191,223,0) 70%); animation: pos-respire 4.5s ease-in-out infinite; }
+  @keyframes pos-respire { 0%, 100% { opacity: .7; scale: .94; } 50% { opacity: 1; scale: 1.06; } }
+  .pos-tourne { transform-origin: 200px 200px; animation: si-rot 60s linear infinite; }
+  .pos-tourne--inv { animation-duration: 45s; animation-direction: reverse; }
+  .pos-pulse { transform-box: fill-box; transform-origin: center; animation: pos-pulse 2.4s ease-in-out infinite; }
+  @keyframes pos-pulse { 0%, 100% { scale: 1; opacity: 1; } 50% { scale: 1.5; opacity: .55; } }
+  #posture .titre { color: #192360; }
+  #posture .titre em { color: #2EB6EA; }
+  .nom-texte .prose { margin-top: 20px; font-size: 16px; line-height: 1.7; color: #1f2b5a; max-width: 600px; }
+  .nom-texte .prose p + p { margin-top: 12px; }
+  .nom-texte .note { margin-top: 20px; display: inline-flex; gap: 10px; align-items: center; font-size: 14px; color: #3a4670; }
+  .nom-texte .note b { color: #192360; font-family: var(--fh); }
+  .note__trait { width: 34px; height: 3px; border-radius: 3px; background: #2EB6EA; }
+  /* composition du visuel (inspirée de la maquette) */
+  .pos-visuel { position: relative; width: min(620px, 100%); aspect-ratio: 620 / 680; margin-inline: auto; }
+  .pos-visuel .marque { position: absolute; width: 64%; left: 38%; top: 9%; z-index: 1; }
+  .pos-femme { position: absolute; left: -8%; bottom: 0; width: 80%; height: auto; z-index: 2; -webkit-mask-image: linear-gradient(180deg, #000 68%, transparent 97%); mask-image: linear-gradient(180deg, #000 68%, transparent 97%); }
+  .pos-tuile { position: absolute; z-index: 3; display: grid; place-items: center; width: clamp(54px, 11%, 72px); aspect-ratio: 1; border-radius: 16px; color: #fff; background: linear-gradient(145deg, rgba(76,191,223,0.8), rgba(46,182,234,0.55)); border: 1px solid rgba(255,255,255,0.75); box-shadow: 0 14px 34px rgba(46,182,234,0.35), inset 0 1px 0 rgba(255,255,255,0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); animation: pos-flotte 6s ease-in-out infinite; }
+  .pos-tuile svg { width: 46%; height: 46%; filter: drop-shadow(0 0 6px rgba(255,255,255,0.9)); }
+  .pos-tuile--cadenas { left: 74%; top: 4%; }
+  .pos-tuile--bouclier { left: -2%; top: 34%; animation-delay: -2s; }
+  .pos-tuile--serveur { left: 88%; top: 56%; animation-delay: -4s; }
+  @keyframes pos-flotte { 0%, 100% { translate: 0 0; } 50% { translate: 0 -12px; } }
+  .pos-tourne--lent { animation-duration: 90s; }
+  @media (max-width: 900px) { .pos-points--hd { display: none; } }
+  @media (max-width: 680px) { .pos-tuile--serveur { left: 82%; } .pos-tuile--bouclier { left: 0; } }
+  @media (prefers-reduced-motion: reduce) { .pos-rai, .pos-points, .marque__halo, .pos-tourne, .pos-pulse, .pos-tuile { animation: none; } .pos-filet path { animation: none; stroke-dashoffset: 0; } }
+  .marque { position: relative; aspect-ratio: 1; width: min(520px, 100%); margin-inline: auto; }
+  .marque svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .marque img { position: absolute; left: 50%; top: 50%; width: 44%; height: auto; transform: translate(-50%, -50%); }
+
+  /* bloc 2 inversé : illustration à gauche, texte à droite */
+  .deux-col--inv { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); }
+  .marque__cible { position: absolute; left: 50%; top: 50%; width: 46%; aspect-ratio: 1; transform: translate(-50%, -50%); }
+  /* bouclier 3D volant : part du hero (bas droite) et se pose dans le réticule */
+  .bouclier { position: fixed; left: 0; top: 0; z-index: 40; pointer-events: none; width: 100px; height: 100px; transform-origin: 0 0; will-change: transform; opacity: 0; transition: opacity .6s ease; }
+  .bouclier.pret { opacity: 1; }
+  .bouclier__scene { width: 100%; height: 100%; display: grid; place-items: center; }
+  .bouclier__scene img { width: 92%; height: auto; filter: drop-shadow(0 18px 30px rgba(25,35,96,.35)); }
+  .bouclier__scene model-viewer { width: 100%; height: 100%; display: block; background: transparent; --poster-color: transparent; --progress-bar-height: 0; filter: drop-shadow(0 22px 34px rgba(25,35,96,.28)); }
+
+  /* ----- BLOC 4 — LES TROIS PÔLES (plaque sombre) ----- */
+  .poles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: clamp(40px, 5vw, 60px); }
+  .pole { position: relative; display: flex; flex-direction: column; padding: 30px 28px 28px; border-radius: 20px; border: 1px solid rgba(143,227,247,0.16); background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(76,191,223,0.06)); text-decoration: none; color: #fff; overflow: hidden; transition: border-color .35s ease, transform .35s ease; }
+  .pole::after { content: ""; position: absolute; right: -60px; top: -60px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(76,191,223,0.22), transparent 70%); opacity: 0; transition: opacity .4s ease; }
+  .pole:hover { border-color: rgba(76,191,223,0.6); transform: translateY(-4px); }
+  .pole:hover::after { opacity: 1; }
+  .pole .num { font-family: var(--fh); font-size: 13px; letter-spacing: 0.16em; color: var(--cyan-200); }
+  .pole .ico { margin-top: 26px; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 16px; background: rgba(76,191,223,0.12); border: 1px solid rgba(76,191,223,0.35); color: var(--cyan); }
+  .pole .ico svg { width: 26px; height: 26px; }
+  .pole h3 { margin-top: 22px; font-family: var(--fh); font-weight: 600; font-size: 26px; letter-spacing: -0.01em; }
+  .pole p { margin-top: 12px; font-size: 15.5px; line-height: 1.7; color: var(--muted-dark); }
+  .pole .bas { margin-top: auto; padding-top: 30px; display: flex; align-items: center; justify-content: space-between; font-size: 14.5px; font-weight: 700; color: #fff; }
+  .pole .bas .fl { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--cyan); color: var(--ink); transition: transform .3s ease; }
+  .pole:hover .bas .fl { transform: translateX(4px); }
+
+  /* ----- BLOC 5 — FORMATIONS ----- */
+  .tete { display: flex; align-items: end; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
+  .tete .lead { max-width: 560px; }
+  .cartes3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: clamp(36px, 4.5vw, 56px); }
+  /* carte claire à liseré dégradé (bdemerson) */
+  .carte { position: relative; padding: 1px; border-radius: 18px; background: linear-gradient(180deg, #fff 20%, rgba(76,191,223,0.55) 65%, #fff); box-shadow: 0 18px 40px rgba(11,14,38,0.06); transition: transform .35s ease, box-shadow .35s ease; }
+  .carte:hover { transform: translateY(-4px); box-shadow: 0 26px 54px rgba(11,14,38,0.1); }
+  .carte__in { height: 100%; display: flex; flex-direction: column; padding: 26px; border-radius: 17px; background: #fff; }
+  .badge { align-self: flex-start; padding: 6px 12px; border-radius: 999px; background: var(--cyan-50); color: var(--cyan-600); font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+  .carte h3 { margin-top: 18px; font-family: var(--fh); font-weight: 600; font-size: 21px; line-height: 1.25; color: var(--text); }
+  /* vignette photo des cartes formation, comme les cartes actualités de Brydge :
+     photo sous un voile de couleur, icône blanche au centre, pastille en haut à gauche */
+  .carte .thumb { position: relative; height: 170px; margin: -26px -26px 0; border-radius: 17px 17px 0 0; overflow: hidden; display: grid; place-items: center; background: linear-gradient(135deg, var(--ink), var(--cyan)); }
+  .carte .thumb .fond { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform .8s cubic-bezier(.22,1,.36,1); }
+  .carte:hover .thumb .fond { transform: scale(1.06); }
+  .carte .thumb::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(135deg, var(--ink), var(--cyan)); opacity: .6; }
+  .carte .thumb svg { position: relative; z-index: 2; width: 42px; height: 42px; fill: rgba(255,255,255,0.92); filter: drop-shadow(0 2px 6px rgba(8,10,28,0.55)); }
+  .carte .thumb .badge { position: absolute; left: 16px; top: 16px; z-index: 3; background: rgba(255,255,255,0.92); color: #1d2340; }
+  .carte .infos { margin-top: 16px; display: grid; gap: 10px; }
+  .carte .infos div { display: grid; grid-template-columns: 112px 1fr; gap: 10px; font-size: 14px; }
+  .carte .infos dt { color: var(--muted); }
+  .carte .infos dd { color: var(--text); font-weight: 600; }
+  .a-valider { color: #8a91ad !important; font-weight: 500 !important; font-style: italic; }
+  .carte .liens { margin-top: auto; padding-top: 24px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .mini { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; font-size: 13.5px; font-weight: 700; text-decoration: none; transition: background .25s ease, color .25s ease; }
+  .mini--plein { background: var(--navy); color: #fff; }
+  .mini--plein:hover { background: var(--cyan); color: var(--ink); }
+  .mini--ligne { border: 1px solid var(--line); color: var(--navy); }
+  .mini--ligne:hover { border-color: var(--navy); }
+  .mini svg { width: 15px; height: 15px; }
+  .sous-cartes { margin-top: 34px; display: flex; align-items: center; justify-content: space-between; gap: 22px; flex-wrap: wrap; padding: 22px 26px; border-radius: 18px; background: #fff; border: 1px solid var(--line); }
+  .sous-cartes p { font-size: 14.5px; color: var(--muted); }
+  .sous-cartes p b { color: var(--text); }
+  .sous-cartes .actions { margin-top: 0; }
+
+  /* ----- BLOC 8 — ÉCOSYSTÈME BRYDGE GROUP ----- */
+  .eco { margin-top: clamp(40px, 5vw, 60px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
+  /* cartes de l'écosystème : forme d'origine, couleurs des cartes « Nous rejoindre » de Brydge
+     (violet ESTUDECH, cyan SICARE, vert FactoryD) */
+  .eco-carte { position: relative; display: flex; flex-direction: column; gap: 14px; padding: 26px; border-radius: 20px; background: var(--card); color: #131a3a; }
+  .eco-carte:nth-child(1) { --card: #c9a9f2; }
+  .eco-carte:nth-child(2) { --card: #7fd3ea; }
+  .eco-carte:nth-child(3) { --card: #61d99b; }
+  .eco-carte .logo-ent { width: 64px; height: 64px; border-radius: 16px; background: #fff; display: grid; place-items: center; }
+  .eco-carte .logo-ent img { width: 70%; }
+  .eco-carte .role { font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #131a3a; opacity: .7; }
+  .eco-carte h3 { font-family: var(--fh); font-weight: 600; font-size: 20px; }
+  .eco-carte p { font-size: 14.5px; line-height: 1.7; color: #131a3a; opacity: .88; }
+  .eco-note { margin-top: 26px; font-size: 14.5px; color: var(--muted); max-width: 780px; }
+
+  /* ----- BLOC 11 — PRENDRE CONTACT ----- */
+  .contact-cta { padding-bottom: clamp(70px, 8vw, 110px); }
+  /* CTA final : texte et bouton à gauche, la femme à droite, sa tête dépasse du bandeau */
+  .contact-cta { padding-top: clamp(90px, 10vw, 140px) !important; }
+  .bandeau { position: relative; isolation: isolate; border-radius: 32px; background: var(--navy); color: #fff; padding: clamp(48px, 6vw, 84px) clamp(28px, 6vw, 84px); display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: 40px; align-items: center; }
+  .bandeau::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: radial-gradient(ellipse 55% 85% at 84% 60%, rgba(76,191,223,0.34), transparent 65%), linear-gradient(120deg, var(--navy-900), var(--navy)); }
+  .bandeau .titre { color: #fff; font-size: clamp(30px, 3.6vw, 48px); }
+  .bandeau p { margin-top: 18px; font-size: 16.5px; line-height: 1.75; color: rgba(255,255,255,0.78); max-width: 620px; }
+  .bandeau .actions { justify-content: flex-start; margin-top: 30px; }
+  .bandeau__femme { position: absolute; right: clamp(16px, 5vw, 80px); bottom: 0; height: 128%; width: auto; max-width: 42%; object-fit: contain; object-position: bottom; pointer-events: none; }
+  @media (max-width: 1180px) { .bandeau { grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr); } .bandeau__femme { height: 112%; right: 2%; } }
+
+  /* ----- pied de page ----- */
+  .ftr { background: var(--navy-900); color: #fff; padding: 80px 0 34px; }
+  .ftr .haut { display: grid; grid-template-columns: 1.3fr repeat(3, 1fr); gap: 40px; }
+  .ftr .marque-ftr img { height: 44px; width: auto; }
+  .ftr .marque-ftr p { margin-top: 18px; font-size: 14.5px; line-height: 1.7; color: var(--muted-dark); max-width: 320px; }
+  .ftr h4 { font-size: 12px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan-200); margin-bottom: 18px; }
+  .ftr ul { list-style: none; display: grid; gap: 10px; }
+  .ftr ul a { font-size: 14.5px; color: rgba(255,255,255,0.72); text-decoration: none; transition: color .2s ease; }
+  .ftr ul a:hover { color: #fff; }
+  .ftr .bas { margin-top: 60px; padding-top: 24px; border-top: 1px solid rgba(143,227,247,0.12); display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; font-size: 13px; color: var(--muted-dark); }
+  .ftr .bas a { color: inherit; text-decoration: none; margin-left: 18px; }
+  .ftr .bas a:hover { color: #fff; }
+
+  /* ----- apparition au défilement (désactivée si réduction des animations) ----- */
+  /* sections hors écran : leurs animations décoratives sont mises en pause (navigation plus fluide) */
+  .hors-ecran, .hors-ecran *, .hors-ecran *::before, .hors-ecran *::after { animation-play-state: paused !important; }
+  /* défilement amorti (Lenis) */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+  .lenis.lenis-stopped { overflow: hidden; }
+  .rv { opacity: 0; transform: translateY(24px); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); transition-delay: var(--d, 0ms); }
+  .rv.vu { opacity: 1; transform: none; }
+  .trace { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s cubic-bezier(.45,.05,.25,1); transition-delay: var(--d, 0ms); }
+  .vu .trace, .trace.vu { stroke-dashoffset: 0; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .rv { opacity: 1; transform: none; transition: none; }
+    .trace { stroke-dashoffset: 0; transition: none; }
+    .sbtn, .sbtn * , .pole, .carte, .article { transition: none !important; }
+  }
+
+  /* ----- responsive ----- */
+  @media (max-width: 1100px) {
+    .menu { display: none; }
+    .burger { display: block; }
+    .hdr .sbtn { display: none; }
+    .menu.ouvert { display: flex; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: flex-start; gap: 4px; padding: 20px 4vw 26px; background: rgba(25,35,96,0.97); border-top: 1px solid rgba(143,227,247,0.12); }
+    .menu.ouvert a { font-size: 16px; padding: 10px 0; }
+    .menu.ouvert .menu-cta { display: inline-block; margin-top: 12px; }
+    .menu.ouvert .menu-cta::after { display: none; }
+    .hero__indice { display: none; }
+    .poles, .cartes3 { grid-template-columns: 1fr 1fr; }
+    .eco { grid-template-columns: 1fr 1fr; }
+    .eco-carte.sicare { grid-column: 1 / -1; order: -1; }
+    .ftr .haut { grid-template-columns: 1fr 1fr; }
+    .piste { grid-auto-columns: calc((100% - 2 * 18px) / 3); }
+  }
+  @media (max-width: 900px) {
+    /* mobile : texte, boutons, puis image (consigne du wireframe) */
+    .hero { min-height: 0; display: block; }
+    .hero__photo { display: none; }
+    .hero::after { display: none; }
+    .hero .shell { padding: 120px 0 0; }
+    .hero__poles { display: none; }
+    .hero__mobile-img { display: block; position: relative; margin-top: 40px; height: clamp(320px, 80vw, 520px); overflow: hidden; }
+    .hero__mobile-img img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 30%; display: block; }
+    .hero__mobile-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, var(--ink) 0%, rgba(25,35,96,0) 28%, rgba(25,35,96,0) 80%, rgba(25,35,96,0.6) 100%); }
+    .deux-col, .bandeau { grid-template-columns: 1fr; }
+    .pos-visuel { width: min(460px, 100%); margin-bottom: 8px; }
+    .bandeau__femme { position: static; display: block; height: auto; width: min(300px, 78%); max-width: none; margin: 10px auto calc(-1 * clamp(48px, 6vw, 84px)); }
+    .si-orbite { --r: min(300px, 78vw); grid-template-columns: 1fr 1fr; gap: 14px; }
+    .si-coeur { grid-column: 1 / -1; grid-row: 1; justify-self: center; margin-bottom: 18px; }
+    .si-col { display: contents; }
+    .si-carte { order: var(--o); margin-top: 40px; }
+    .si-carte::after { display: none; }
+  }
+  @media (max-width: 680px) {
+    .poles, .cartes3, .eco { grid-template-columns: 1fr; }
+    .ftr .haut { grid-template-columns: 1fr; }
+    .piste { grid-auto-columns: calc((100% - 18px) / 2); }
+    .si-orbite { grid-template-columns: 1fr; }
+    .carte .infos div { grid-template-columns: 1fr; gap: 2px; }
+    .sbtn__txt { font-size: 14.5px; }
+    .tete { align-items: flex-start; }
+  }
+  /* ============================================================
+     GRANDS ÉCRANS (1281 px et plus)
+     Même rendu que sur un portable (1280 px) : chaque bloc garde la même
+     part de l'écran, et textes, cartes, schémas et boutons grandissent
+     ensemble du même facteur (--z ≈ largeur de l'écran ÷ 1280).
+     ============================================================ */
+  @media (min-width: 1281px) {
+    :root { --z: 1; }
+    /* contenu : 92 % de la largeur (comme sur le portable), agrandi d'un bloc */
+    .shell { width: 92%; zoom: var(--z); }
+    /* tailles calculées en « vw » à l'intérieur des blocs agrandis : figées à leur valeur du portable */
+    .titre { font-size: 53.8px; }
+    .hero h1 { font-size: 56.3px; }
+    .hero__accroche { font-size: 19.2px; }
+    .bandeau .titre { font-size: 46.1px; }
+    .deux-col { gap: 76.8px; }
+    .si-orbite { margin-top: 64px; }
+    .poles, .eco { margin-top: 60px; }
+    .cartes3, .defile-zone { margin-top: 56px; }
+    .carrousel { margin-top: 51.2px; }
+    .expz-intro { padding-bottom: 64px; }
+    .bandeau { padding: 76.8px; }
+    .bandeau__femme { right: 64px; }
+    /* espacements des sections et plaques sombres : proportionnels à l'écran */
+    section { padding-top: 9vw; padding-bottom: 9vw; }
+    #posture { padding: 4.375vw 0; }
+    .contact-cta { padding-top: 10vw !important; padding-bottom: 8vw; }
+    #offre > section { padding-top: 20vw; }
+    .plaque { width: calc(100% - 2.5vw); border-radius: 2.5vw; }
+    .hero { min-height: 100vh; }
+    .pos-filet { width: 20vw; }
+    /* défilement « cinéma » des expertises : textes et panneau final agrandis */
+    .cine-txt { zoom: var(--z); left: 24px; bottom: calc(7svh / var(--z)); }
+    .cine-txt h3 { font-size: 56.3px; }
+    .cine-txt p { font-size: 17.3px; }
+    .cine-fin { zoom: var(--z); }
+    .cine-fin h3 { font-size: 43.5px; }
+    /* hero « studio » (photo du bureau + expert) : texte et visuel agrandis d'un bloc,
+       la hauteur reste celle de l'écran */
+    .hs { zoom: var(--z); min-height: clamp(640px, calc(100svh / var(--z)), 900px); }
+    .hs-visuel { height: min(640px, calc(100svh / var(--z) - 110px)); }
+    .hs-trainee { right: calc(-1 * max(24px, (100vw / var(--z) - var(--shell)) / 2)); }
+    .hs-point--1 { right: calc(46% + 14px - max(24px, (100vw / var(--z) - var(--shell)) / 2)); }
+    .hs-point--2 { right: calc(38% + 12px - max(24px, (100vw / var(--z) - var(--shell)) / 2)); }
+    .hero--studio h1 { font-size: 48.6px; }
+    .hs-accroche { font-size: 17.3px; }
+    /* « Audit, défense & gestion de crise » : la carte entière grandit d'un bloc */
+    .pub { padding: 6vw 0; }
+    .pub-scene { zoom: var(--z); --h: 588.8px; }
+    .pub-photos { right: 256px; }
+    html body .pub-titre { font-size: 42.2px !important; }
+    .pub-sous { font-size: 17.9px; }
+    /* « Les expertises cyber » (photos plein écran) : textes et pastilles agrandis */
+    .c2-txt { zoom: var(--z); left: 24px; }
+    .c2-txt h3 { font-size: 58.9px; }
+    .c2-txt p { font-size: 16.6px; }
+    .c2-pills { zoom: var(--z); }
+  }
+  /* facteur d'agrandissement selon la largeur de l'écran (par paliers de 80 px) */
+  @media (min-width: 1360px) { :root { --z: 1.0625; } }
+  @media (min-width: 1440px) { :root { --z: 1.125; } }
+  @media (min-width: 1520px) { :root { --z: 1.1875; } }
+  @media (min-width: 1600px) { :root { --z: 1.25; } }
+  @media (min-width: 1680px) { :root { --z: 1.3125; } }
+  @media (min-width: 1760px) { :root { --z: 1.375; } }
+  @media (min-width: 1840px) { :root { --z: 1.4375; } }
+  @media (min-width: 1920px) { :root { --z: 1.5; } }
+  @media (min-width: 2080px) { :root { --z: 1.625; } }
+  @media (min-width: 2240px) { :root { --z: 1.75; } }
+  @media (min-width: 2400px) { :root { --z: 1.875; } }
+  @media (min-width: 2560px) { :root { --z: 2; } }
+
+  /* ============================================================
+     PAGE « À PROPOS » — composants propres à cette page
+     ============================================================ */
+  .menu a.actif { color: #fff; }
+
+  /* ----- HERO À PROPOS : bureau en fond, texte à gauche, composition photo à droite ----- */
+  .ap-hero { padding: 0; position: relative; isolation: isolate; overflow: hidden; background: #d6e2f0; }
+  .ap-fond { position: absolute; inset: 0; z-index: -2; }
+  .ap-fond img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 40%; }
+  .ap-fond::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(214,226,240,0.94) 0%, rgba(214,226,240,0.86) 40%, rgba(214,226,240,0.55) 70%, rgba(214,226,240,0.35) 100%), linear-gradient(rgba(25,35,96,0.08), rgba(25,35,96,0.08)); }
+  .ap-hs { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr); align-items: center; gap: clamp(30px, 5vw, 70px); min-height: clamp(640px, 100svh, 900px); padding: 110px 0 70px; }
+  .ap-hero h1 { margin-top: 20px; font-size: clamp(32px, 3.6vw, 52px); line-height: 1.1; letter-spacing: -0.025em; color: var(--navy); }
+  .ap-hero h1 .ligne { display: block; }
+  .ap-hero h1 em { font-style: normal; color: #1f8fb8; }
+  .ap-accroche { margin-top: 22px; max-width: 34em; font-size: clamp(16px, 1.35vw, 19px); line-height: 1.6; color: #3a4670; }
+  .ap-presentation { margin-top: 16px; max-width: 36em; font-size: 16px; line-height: 1.7; color: #1f2b5a; }
+  .ap-presentation b { color: var(--navy); }
+  .ap-hero .actions { margin-top: 30px; }
+  .ap-filiale { display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px 6px 6px; border-radius: 999px; background: rgba(255,255,255,0.7); border: 1px solid rgba(76,191,223,0.35); font-size: 13px; font-weight: 700; color: var(--navy); }
+  .ap-filiale i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--navy); }
+  .ap-filiale img { width: 16px; }
+  /* composition visuelle */
+  .ap-visuel { position: relative; width: min(600px, 100%); aspect-ratio: 1 / 0.98; margin-inline: auto; }
+  .ap-disque { position: absolute; right: 2%; top: 8%; width: 62%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #8FE3F7 0%, #4CBFDF 55%, #2E9FC4 100%); box-shadow: 0 30px 70px rgba(46,159,196,0.35); }
+  .ap-anneau { position: absolute; right: -4%; top: 2%; width: 74%; aspect-ratio: 1; border-radius: 50%; border: 1.5px dashed rgba(46,159,196,0.55); animation: si-rot 70s linear infinite; }
+  .ap-photo { position: absolute; margin: 0; overflow: hidden; border-radius: 26px; box-shadow: 0 30px 60px -20px rgba(13,18,48,0.4); }
+  .ap-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .ap-photo--a { left: 0; top: 4%; width: 78%; aspect-ratio: 4 / 3; }
+  .ap-photo--b { right: 0; top: 50%; width: 44%; aspect-ratio: 1; border: 6px solid #fff; border-radius: 24px; }
+  .ap-citation { position: absolute; left: 4%; bottom: 0; width: min(62%, 360px); padding: 20px 22px; border-radius: 20px; background: rgba(255,255,255,0.86); border: 1px solid rgba(255,255,255,0.9); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 24px 50px -18px rgba(13,18,48,0.35); animation: pos-flotte 7s ease-in-out infinite; }
+  .ap-citation small { display: block; font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan-600); }
+  .ap-citation p { margin-top: 8px; font-size: 14.5px; line-height: 1.6; color: #1f2b5a; }
+  @keyframes si-rot { to { transform: rotate(360deg); } }
+  @keyframes pos-flotte { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+
+  /* ----- POSTURE : trois exigences ----- */
+  .exigences { margin-top: 26px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 620px; }
+  .exigence { padding: 16px 16px 18px; border-radius: 16px; background: rgba(255,255,255,0.75); border: 1px solid rgba(76,191,223,0.3); box-shadow: 0 14px 30px -18px rgba(25,35,96,0.25); }
+  .exigence i { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: linear-gradient(145deg, #4CBFDF, #2EB6EA); color: #fff; }
+  .exigence i svg { width: 20px; height: 20px; }
+  .exigence b { display: block; margin-top: 12px; font-family: var(--fh); font-size: 16px; color: var(--navy); }
+  .exigence small { display: block; margin-top: 4px; font-size: 13px; line-height: 1.45; color: #3a4670; }
+  .marque__symbole { position: absolute; left: 50%; top: 50%; width: 22% !important; transform: translate(-50%, -50%); filter: drop-shadow(0 8px 20px rgba(46,182,234,0.45)); }
+
+  /* ----- VISION GLOBALE : schéma des dimensions reliées ----- */
+  .vision-role { margin-top: 26px; padding: 20px 22px; border-radius: 18px; border: 1px solid rgba(143,227,247,0.3); background: linear-gradient(135deg, rgba(76,191,223,0.16), rgba(76,191,223,0.04)); font-family: var(--fh); font-size: 18px; line-height: 1.5; color: #fff; }
+  .transfos { margin-top: 26px; }
+  .transfos > small { display: block; font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan-200); }
+  .transfos ul { list-style: none; margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .transfos li { padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(143,227,247,0.25); font-size: 14px; color: rgba(255,255,255,0.9); }
+  .dims { position: relative; width: min(500px, 100%); aspect-ratio: 1; margin-inline: auto; }
+  .dims > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .dims-tourne { transform-origin: 50px 50px; animation: si-rot 60s linear infinite; }
+  .dims-coeur { position: absolute; left: 50%; top: 50%; width: 34%; aspect-ratio: 1; transform: translate(-50%, -50%); display: grid; place-content: center; justify-items: center; gap: 6px; border-radius: 50%; text-align: center; background: radial-gradient(circle at 35% 28%, #2b3a8f 0%, var(--navy-900) 70%); border: 1px solid rgba(143,227,247,0.35); box-shadow: 0 0 0 10px rgba(76,191,223,0.10), 0 0 0 22px rgba(76,191,223,0.05), 0 0 50px rgba(76,191,223,0.3); }
+  .dims-coeur img { width: 34px; }
+  .dims-coeur b { font-family: var(--fh); font-size: 14px; line-height: 1.25; color: #fff; }
+  .dim { position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); display: flex; align-items: center; gap: 10px; padding: 6px 16px 6px 6px; border-radius: 999px; background: rgba(255,255,255,0.1); border: 1px solid rgba(143,227,247,0.35); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); white-space: nowrap; }
+  .dim i { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #8FE3F7, #4CBFDF); color: var(--navy); box-shadow: 0 0 20px rgba(76,191,223,0.45); }
+  .dim i svg { width: 18px; height: 18px; }
+  .dim b { font-family: var(--fh); font-size: 15px; color: #fff; }
+  .vision-grille { margin-top: clamp(40px, 5vw, 60px); align-items: center; }
+
+  /* ----- MÉTHODE : quatre étapes reliées ----- */
+  .etapes { list-style: none; position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-top: clamp(44px, 5vw, 64px); }
+  .etapes::before { content: ""; position: absolute; left: 12%; right: 12%; top: 28px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, rgba(76,191,223,0.2), var(--cyan), rgba(76,191,223,0.2)); }
+  .etape { position: relative; display: flex; flex-direction: column; }
+  .etape-num { position: relative; z-index: 1; align-self: center; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--navy); color: var(--cyan-200); font-family: var(--fh); font-weight: 700; font-size: 17px; box-shadow: 0 0 0 8px var(--paper), 0 0 0 9px rgba(76,191,223,0.4); }
+  .etape .carte { flex: 1; margin-top: 26px; }
+  .etape .carte__in { padding: 26px 24px; }
+  .etape-ic { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: var(--cyan-50); color: var(--cyan-600); }
+  .etape-ic svg { width: 24px; height: 24px; }
+  .etape h3 { margin-top: 16px !important; font-size: 21px !important; color: var(--navy); }
+  .etape p { margin-top: 10px; font-size: 14.5px; line-height: 1.7; color: var(--muted); }
+
+  /* ----- ENTREPRISE APPRENANTE ----- */
+  #apprenante { background: linear-gradient(135deg, #f4f8fd 0%, #eaf3fb 55%, #e3eff9 100%); overflow: clip; }
+  .app-visuel { position: relative; width: min(580px, 100%); margin-inline: auto; padding: 0 0 40px 0; }
+  .app-visuel::before { content: ""; position: absolute; left: -6%; bottom: 0; width: 56%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #8FE3F7 0%, #4CBFDF 55%, #2E9FC4 100%); opacity: .9; }
+  .app-photo { position: relative; margin: 0; border-radius: 26px; overflow: hidden; aspect-ratio: 4 / 3.3; box-shadow: 0 30px 60px -20px rgba(13,18,48,0.35); }
+  .app-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .cycle { position: absolute; right: -2%; bottom: 0; display: grid; gap: 8px; padding: 16px; border-radius: 20px; background: #fff; box-shadow: 0 24px 50px -18px rgba(13,18,48,0.35); animation: pos-flotte 7s ease-in-out infinite; }
+  .cycle span { display: flex; align-items: center; gap: 10px; font-family: var(--fh); font-weight: 700; font-size: 15px; color: var(--navy); }
+  .cycle span i { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--cyan-50); color: var(--cyan-600); font-style: normal; font-size: 12px; }
+  .app-lead { margin-top: 20px; font-size: 18px; line-height: 1.6; color: var(--navy); }
+  .app-lead b { font-weight: 700; }
+  #apprenante .prose { margin-top: 16px; font-size: 16px; line-height: 1.75; color: #1f2b5a; }
+  .duo { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .duo div { padding: 18px 18px 20px; border-radius: 16px; background: #fff; border: 1px solid var(--line); }
+  .duo small { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan-600); }
+  .duo p { margin-top: 6px; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+
+  /* ----- ENGAGEMENTS ----- */
+  .cartes4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-top: clamp(36px, 4.5vw, 56px); }
+  .eng-ic { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 16px; background: linear-gradient(145deg, var(--navy), #2b3a8f); color: var(--cyan-200); }
+  .eng-ic svg { width: 24px; height: 24px; }
+  .cartes4 .carte h3 { margin-top: 18px; font-size: 19px; color: var(--navy); }
+  .cartes4 .carte p { margin-top: 10px; font-size: 14.5px; line-height: 1.7; color: var(--muted); }
+  /* équipe : profils à renseigner */
+  .equipe { margin-top: clamp(50px, 6vw, 80px); padding: clamp(26px, 3.5vw, 44px); border-radius: 26px; background: #fff; border: 1px solid var(--line); }
+  .equipe-tete { display: flex; align-items: end; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .equipe-tete h3 { font-size: clamp(22px, 2.2vw, 30px); color: var(--navy); }
+  .equipe-tete h3 em { font-style: normal; color: var(--cyan-600); }
+  .equipe-tete p { max-width: 460px; font-size: 14.5px; color: var(--muted); }
+  .membres { margin-top: 28px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .membre { padding: 22px; border-radius: 18px; border: 1px dashed #c9d0de; background: #f8fafc; }
+  .membre .avatar { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--navy), var(--cyan)); }
+  .membre .avatar img { width: 30px; }
+  .membre b { display: block; margin-top: 16px; font-family: var(--fh); font-size: 17px; color: var(--navy); }
+  .membre span { display: block; margin-top: 2px; font-size: 13.5px; color: var(--cyan-600); font-weight: 700; }
+  .membre small { display: block; margin-top: 10px; font-size: 13px; line-height: 1.55; }
+
+  /* ----- BRYDGE GROUP ----- */
+  .eco-carte.eco--sicare { --card: #7fd3ea; }
+  .eco-carte.eco--estudech { --card: #c9a9f2; }
+  .eco-carte.eco--factoryd { --card: #61d99b; }
+  #brydge .lead b { color: var(--text); }
+
+  /* ----- CARRIÈRES (plaque sombre) ----- */
+  .voies { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: clamp(40px, 5vw, 60px); }
+  .voies .pole:hover { transform: none; }
+  .voies .pole p + p { margin-top: 10px; }
+  .voies .pole .ico { margin-top: 0; }
+  .voies .pole .tag { position: absolute; right: 26px; top: 30px; padding: 5px 11px; border-radius: 999px; background: rgba(76,191,223,0.14); border: 1px solid rgba(76,191,223,0.35); font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan-200); }
+  .voies-fin { margin-top: 34px; padding: 22px 26px; border-radius: 18px; border-left: 3px solid var(--cyan); background: rgba(255,255,255,0.05); font-family: var(--fh); font-size: clamp(17px, 1.5vw, 20px); line-height: 1.5; color: #fff; }
+
+  /* ----- REJOINDRE SICARE ----- */
+  .rej-visuel { position: relative; width: min(560px, 100%); margin-inline: auto; padding: 30px 30px 0 0; }
+  .rej-visuel::before { content: ""; position: absolute; right: 0; top: 0; width: 46%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #8FE3F7 0%, #4CBFDF 55%, #2E9FC4 100%); }
+  .rej-photo { position: relative; margin: 0; border-radius: 26px; overflow: hidden; aspect-ratio: 4 / 3.2; box-shadow: 0 30px 60px -20px rgba(13,18,48,0.35); }
+  .rej-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; }
+  #rejoindre .titre { font-size: clamp(30px, 3.4vw, 46px); }
+  #rejoindre .prose { margin-top: 20px; font-size: 16.5px; line-height: 1.75; color: var(--muted); max-width: 560px; }
+
+
+  /* ----- QUI SOMMES-NOUS : première section, mise en page éditoriale ----- */
+  .qui-grille { display: grid; justify-items: center; gap: clamp(26px, 3vw, 40px); max-width: 860px; text-align: center; }
+  .qui .titre { font-size: clamp(30px, 3.3vw, 48px); line-height: 1.12; }
+  .qui .titre .ligne { display: block; }
+  .qui-texte { display: grid; justify-items: center; }
+  .qui-texte::before { content: ""; width: 60px; height: 2px; background: rgba(25,35,96,0.25); }
+  .qui-accroche { margin-top: 24px; font-family: var(--fh); font-size: clamp(19px, 1.7vw, 24px); line-height: 1.45; color: var(--navy); }
+  .qui-presentation { margin-top: 20px; font-size: 16.5px; line-height: 1.75; color: var(--muted); }
+  .qui-presentation b { color: var(--navy); }
+  .qui-conviction { margin-top: 30px; max-width: 640px; padding-top: 18px; position: relative; }
+  .qui-conviction::before { content: ""; position: absolute; left: 50%; top: 0; width: 34px; height: 3px; border-radius: 3px; background: var(--cyan); transform: translateX(-50%); }
+  .qui-conviction small { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--cyan-600); }
+  .qui-conviction p { margin-top: 8px; font-size: 16.5px; line-height: 1.65; color: #1f2b5a; font-style: italic; }
+  .qui .actions { margin-top: 30px; justify-content: center; }
+  @media (min-width: 1281px) { .qui .titre { font-size: 44px; } .qui-accroche { font-size: 21px; } }
+
+
+  /* ----- VIDÉO : grande vidéo qui rétrécit et se loge dans le titre suivant ----- */
+  main { position: relative; }
+  .vid-sec { padding: 0 0 clamp(60px, 7vw, 110px); }
+  .vid-place { width: 100%; aspect-ratio: 16 / 9; border-radius: 28px; }
+  .vid-vol { position: absolute; left: 0; top: 0; z-index: 30; display: block; object-fit: cover; background: var(--navy);
+    border-radius: 28px; box-shadow: 0 40px 80px -40px rgba(13,18,48,0.45); will-change: transform; transform-origin: 0 0; pointer-events: none; }
+  /* emplacement en forme de pilule, dans le titre « Plus qu'un nom, … une posture. » */
+  .vid-fente { display: inline-block; width: 2.1em; height: 0.82em; margin: 0 .06em; vertical-align: -0.06em; border-radius: 999px; }
+  /* la section suivante prend le même fond que la première section (fond de page) */
+  #posture { background: transparent; }
+  #posture .pos-rai { display: none; } /* les rais de lumière éclaircissaient le fond : retirés pour un fond identique */
+
+  /* posture épurée : l'experte seule, plus grande, sans cercle ni icônes */
+  .posture-epure .pos-visuel--seule { aspect-ratio: auto; width: min(560px, 100%); }
+  .posture-epure .pos-femme { position: static; display: block; width: 100%; height: auto; }
+  .posture-epure .nom-texte .prose { font-size: 17px; line-height: 1.8; }
+  .posture-epure .nom-texte .prose p + p { margin-top: 16px; }
+  .posture-epure .nom-texte .prose b { color: var(--navy); }
+
+
+  /* ----- LES PERSONNES QUI PORTENT SICARE (inspiré de brandappart.com) ----- */
+  .eq { overflow: clip; padding-bottom: clamp(60px, 7vw, 110px); }
+  .eq-titre { font-size: clamp(40px, 6vw, 92px) !important; line-height: 1; letter-spacing: -0.04em; color: var(--navy); }
+  .eq-scene { position: relative; height: clamp(440px, 50vw, 760px); margin-top: clamp(10px, 2vw, 30px); }
+  .eq-geant { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; text-align: center;
+    font-family: var(--fh); font-weight: 700; font-size: clamp(80px, 16.5vw, 300px); line-height: .86; letter-spacing: -0.05em; color: #c4c9d4; pointer-events: none; }
+  .eq-geant span { display: block; white-space: nowrap; }
+  /* tornade : cylindre 3D de portraits (rayon = 45 % de la largeur d'écran, 62 % sur téléphone) */
+  .tor-wrap { position: absolute; left: 50%; top: 50%; width: 80vw; height: 100%; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; pointer-events: none; }
+  .tor-list { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; perspective: 90vw; perspective-origin: 50% 50%; transform-style: preserve-3d; transform: rotate(5deg); }
+  .tor-item { position: absolute; width: clamp(180px, 17vw, 300px); height: 100%; display: flex; align-items: center; justify-content: center; }
+  .tor-carte { position: relative; width: 100%; aspect-ratio: 190 / 210; opacity: 0; transform: translateY(var(--ty, 0%)) scale(.05); transition: opacity 1.2s cubic-bezier(.16,1,.3,1), transform 1.2s cubic-bezier(.16,1,.3,1); }
+  .eq-scene.joue .tor-carte { opacity: 1; transform: none; }
+  .tor-pic { position: absolute; inset: 0; display: block; border-radius: 12px; overflow: hidden;
+    background: linear-gradient(180deg, var(--c) 0%, color-mix(in srgb, var(--c) 70%, #fff) 55%, color-mix(in srgb, var(--c) 18%, #fff) 100%); }
+  .tor-item:nth-child(3n+1) .tor-pic { transform: translateY(-25%); }
+  .tor-item:nth-child(3n+3) .tor-pic { transform: translateY(25%); }
+  .tor-wrap .tor-carte { pointer-events: auto; cursor: pointer; display: block; padding: 0; border: 0; background: none; font: inherit; color: inherit; text-align: center; }
+  /* nom de la personne : étiquette rectangulaire qui apparaît sous la photo au survol de la souris */
+  .tor-nom { position: absolute; left: 50%; top: calc(100% + 14px); display: grid; gap: 2px; padding: 10px 18px; border-radius: 4px; background: var(--navy); color: #fff; white-space: nowrap;
+    box-shadow: 0 14px 30px -12px rgba(13,18,48,.45); opacity: 0; transform: translate(-50%, -8px); transition: opacity .35s ease, transform .45s cubic-bezier(.34,1.56,.64,1); pointer-events: none; }
+  .tor-item:nth-child(3n+1) .tor-nom { top: calc(75% + 14px); }
+  .tor-item:nth-child(3n+3) .tor-nom { top: calc(125% + 14px); }
+  .tor-nom b { font-family: var(--fh); font-size: 14px; }
+  .tor-nom small { font-size: 11.5px; color: var(--cyan-200); }
+  .tor-carte:hover .tor-nom, .tor-carte:focus-visible .tor-nom, .tor-carte.ouvert .tor-nom { opacity: 1; transform: translate(-50%, 0); }
+  .tor-carte:focus-visible .tor-pic { outline: 3px solid var(--cyan); outline-offset: 3px; }
+  .tor-pic img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 8%; }
+  @media (prefers-reduced-motion: reduce) { .tor-carte { opacity: 1; transform: none; transition: none; } }
+  @media (max-width: 900px) {
+    .eq-scene { height: 100vw; }
+    .tor-item { width: 34vw; }
+    .eq-geant { font-size: 13.5vw; }
+  }
+  @media (min-width: 1281px) { .eq-titre { font-size: 86px !important; } }
+
+
+  /* ----- UNE VISION GLOBALE : centrée, fond clair, bouclier 3D qui tourne dans le coin gauche ----- */
+  .vision-centre { position: relative; overflow: clip; }
+  .vision-texte { position: relative; z-index: 1; max-width: 820px; margin-inline: auto; text-align: center; }
+  .vision-texte .titre { margin-top: 0; }
+  .vision-texte .prose { margin-top: 26px; font-size: 17px; line-height: 1.8; color: var(--muted); }
+  .vision-texte .prose p + p { margin-top: 16px; }
+  .vision-fort { margin-top: 26px !important; font-size: 18.5px; line-height: 1.6; }
+  .vision-fort b { color: var(--navy); }
+  .vision-bouclier { position: absolute; left: clamp(-130px, -5.8vw, -30px); top: clamp(20px, 4vw, 60px); z-index: 0; width: clamp(220px, 27vw, 420px); aspect-ratio: 1; pointer-events: none; }
+  .vision-bouclier model-viewer { width: 100%; height: 100%; display: block; background: transparent; --poster-color: transparent; --progress-bar-height: 0; filter: drop-shadow(0 22px 34px rgba(25,35,96,.28)); }
+  @media (max-width: 900px) { .vision-bouclier { width: 170px; left: -20px; top: 0; opacity: .9; } .vision-texte { padding-top: 120px; } }
+
+
+  /* ----- MÉTHODE : cartes qui s'empilent sur un grand titre (inspiré de thefirstthelast.agency) ----- */
+  .mth { padding: 0 0 clamp(70px, 8vw, 120px); }
+  .mth-piste { position: relative; height: 420vh; }
+  .mth-scene { position: sticky; top: 0; height: 100vh; overflow: hidden; display: grid; place-items: center;
+    background: linear-gradient(180deg, #d9dce2 0%, #eceef1 100%); }
+  .mth-titre { position: absolute; left: 50%; top: 13vh; width: 92vw; transform: translateX(-50%); text-align: center;
+    font-size: clamp(44px, 7.4vw, 140px) !important; line-height: .98; letter-spacing: -0.04em; color: #fff; }
+  .mth-titre em { font-style: normal; color: var(--cyan); }
+  /* la pile tient toujours dans l'écran : hauteur limitée à 66 % de l'écran, le texte garde sa place, la photo prend le reste */
+  .mth-pile { position: relative; width: min(420px, 82vw); height: min(560px, 66vh); margin-top: 12vh; }
+  .mth-carte { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--navy); color: #fff; overflow: hidden;
+    box-shadow: 0 40px 80px -30px rgba(13,18,48,.55); transform: translate3d(0, 120vh, 0) rotate(var(--r)); will-change: transform; }
+  .mth-photo { margin: 14px 14px 0; flex: 1 1 auto; min-height: 60px; overflow: hidden; }
+  .mth-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .mth-txt { flex: none; padding: 16px 24px 22px; }
+  .mth-txt h3 { margin-top: 0; font-size: clamp(22px, 2vw, 28px); line-height: 1.1; color: #fff; }
+  .mth-txt p { margin-top: 8px; font-size: 14px; line-height: 1.55; color: rgba(255,255,255,.82); }
+  .mth-fin { padding-top: clamp(40px, 5vw, 70px); }
+  @media (max-width: 900px) { .mth-titre { top: 11vh; font-size: 10vw !important; } .mth-pile { margin-top: 20vh; height: min(520px, 62vh); } .mth-txt p { font-size: 13px; } }
+  @media (prefers-reduced-motion: reduce) {
+    .mth-piste { height: auto; } .mth-scene { position: static; height: auto; display: block; padding: 80px 0; }
+    .mth-titre { position: static; transform: none; width: auto; color: var(--navy); margin-bottom: 40px; }
+    .mth-pile { display: grid; gap: 24px; aspect-ratio: auto; margin: 0 auto; }
+    .mth-carte { position: relative; transform: none; }
+  }
+
+
+  /* ----- ENTREPRISE APPRENANTE : épurée, même fond que la section suivante ----- */
+  #apprenante.app-epure { background: transparent; }
+  .app-epure .app-photo { margin: 0; border-radius: 0; box-shadow: none; aspect-ratio: 4 / 5; }
+  .app-epure .titre { margin-top: 0; }
+  .app-epure .prose { margin-top: 24px; font-size: 16px; line-height: 1.75; color: var(--muted); }
+  .app-epure .prose p + p { margin-top: 14px; }
+  .app-epure .prose b { color: var(--navy); }
+
+
+  /* ----- ENGAGEMENTS : style éditorial (pas de carte ni d'icône, filets fins, typographie) ----- */
+  .eng-edito { gap: 0 clamp(24px, 3vw, 44px); }
+  .eng-edito .carte { padding: 0; border-radius: 0; background: none; box-shadow: none; }
+  .eng-edito .carte:hover { transform: none; box-shadow: none; }
+  .eng-edito .carte__in { padding: 22px 0 0; border-radius: 0; background: none; border-top: 1px solid rgba(25,35,96,0.3); }
+  .eng-edito .carte h3 { margin-top: 0; font-size: clamp(20px, 1.7vw, 24px); line-height: 1.2; letter-spacing: -0.02em; color: var(--navy); }
+  .eng-edito .carte p { margin-top: 14px; font-size: 15px; line-height: 1.75; color: var(--muted); }
+
+
+  /* ----- CARRIÈRES : cartes aux couleurs des entités, plus compactes ; la dernière en jaune ----- */
+  .voies { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .voies .pole { padding: 22px 20px 24px; border: 0; color: #131a3a; background: var(--card); }
+  .voies .pole::after { display: none; }
+  .voies .pole:nth-child(1) { --card: #7fd3ea; }  /* SICARE (même teinte douce que les cartes Brydge Group) */
+  .voies .pole:nth-child(2) { --card: #c9a9f2; }  /* ESTUDECH */
+  .voies .pole:nth-child(3) { --card: #61d99b; }  /* FactoryD */
+  .voies .pole:nth-child(4) { --card: #f3dd6d; }  /* jaune adouci */
+  .voies .pole .ico { width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,.55); border: 0; color: #131a3a; }
+  .voies .pole .ico svg { width: 22px; height: 22px; }
+  .voies .pole .tag { position: static; align-self: flex-start; margin-top: 14px; padding: 4px 10px; background: rgba(19,26,58,.12); border: 0; color: #131a3a; font-size: 10.5px; }
+  .voies .pole h3 { margin-top: 0; font-size: 20px; line-height: 1.2; color: #131a3a; }
+  .voies .pole p { margin-top: 8px; font-size: 13.5px; line-height: 1.6; color: rgba(19,26,58,.85); }
+  @media (max-width: 1100px) { .voies { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 680px) { .voies { grid-template-columns: 1fr; } }
+
+  /* phrase de conclusion des carrières : simple texte, sans encadré */
+  .voies-fin { padding: 0; border: 0; border-left: 0; border-radius: 0; background: none; text-align: center; max-width: 760px; margin-inline: auto; }
+
+  /* ----- responsive (page) ----- */
+  @media (max-width: 1100px) {
+    .etapes { grid-template-columns: 1fr 1fr; row-gap: 34px; }
+    .etapes::before { display: none; }
+    .cartes4, .membres { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 900px) {
+    .ap-hs { grid-template-columns: 1fr; min-height: 0; padding: 104px 0 56px; gap: 40px; }
+    .ap-fond::after { background: linear-gradient(180deg, rgba(214,226,240,0.94) 0%, rgba(214,226,240,0.86) 60%, rgba(214,226,240,0.6) 100%); }
+    .voies { grid-template-columns: 1fr; }
+    .vision-grille .dims { order: -1; width: min(420px, 100%); }
+    .app-visuel { order: -1; }
+  }
+  @media (max-width: 680px) {
+    .exigences { grid-template-columns: 1fr; }
+    .exigence { display: grid; grid-template-columns: auto 1fr; column-gap: 14px; align-items: center; }
+    .exigence i { grid-row: span 2; }
+    .exigence b { margin-top: 0; }
+    .etapes, .cartes4, .membres, .duo { grid-template-columns: 1fr; }
+    .ap-citation { width: 78%; }
+    .dim { padding: 4px 12px 4px 4px; gap: 7px; }
+    .dim i { width: 30px; height: 30px; }
+    .dim i svg { width: 15px; height: 15px; }
+    .dim b { font-size: 13px; }
+    .dims-coeur b { font-size: 12px; }
+    .voies .pole .tag { position: static; align-self: flex-start; margin-top: 16px; }
+    .cycle { right: 0; }
+  }
+  @media (min-width: 1281px) {
+    .ap-hs { min-height: clamp(640px, calc(100svh / var(--z)), 900px); }
+    .ap-hero h1 { font-size: 46px; }
+    .ap-accroche { font-size: 17.3px; }
+    #rejoindre .titre { font-size: 43.5px; }
+    .equipe-tete h3 { font-size: 28px; }
+    .voies, .cartes4 { margin-top: 56px; }
+    .etapes { margin-top: 60px; }
+    .vision-grille { margin-top: 56px; }
+    .voies-fin { font-size: 19px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .ap-anneau, .ap-citation, .dims-tourne, .cycle { animation: none; } }
+
+  /* menu à 8 entrées : les libellés ne passent jamais à la ligne, et l'espacement se resserre sur les écrans moyens */
+  .menu a { white-space: nowrap; }
+  @media (min-width: 1101px) and (max-width: 1280px) { .menu { gap: 16px; } .menu a { font-size: 13px; } .hdr .shell { gap: 16px; } }
+  /* ===== hero éditorial (repris des pages Formations et SICARE décrypte) ===== */
+  .dh { position: relative; padding: 0; min-height: max(680px, 100svh); overflow: hidden; isolation: isolate; color: var(--navy); }
+  .dh-fond { position: absolute; inset: 0; z-index: -3; background: radial-gradient(ellipse 60% 70% at 78% 40%, #dff2fb 0%, rgba(223,242,251,0) 70%), linear-gradient(180deg, #f4f7fc 0%, #e8eef8 100%); }
+  .dh-mot { position: absolute; z-index: -2; left: 71%; top: 27%; transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none; user-select: none;
+    font-family: var(--fh); font-weight: 700; font-size: 9vw; line-height: 1.1; padding: 0 .05em; letter-spacing: -.03em; color: transparent; -webkit-background-clip: text; background-clip: text;
+    background-image: linear-gradient(180deg, rgba(25,35,96,.92) 0%, rgba(42,156,192,.55) 100%); will-change: translate; }
+  .dh-disque { position: absolute; z-index: -1; right: 9%; bottom: -14%; width: min(46vw, 78vh); aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #8FE3F7 0%, #4CBFDF 45%, #2A9CC0 100%); opacity: .9; will-change: translate; }
+  .dh-femme { position: absolute; z-index: 1; right: 11%; bottom: 0; height: min(90%, 900px); width: auto; filter: drop-shadow(0 30px 40px rgba(13,18,48,.22)); will-change: translate; }
+  .dh-label { position: absolute; z-index: 2; right: max(24px, 3.6vw); bottom: 12%; display: flex; flex-direction: column; gap: 6px; padding: 18px 22px; border-radius: 16px;
+    background: #FFD23F; color: var(--navy); font-weight: 800; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; box-shadow: 0 14px 30px rgba(25,35,96,.18); }
+  .dh-shell { position: relative; z-index: 3; min-height: calc(max(680px, 100svh) / var(--z, 1)); display: flex; align-items: center; padding: calc(64px / var(--z, 1)) 0 0; }
+  .dh-texte { width: min(50%, 680px); }
+  .dh h1 { margin-top: 18px; font-size: clamp(34px, 3.6vw, 56px); line-height: 1.06; letter-spacing: -0.025em; color: var(--navy); }
+  .dh h1 em { font-style: normal; color: #1f8fb8; }
+  .dh h1 .ligne { display: block; }
+  .dh-questions { list-style: none; margin: 20px 0 0; padding: 0; border-top: 1px solid rgba(25,35,96,.18); }
+  .dh-questions li { position: relative; padding: 9px 0 9px 30px; border-bottom: 1px solid rgba(25,35,96,.18); font-size: clamp(15px, 1.1vw, 17px); line-height: 1.45; color: #2b3769; }
+  .dh-questions li::before { content: ""; position: absolute; left: 0; top: 50%; width: 16px; height: 3px; border-radius: 3px; background: var(--cyan); transform: translateY(-50%); }
+  .dh-pres { margin-top: 18px; max-width: 36em; font-size: 16px; line-height: 1.7; color: #3a4670; }
+  .dh-pres b { color: var(--navy); }
+  /* entrée */
+  @keyframes dh-monte { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+  @keyframes dh-femme { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: none; } }
+  @keyframes dh-mot { from { opacity: 0; letter-spacing: .08em; } to { opacity: 1; letter-spacing: -.03em; } }
+  .dh-mot { animation: dh-mot 1.4s cubic-bezier(.22,1,.36,1) both; }
+  .dh-femme { animation: dh-femme 1.1s cubic-bezier(.22,1,.36,1) .15s both; }
+  .dh-label { animation: dh-monte .9s cubic-bezier(.22,1,.36,1) .7s both; }
+  .dh-texte > * { animation: dh-monte .9s cubic-bezier(.22,1,.36,1) both; }
+  .dh-texte > :nth-child(2) { animation-delay: .1s; } .dh-texte > :nth-child(3) { animation-delay: .2s; } .dh-texte > :nth-child(4) { animation-delay: .3s; }
+  @media (max-width: 900px) {
+    .dh, .dh-shell { min-height: 0; }
+    .dh { padding-top: 64px; }
+    .dh-mot { left: 50%; top: calc(64px + 9vw); font-size: 15.5vw; }
+    .dh-disque { right: 50%; transform: translateX(50%); bottom: auto; top: calc(64px + 30vw); width: 78vw; }
+    .dh-femme { position: relative; display: block; right: auto; height: auto; width: min(76vw, 420px); margin: 6vw auto 0; }
+    .dh-label { right: 16px; bottom: auto; top: calc(64px + 100vw); padding: 12px 14px; font-size: 11px; }
+    .dh-shell { display: block; padding: 28px 0 56px; }
+    .dh-texte { width: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) { .dh-mot, .dh-femme, .dh-label, .dh-texte > * { animation: none; } }
+  .dh .actions { margin-top: 30px; }
+  /* ----- À propos : forme derrière la femme = une arche (le « portique » SICARE), en couches ----- */
+  @media (min-width: 901px) { .dh-mot { left: 72%; font-size: 10vw; } .dh-texte { width: min(46%, 640px); } }
+  .dh-arche { z-index: -2; right: 5%; bottom: -2%; width: min(46vw, 80vh); aspect-ratio: 400 / 440; border-radius: 0; background: none; }
+  .dh-arche svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 30px 50px rgba(42,156,192,.32)); }
+  .dh-mot { z-index: -1; }
+  .ar-trait { animation: bc-flotte 7s ease-in-out infinite; }
+  .ar-pointille { animation: bc-tourne 30s linear infinite; }
+  .ar-orbite { transform-origin: 200px 200px; animation: si-rot 40s linear infinite; }
+  @keyframes bc-flotte { 0%,100% { translate: 0 0; } 50% { translate: -8px 6px; } }
+  @keyframes bc-tourne { to { stroke-dashoffset: -240; } }
+  @media (max-width: 900px) {
+    .dh-arche { right: 50%; bottom: auto; transform: translateX(50%); width: 96vw; top: calc(64px + 12vw); }
+    .dh-femme { -webkit-mask-image: linear-gradient(180deg, #000 68%, transparent 96%); mask-image: linear-gradient(180deg, #000 68%, transparent 96%); filter: none; }
+    .dh-arche svg { -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 92%); mask-image: linear-gradient(180deg, #000 60%, transparent 92%); }
+  }
+  @media (prefers-reduced-motion: reduce) { .ar-trait, .ar-pointille, .ar-orbite { animation: none; } }
+
+
+  /* ===== HERO À PROPOS — composition centrée : grand titre en haut, femme au milieu ===== */
+  .apc { position: relative; overflow: hidden; isolation: isolate; padding: calc(104px / var(--z, 1)) 0 0; color: var(--navy); display: flex; flex-direction: column; }
+  .apc-fond { position: absolute; inset: 0; z-index: -3; background: radial-gradient(ellipse 50% 60% at 50% 72%, #d6f0fa 0%, rgba(214,240,250,0) 70%), linear-gradient(180deg, #f4f7fc 0%, #e8eef8 100%); }
+  .apc-tete { text-align: center; position: relative; z-index: 3; }
+  .apc h1 { font-size: clamp(40px, 5.4vw, 82px); line-height: 1.02; letter-spacing: -0.03em; color: var(--navy); }
+  .apc h1 .ligne { display: block; }
+  .apc h1 em { font-style: normal; background: linear-gradient(90deg, #1f8fb8, #4CBFDF); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .apc-scene { display: grid; grid-template-columns: 1fr minmax(0, 1.25fr) 1fr; align-items: end; gap: 24px; margin-top: -10px; }
+  .apc-gauche, .apc-droite { padding-bottom: 12vh; position: relative; z-index: 3; }
+  .apc-gauche .ap-accroche { margin-top: 0; font-size: clamp(16px, 1.3vw, 19px); }
+  .apc-gauche .actions { margin-top: 26px; }
+  .apc-droite { display: flex; flex-direction: column; align-items: flex-end; gap: 18px; }
+  .apc-label { position: static; }
+  .apc-centre { position: relative; display: flex; justify-content: center; align-items: flex-end; height: calc(max(680px, 100svh) / var(--z, 1) - 236px); min-height: 440px; }
+  .apc-femme { position: relative; z-index: 1; height: 100%; max-width: none; width: auto; filter: drop-shadow(0 30px 40px rgba(13,18,48,.22)); will-change: translate; }
+  .apc-arche { position: absolute; z-index: -1; left: 50%; bottom: -6%; width: 92%; aspect-ratio: 400 / 440; transform: translateX(-50%); }
+  .apc-arche svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 30px 50px rgba(42,156,192,.32)); }
+  .apc-tete > *, .apc-gauche, .apc-droite { animation: dh-monte .9s cubic-bezier(.22,1,.36,1) both; }
+  .apc-gauche { animation-delay: .35s; } .apc-droite { animation-delay: .5s; }
+  .apc-femme { animation: dh-femme 1.1s cubic-bezier(.22,1,.36,1) .15s both; }
+  .apc-arche svg { animation: dh-monte 1.2s cubic-bezier(.22,1,.36,1) both; }
+  @media (min-width: 1281px) { .apc h1 { font-size: 74px; }  }
+  @media (max-width: 900px) {
+    .apc { padding-top: 96px; }
+    .apc h1 { font-size: 34px; }
+    .apc-scene { display: flex; flex-direction: column; align-items: stretch; margin-top: 18px; }
+    .apc-centre { order: 1; height: auto; min-height: 0; }
+    .apc-femme { height: auto; width: min(78vw, 400px); -webkit-mask-image: linear-gradient(180deg, #000 68%, transparent 96%); mask-image: linear-gradient(180deg, #000 68%, transparent 96%); filter: none; }
+    .apc-arche { width: 96vw; bottom: 4%; }
+    .apc-arche svg { -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 92%); mask-image: linear-gradient(180deg, #000 60%, transparent 92%); }
+    .apc-droite { order: 2; position: absolute; right: 16px; top: 62%; padding: 0; }
+    .apc-droite .ap-filiale { display: none; }
+    .apc-label { padding: 12px 14px; font-size: 11px; }
+    .apc-gauche { order: 3; padding: 0 0 56px; margin-top: -24px; }
+    .apc { min-height: 0; } .apc-centre { height: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) { .apc-tete > *, .apc-gauche, .apc-droite, .apc-femme, .apc-arche svg { animation: none; } }
+
+
+  /* ----- À propos : composition artistique derrière la femme (formes organiques qui respirent, tracé à la main, petites formes) ----- */
+  .apc-centre { height: calc(max(680px, 100svh) / var(--z, 1) - 190px); margin-bottom: -4%; }
+  .apc-art { position: absolute; z-index: -1; left: 50%; top: 52%; width: min(150%, 760px); aspect-ratio: 1; transform: translate(-50%, -50%); pointer-events: none; }
+  .apc-blob, .apc-blob2 { position: absolute; inset: 13%; border-radius: 58% 42% 63% 37% / 45% 55% 45% 55%; }
+  .apc-blob { background: radial-gradient(circle at 30% 25%, #b8eefb 0%, #4CBFDF 48%, #8e7ce6 100%); box-shadow: 0 40px 80px -20px rgba(76,191,223,.55); animation: apc-morph 14s ease-in-out infinite; }
+  .apc-blob2 { inset: 9% 11% 15% 9%; border: 2px dashed rgba(25,35,96,.35); animation: apc-morph 18s ease-in-out infinite reverse; }
+  .apc-trace { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .apc-gribouille { stroke-dasharray: 1900; stroke-dashoffset: 1900; animation: apc-trace 2.6s cubic-bezier(.6,0,.2,1) .5s forwards; }
+  .apc-pastille { animation: apc-flotte 5s ease-in-out infinite; transform-box: fill-box; }
+  @keyframes apc-morph {
+    0%,100% { border-radius: 58% 42% 63% 37% / 45% 55% 45% 55%; rotate: 0deg; }
+    33% { border-radius: 40% 60% 38% 62% / 60% 38% 62% 40%; rotate: 8deg; }
+    66% { border-radius: 65% 35% 50% 50% / 38% 62% 38% 62%; rotate: -6deg; }
+  }
+  @keyframes apc-trace { to { stroke-dashoffset: 0; } }
+  @keyframes apc-flotte { 0%,100% { translate: 0 0; } 50% { translate: 6px -10px; } }
+  @media (max-width: 900px) {
+    .apc-centre { height: auto; margin-bottom: 0; }
+    .apc-femme { width: min(92vw, 470px); }
+    .apc-art { width: 120vw; top: 46%; }
+    .apc-art { -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 92%); mask-image: linear-gradient(180deg, #000 62%, transparent 92%); }
+  }
+  @media (prefers-reduced-motion: reduce) { .apc-blob, .apc-blob2, .apc-pastille { animation: none; } .apc-gribouille { animation: none; stroke-dashoffset: 0; } }
+
+  /* version épurée : une seule forme organique douce + un contour fin décalé */
+  .apc-blob { background: linear-gradient(160deg, #a9e9f9 0%, #4CBFDF 55%, #2A9CC0 100%); box-shadow: 0 40px 80px -24px rgba(42,156,192,.45); }
+  .apc-blob2 { inset: 9% 17% 17% 9%; border: 1.5px solid rgba(25,35,96,.28); animation: apc-morph 14s ease-in-out infinite; animation-delay: -2s; }
+  @media (min-width: 901px) { .apc-gauche, .apc-droite { padding-bottom: 27vh; } } /* textes remontés */
+</style>
+</head>
+<body>
+
+<!-- ===================== EN-TÊTE ===================== -->
+<header class="hdr" id="hdr">
+  <div class="shell">
+    <a class="logo" href="index.html" aria-label="SICARE, accueil"><img src="images/sicare-logo-blanc.png" alt="SICARE" width="377" height="128"></a>
+    <nav class="menu" id="menu" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="prestations.html">Prestations</a>
+      <a href="formations.html">Formations</a>
+      <a href="solutions.html">Solutions</a>
+      <a href="expertises.html">Expertises</a>
+      <a href="decrypte.html">SICARE décrypte</a>
+      <a href="a-propos.html" class="actif" aria-current="page">À propos</a>
+      <a href="brydge-group.html">Brydge Group</a>
+      <a href="contact.html" class="sbtn menu-cta"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd.png" alt=""></span><span class="sbtn__txt">Parler à un expert</span></span></a>
+    </nav>
+    <a href="contact.html" class="sbtn"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd.png" alt=""></span><span class="sbtn__txt">Parler à un expert</span></span></a>
+    <button class="burger" id="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+  </div>
+</header>
+
+<main>
+
+<!-- ===================== BLOC 01 — HERO À PROPOS ===================== -->
+<section class="apc" id="top">
+  <div class="apc-fond" aria-hidden="true"></div>
+  <div class="shell apc-tete">
+    <h1><span class="ligne">Le soin des systèmes,</span> <span class="ligne"><em>la précision de l'action.</em></span></h1>
+  </div>
+  <div class="shell apc-scene">
+    <div class="apc-gauche">
+      <p class="ap-accroche">Une équipe de cybersécurité qui prend le temps de comprendre avant d'agir.</p>
+    </div>
+    <div class="apc-centre">
+      <div class="apc-art" aria-hidden="true">
+        <span class="apc-blob"></span>
+        <span class="apc-blob2"></span>
+      </div>
+      <img class="apc-femme" src="images/apropos-fauteuil.webp" alt="Une experte SICARE assise dans son fauteuil, ordinateur portable sur les genoux" width="1024" height="1536" fetchpriority="high">
+    </div>
+    <div class="apc-droite">
+      <div class="dh-label apc-label" aria-hidden="true"><span>Qui sommes-nous</span><span>Nos engagements</span><span>Brydge Group</span></div>
+      <span class="ap-filiale"><i><img src="images/sicare-symbole-hd-blanc.png" alt=""></i>Filiale de Brydge Group</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOC 01 bis — QUI SOMMES-NOUS (textes de l'ancien hero) ===================== -->
+<section id="qui-sommes-nous" class="qui">
+  <div class="shell qui-grille">
+    <div class="qui-tete">
+      <span class="eyebrow rv">Qui sommes-nous</span>
+      <h2 class="titre rv" style="--d:80ms"><span class="ligne">Comprendre votre activité.</span> <span class="ligne"><em>Mobiliser l'expertise.</em></span> <span class="ligne">Construire dans la durée.</span></h2>
+    </div>
+    <div class="qui-texte">
+      <p class="qui-accroche rv" style="--d:120ms">Une activité à maintenir, des données à protéger, des engagements à tenir : la cybersécurité prend son sens dans ce qu'elle permet de préserver.</p>
+      <p class="qui-presentation rv" style="--d:180ms"><b>SICARE est une entreprise de services numériques spécialisée en cybersécurité, filiale de Brydge Group.</b> Nous associons prestations, solutions technologiques et formations professionnelles pour aider les organisations à comprendre leur exposition, à définir leurs priorités et à renforcer leur capacité d'action.</p>
+      <blockquote class="qui-conviction rv" style="--d:240ms">
+        <small>Notre conviction</small>
+        <p>La qualité d'une intervention repose sur la compréhension du contexte, la maîtrise des compétences et la capacité à travailler avec les personnes concernées.</p>
+      </blockquote>
+      <div class="actions rv" style="--d:300ms">
+        <a href="contact.html" class="sbtn sbtn--navy"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd-blanc.png" alt=""></span><span class="sbtn__txt">Échanger avec SICARE</span></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOC 01 ter — VIDÉO (à remplacer par le motion design) ===================== -->
+<!-- grande vidéo arrondie, à la manière de nk.studio. Au défilement, la vidéo rétrécit et vient se loger
+     dans le titre de la section suivante (« Plus qu'un nom, [vidéo] une posture. »). -->
+<section class="vid-sec" id="video" aria-label="Vidéo de présentation de SICARE">
+  <div class="shell">
+    <div class="vid-place" id="vid-place"></div>
+  </div>
+</section>
+
+<!-- ===================== BLOC 02 — PLUS QU'UN NOM, UNE POSTURE ===================== -->
+<!-- version épurée : l'experte seule (agrandie) et le texte, sans cercle ni icônes -->
+<section id="posture" class="posture-epure">
+  <div class="shell deux-col deux-col--inv">
+    <div class="pos-visuel pos-visuel--seule rv" style="--d:120ms">
+      <img class="pos-femme" src="images/posture-femme.webp" alt="Une experte SICARE, ordinateur portable en main" width="1145" height="1374" loading="lazy" decoding="async">
+    </div>
+    <div class="nom-texte">
+      <span class="eyebrow rv">Notre nom</span>
+      <h2 class="titre rv" style="--d:80ms">Plus qu'un nom, <span class="vid-fente" id="vid-fente" aria-hidden="true"></span> <em>une posture.</em></h2>
+      <div class="prose rv" style="--d:100ms">
+        <p>Notre nom porte une double lecture : le soin apporté aux systèmes d'information — <i>S.I. care</i> — et la précision d'une intervention ciblée.</p>
+        <p>Cette posture guide notre manière de travailler : écouter avant de recommander, examiner avant de conclure et intervenir avec un objectif défini.</p>
+        <p><b>Discrétion, précision, détermination.</b> Trois exigences qui se traduisent dans la confidentialité des échanges, la rigueur des analyses et le suivi des engagements.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOC 03 — UNE VISION GLOBALE ===================== -->
+<!-- section centrée, sur le même fond que la section précédente ; le bouclier 3D du hero de l'accueil
+     est posé dans le coin gauche et tourne lentement sur lui-même -->
+<section id="vision" class="vision-centre">
+  <div class="vision-bouclier" id="vision-bouclier" aria-hidden="true">
+    <model-viewer alt="" loading="lazy" reveal="auto" disable-zoom disable-pan disable-tap interaction-prompt="none"
+      auto-rotate auto-rotate-delay="0" rotation-per-second="14deg"
+      camera-orbit="0deg 84deg auto" field-of-view="26deg"
+      environment-image="neutral" exposure="1.05" shadow-intensity="0" tone-mapping="neutral"></model-viewer>
+  </div>
+  <div class="shell">
+    <div class="vision-texte">
+      <h2 class="titre rv">Une vision globale <em>de la cybersécurité</em></h2>
+      <div class="prose rv" style="--d:100ms">
+        <p>Une vulnérabilité technique, un accès mal maîtrisé, une dépendance critique ou une responsabilité mal définie peuvent fragiliser une même activité.</p>
+        <p>Nous relions ces dimensions pour comprendre comment les risques se combinent : systèmes, données, usages, organisation et compétences. Cette approche permet de situer les constats techniques dans leur contexte et de choisir les actions selon leurs effets attendus sur l'activité.</p>
+        <p>Elle accompagne aussi les transformations des organisations : adoption de l'IA, évolution des infrastructures, recours à de nouveaux prestataires ou développement de nouveaux services.</p>
+        <p class="vision-fort"><b>Notre rôle est de vous aider à construire une réponse proportionnée à votre exposition, à vos moyens et à vos priorités.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOC 04 — UNE MÉTHODE QUI RELIE L'ANALYSE À L'ACTION ===================== -->
+<!-- inspiré de thefirstthelast.agency/about : la scène reste épinglée à l'écran, un très grand titre en fond,
+     et les quatre étapes arrivent l'une après l'autre depuis le bas, inclinées, en s'empilant comme des cartes posées. -->
+<section id="methode" class="mth">
+  <div class="mth-piste" id="mth-piste">
+    <div class="mth-scene">
+      <h2 class="mth-titre">Une méthode qui relie <em>l'analyse à l'action</em></h2>
+      <div class="mth-pile">
+        <article class="mth-carte" style="--r:-8deg">
+          <figure class="mth-photo"><img src="images/exp-01.webp" alt="" loading="lazy" decoding="async"></figure>
+          <div class="mth-txt"><h3>Comprendre</h3><p>Identifier vos activités essentielles, les actifs concernés, les dépendances et les dispositifs existants. Préciser les contraintes opérationnelles et les personnes à associer à la démarche.</p></div>
+        </article>
+        <article class="mth-carte" style="--r:6deg">
+          <figure class="mth-photo"><img src="images/exp-03.webp" alt="" loading="lazy" decoding="async"></figure>
+          <div class="mth-txt"><h3>Prioriser</h3><p>Relier les constats à leurs conséquences possibles. Expliquer les risques, comparer les options et déterminer les actions à engager.</p></div>
+        </article>
+        <article class="mth-carte" style="--r:-5deg">
+          <figure class="mth-photo"><img src="images/exp-04.webp" alt="" loading="lazy" decoding="async"></figure>
+          <div class="mth-txt"><h3>Intervenir</h3><p>Définir le périmètre, les responsabilités et les livrables, puis coordonner les interventions avec vos équipes et les acteurs concernés.</p></div>
+        </article>
+        <article class="mth-carte" style="--r:9deg">
+          <figure class="mth-photo"><img src="images/exp-02.webp" alt="" loading="lazy" decoding="async"></figure>
+          <div class="mth-txt"><h3>Vérifier et transmettre</h3><p>Évaluer les résultats selon les objectifs de la mission, documenter les points restant à traiter et transmettre les connaissances nécessaires à vos équipes.</p></div>
+        </article>
+      </div>
+    </div>
+  </div>
+  <div class="mth-fin center">
+    <a href="prestations.html" class="sbtn sbtn--navy"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd-blanc.png" alt=""></span><span class="sbtn__txt">Découvrir nos prestations</span></span></a>
+  </div>
+</section>
+
+<!-- ===================== BLOC 05 — UNE ENTREPRISE APPRENANTE ===================== -->
+<!-- version épurée : la photo et les textes, sur le fond de page -->
+<section id="apprenante" class="app-epure">
+  <div class="shell deux-col deux-col--inv">
+    <figure class="app-photo rv"><img src="images/exp-02.webp" alt="Un expert SICARE partage son expérience avec une équipe" width="1448" height="1086" loading="lazy" decoding="async"></figure>
+    <div>
+      <h2 class="titre rv">Une entreprise <em>apprenante</em></h2>
+      <div class="prose rv" style="--d:100ms">
+        <p><b>Chez SICARE, la formation continue fait partie de notre manière d'exercer nos métiers.</b> Les technologies, les menaces et les usages évoluent ; notre expertise doit évoluer avec eux.</p>
+        <p>Cette culture associe l'apprentissage, la pratique et la transmission. Approfondir une spécialité, préparer une certification pertinente, confronter ses méthodes ou partager un retour d'expérience contribue à la progression professionnelle.</p>
+        <p>Les enseignements tirés des missions nourrissent cette réflexion dans le respect de la confidentialité. Ils permettent d'identifier les compétences à renforcer et les pratiques à faire évoluer.</p>
+        <p>Les liens avec ESTUDECH enrichissent cette dynamique : les professionnels peuvent approfondir leurs connaissances et, lorsqu'ils le souhaitent, développer une activité pédagogique.</p>
+        <p>Pour nos clients, cette démarche soutient la pertinence des recommandations et la qualité des interventions. Pour nos équipes, elle donne une place durable à l'apprentissage dans leur parcours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOC 06 — PROFESSIONNELS ET ENGAGEMENTS ===================== -->
+<section id="engagements">
+  <div class="shell">
+    <div class="tete">
+      <div>
+        <span class="eyebrow rv">Nos engagements</span>
+        <h2 class="titre rv" style="--d:80ms">Des professionnels identifiés,<br><em>des engagements explicites.</em></h2>
+      </div>
+      <p class="lead rv" style="--d:160ms">La confiance se construit avec des interlocuteurs dont le rôle est clair et des engagements que l'on peut vérifier.</p>
+    </div>
+    <div class="cartes4 eng-edito">
+      <article class="carte rv"><div class="carte__in">
+        <h3>Des compétences adaptées à la mission</h3>
+        <p>Les intervenants sont mobilisés selon le besoin et le périmètre défini. La maîtrise du domaine s'accompagne d'une capacité à expliquer les constats, à travailler avec vos équipes et à tenir compte de vos contraintes.</p>
+      </div></article>
+      <article class="carte rv" style="--d:100ms"><div class="carte__in">
+        <h3>Un cadre de travail précis</h3>
+        <p>Objectifs, responsabilités, livrables et modalités de suivi sont établis pour la mission. Les limites du périmètre et les éventuels besoins complémentaires sont explicités.</p>
+      </div></article>
+      <article class="carte rv" style="--d:200ms"><div class="carte__in">
+        <h3>Des recommandations argumentées</h3>
+        <p>Nous précisons les faits, les hypothèses et les limites de nos analyses. Lorsqu'une solution est proposée, nous expliquons son intérêt pour votre besoin et le rôle de SICARE dans sa fourniture ou son intégration.</p>
+      </div></article>
+      <article class="carte rv" style="--d:300ms"><div class="carte__in">
+        <h3>La confidentialité comme exigence</h3>
+        <p>Les accès et les informations confiés sont encadrés selon les besoins de l'intervention. Toute utilisation d'un nom, d'un témoignage ou d'une référence client dans notre communication nécessite une autorisation préalable.</p>
+      </div></article>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== BLOC 06 bis — LES PERSONNES QUI PORTENT SICARE ===================== -->
+<!-- inspiré de la section « Small team, big results » de brandappart.com : titre en haut, très grand texte gris
+     derrière, portraits inclinés dans des cadres aux couleurs des entités (ESTUDECH violet, SICARE cyan, FactoryD vert, bleu Brydge).
+     PHOTOS PROVISOIRES : à remplacer par les portraits réels de la direction et des experts (nom en texte alternatif). -->
+<section id="equipe" class="eq">
+  <div class="shell center">
+    <h2 class="eq-titre rv">Découvrez les personnes</h2>
+  </div>
+  <div class="eq-scene">
+    <p class="eq-geant" aria-hidden="true"><span>qui portent</span><span>SICARE.</span></p>
+    <!-- « tornade » : dix portraits répartis sur un cylindre 3D qui tourne en continu (comme brandappart.com) -->
+    <div class="tor-wrap"><div class="tor-list">
+        <div class="tor-item"><button type="button" class="tor-carte" style="--c:#BB80FF" aria-label="Afficher le nom"><span class="tor-pic"><img src="images/posture-femme.webp" alt="" loading="lazy" decoding="async"></span><span class="tor-nom"><b>Nom à renseigner</b><small>Fonction</small></span></button></div>
+        <div class="tor-item"><button type="button" class="tor-carte" style="--c:#33D4FF" aria-label="Afficher le nom"><span class="tor-pic"><img src="images/cta-femme.webp" alt="" loading="lazy" decoding="async"></span><span class="tor-nom"><b>Nom à renseigner</b><small>Fonction</small></span></button></div>
+        <div class="tor-item"><button type="button" class="tor-carte" style="--c:#13CE67" aria-label="Afficher le nom"><span class="tor-pic"><img src="images/posture-femme.webp" alt="" loading="lazy" decoding="async"></span><span class="tor-nom"><b>Nom à renseigner</b><small>Fonction</small></span></button></div>
+        <div class="tor-item"><button type="button" class="tor-carte" style="--c:#142260" aria-label="Afficher le nom"><span class="tor-pic"><img src="images/cta-femme.webp" alt="" loading="lazy" decoding="async"></span><span class="tor-nom"><b>Nom à renseigner</b><small>Fonction</small></span></button></div>
+        <div class="tor-item"><button type="button" class="tor-carte" style="--c:#BB80FF" aria-label="Afficher le nom"><span class="tor-pic"><img src="images/posture-femme.webp" alt="" loading="lazy" decoding="async"></span><span class="tor-nom"><b>Nom à renseigner</b><small>Fonction</small></span></button></div>
+        <div class="tor-item"><button type="button" class="tor-carte" style="--c:#33D4FF" aria-label="Afficher le nom"><span class="tor-pic"><img src="images/cta-femme.webp" alt="" loading="lazy" decoding="async"></span><span class="tor-nom"><b>Nom à renseigner</b><small>Fonction</small></span></button></div>
+        <div class="tor-item"><button type="button" class="tor-carte" style="--c:#13CE67" aria-label="Afficher le nom"><span class="tor-pic"><img src="images/posture-femme.webp" alt="" loading="lazy" decoding="async"></span><span class="tor-nom"><b>Nom à renseigner</b><small>Fonction</small></span></button></div>
+        <div class="tor-item"><button type="button" class="tor-carte" style="--c:#142260" aria-label="Afficher le nom"><span class="tor-pic"><img src="images/cta-femme.webp" alt="" loading="lazy" decoding="async"></span><span class="tor-nom"><b>Nom à renseigner</b><small>Fonction</small></span></button></div>
+        <div class="tor-item"><button type="button" class="tor-carte" style="--c:#BB80FF" aria-label="Afficher le nom"><span class="tor-pic"><img src="images/posture-femme.webp" alt="" loading="lazy" decoding="async"></span><span class="tor-nom"><b>Nom à renseigner</b><small>Fonction</small></span></button></div>
+        <div class="tor-item"><button type="button" class="tor-carte" style="--c:#33D4FF" aria-label="Afficher le nom"><span class="tor-pic"><img src="images/cta-femme.webp" alt="" loading="lazy" decoding="async"></span><span class="tor-nom"><b>Nom à renseigner</b><small>Fonction</small></span></button></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ===================== BLOC 07 — BRYDGE GROUP ===================== -->
+<section id="brydge" style="padding-top:0">
+  <div class="shell">
+    <div class="tete">
+      <div>
+        <span class="eyebrow rv">Brydge Group</span>
+        <h2 class="titre rv" style="--d:80ms">Un cadre pour apprendre,<br><em>exercer et innover.</em></h2>
+      </div>
+      <p class="lead rv" style="--d:160ms"><b>Brydge Group est le groupe propriétaire de SICARE.</b> Il relie expertise professionnelle, éducation et innovation au sein d'un projet commun.</p>
+    </div>
+    <div class="eco">
+      <article class="eco-carte eco--sicare sicare rv">
+        <span class="logo-ent"><img src="images/sicare-symbole-hd.png" alt="SICARE"></span>
+        <span class="role">Expertise</span>
+        <h3>SICARE</h3>
+        <p>SICARE y porte les prestations, les solutions et les formations professionnelles en cybersécurité.</p>
+      </article>
+      <article class="eco-carte eco--estudech rv" style="--d:100ms">
+        <span class="logo-ent"><img src="images/logo-estudech.webp" alt="ESTUDECH"></span>
+        <span class="role">Enseignement supérieur</span>
+        <h3>ESTUDECH</h3>
+        <p>ESTUDECH apporte sa dimension d'enseignement supérieur et de transmission.</p>
+      </article>
+      <article class="eco-carte eco--factoryd rv" style="--d:200ms">
+        <span class="logo-ent"><img src="images/logo-factoryd.webp" alt="FactoryD"></span>
+        <span class="role">Innovation</span>
+        <h3>FactoryD</h3>
+        <p>L'incubateur FactoryD complète cet ensemble par l'expérimentation et l'accompagnement de projets innovants.</p>
+      </article>
+    </div>
+    <p class="eco-note rv">Ces complémentarités ouvrent des possibilités de coopération et d'évolution professionnelle. SICARE assure le cadrage et la réalisation des missions qui lui sont confiées.</p>
+    <div class="actions rv">
+      <a href="brydge-group.html" class="lien">Découvrir Brydge Group <span class="fl" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOC 08 — CARRIÈRES (plaque sombre) ===================== -->
+<div class="plaque on-dark" id="carrieres">
+  <section>
+    <div class="shell">
+      <div class="tete">
+        <div>
+          <h2 class="titre rv" style="--d:80ms">Des carrières qui peuvent<br><em>suivre plusieurs voies</em></h2>
+        </div>
+        <p class="lead rv" style="--d:160ms">Développer son expertise, prendre des responsabilités, transmettre ou contribuer à l'innovation : une carrière peut évoluer dans plusieurs directions, et certaines activités peuvent se combiner.</p>
+      </div>
+      <div class="voies">
+        <article class="pole rv">
+          <h3>Approfondir son métier</h3>
+          <p>Renforcer une spécialité, élargir son périmètre d'intervention, piloter des missions ou accompagner une équipe : la progression se construit à partir des compétences, des aspirations et des besoins de SICARE.</p>
+        </article>
+        <article class="pole rv" style="--d:100ms">
+          <h3>Enseigner et transmettre</h3>
+          <p>Les professionnels qui souhaitent intervenir au sein d'ESTUDECH peuvent contribuer à des enseignements, des ateliers, des contenus pédagogiques ou à l'accompagnement de projets, selon leur expertise et les besoins de l'école.</p>
+          <p>Cette activité peut compléter leur rôle chez SICARE et leur permettre de développer de nouvelles compétences pédagogiques.</p>
+        </article>
+        <article class="pole rv">
+          <h3>Participer à l'innovation</h3>
+          <p>Au sein de FactoryD, les professionnels de SICARE peuvent accompagner des porteurs de projet, apporter leur expertise et participer à l'expérimentation de solutions.</p>
+          <p>Cette contribution permet de développer une expérience du mentorat et de l'innovation, en complément des missions réalisées chez SICARE. Elle s'organise selon les aspirations de chacun, les compétences mobilisées et les besoins des projets accompagnés.</p>
+        </article>
+        <article class="pole rv" style="--d:100ms">
+          <h3>Évoluer à l'international</h3>
+          <p>Le développement international de Brydge Group ouvre des perspectives de missions, de coopérations entre équipes et de mobilité.</p>
+          <p>Ces expériences permettent de découvrir d'autres environnements professionnels, de confronter ses pratiques et d'enrichir sa compréhension des enjeux numériques.</p>
+        </article>
+      </div>
+      <p class="voies-fin rv"><b>Chaque parcours se construit avec la personne concernée, selon ses souhaits, les compétences requises et les opportunités disponibles.</b></p>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== BLOC 09 — REJOINDRE SICARE ===================== -->
+<section id="rejoindre">
+  <div class="shell deux-col">
+    <div>
+      <span class="eyebrow rv">Rejoindre SICARE</span>
+      <h2 class="titre rv" style="--d:80ms">Votre expertise compte.<br><em>Ce que vous souhaitez développer aussi.</em></h2>
+      <div class="prose rv" style="--d:140ms">
+        <p>Nous souhaitons rencontrer des professionnels qui aiment comprendre, agir et partager leurs connaissances, avec le souci du travail bien fait et du respect des engagements.</p>
+        <p>Présentez-nous votre expérience, les sujets qui vous mobilisent et la direction que vous souhaitez donner à votre parcours.</p>
+      </div>
+      <div class="actions rv" style="--d:200ms">
+        <a href="contact.html?objet=candidature" class="sbtn sbtn--navy"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd-blanc.png" alt=""></span><span class="sbtn__txt">Présenter votre candidature</span></span></a>
+        <!-- N'afficher ce lien que lorsque des offres de recrutement sont disponibles. -->
+        <a href="carrieres.html" class="lien">Consulter nos opportunités <span class="fl" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      </div>
+    </div>
+    <div class="rej-visuel rv" style="--d:120ms">
+      <figure class="rej-photo"><img src="images/exp-05.webp" alt="Des professionnels SICARE travaillent ensemble" width="1400" height="787" loading="lazy" decoding="async"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOC 10 — PARLONS DE VOTRE ORGANISATION ===================== -->
+<section class="contact-cta" id="contact" style="padding-top:0">
+  <div class="shell">
+    <div class="bandeau on-dark rv">
+      <div class="bandeau__txt">
+        <span class="eyebrow">Prendre contact</span>
+        <h2 class="titre">Parlons de <em>votre organisation.</em></h2>
+        <p>Vous souhaitez examiner votre exposition, préciser un besoin ou préparer une intervention ? Échangeons sur votre activité, vos contraintes et vos priorités.</p>
+        <div class="actions">
+          <a href="contact.html" class="sbtn"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd.png" alt=""></span><span class="sbtn__txt">Parler à un expert</span></span></a>
+        </div>
+      </div>
+      <img class="bandeau__femme" src="images/cta-femme.webp" alt="Une experte SICARE, tablette en main" width="914" height="1498" loading="lazy" decoding="async">
+    </div>
+  </div>
+</section>
+
+<!-- vidéo de présentation : remplacer la source par le motion design SICARE -->
+<video class="vid-vol" id="vid-vol" autoplay muted loop playsinline preload="auto" poster="images/apropos-motion.webp" aria-label="Vidéo de présentation de SICARE : dans l'univers SICARE">
+  <source src="images/apropos-motion.webm?v=3" type="video/webm">
+  <source src="images/apropos-motion.mp4?v=3" type="video/mp4">
+</video>
+</main>
+
+<!-- ===================== PIED DE PAGE ===================== -->
+<footer class="ftr">
+  <div class="shell">
+    <div class="haut">
+      <div class="marque-ftr">
+        <img src="images/sicare-logo-blanc.png" alt="SICARE" width="377" height="128">
+        <p>Vision globale, précision dans l'action. Prestations, solutions et formations en cybersécurité. Une entité de Brydge Group.</p>
+      </div>
+      <div>
+        <h4>Offre</h4>
+        <ul><li><a href="prestations.html">Prestations</a></li><li><a href="formations.html">Formations</a></li><li><a href="solutions.html">Solutions</a></li><li><a href="expertises.html">Expertises</a></li></ul>
+      </div>
+      <div>
+        <h4>SICARE</h4>
+        <ul><li><a href="a-propos.html">À propos</a></li><li><a href="decrypte.html">SICARE décrypte</a></li><li><a href="brydge-group.html">Brydge Group</a></li><li><a href="contact.html">Contact</a></li></ul>
+      </div>
+      <div>
+        <h4>Coordonnées</h4>
+        <ul><li><a href="mailto:contact@sicare.io">contact@sicare.io</a></li><li><a href="#" class="a-valider">Adresse à renseigner</a></li><li><a href="#">LinkedIn</a></li></ul>
+      </div>
+    </div>
+    <div class="bas">
+      <span>© 2026 SICARE — Brydge Group</span>
+      <span><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+  /* en-tête : fond plein dès qu'on quitte le haut du hero */
+  (function () {
+    var hdr = document.getElementById('hdr');
+    function maj() { hdr.classList.toggle('solide', window.scrollY > 40); }
+    window.addEventListener('scroll', maj, { passive: true }); maj();
+    var burger = document.getElementById('burger'), menu = document.getElementById('menu');
+    burger.addEventListener('click', function () {
+      var ouvert = menu.classList.toggle('ouvert');
+      burger.setAttribute('aria-expanded', ouvert ? 'true' : 'false');
+      hdr.classList.add('solide');
+    });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) { menu.classList.remove('ouvert'); burger.setAttribute('aria-expanded', 'false'); } });
+  })();
+
+  /* apparition au défilement (rien ne bouge si l'utilisateur réduit les animations) */
+  (function () {
+    var els = document.querySelectorAll('.rv, .trace');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      els.forEach(function (e) { e.classList.add('vu'); }); return;
+    }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('vu'); io.unobserve(e.target); } });
+    }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+
+</script>
+<script>
+/* ---- navigation fluide : défilement amorti + pause des animations hors écran ---- */
+(function(){
+  var reduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // pause des animations décoratives quand une section n'est pas visible
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ e.target.classList.toggle('hors-ecran',!e.isIntersecting); }); },{rootMargin:'120px 0px'});
+    [].forEach.call(document.querySelectorAll('main > section, main > div.plaque, .ftr'),function(el){ io.observe(el); });
+  }
+  // défilement amorti à la molette (comme les sites de référence) ; désactivé si animations réduites
+  if(reduit || !window.Lenis) return;
+  var lenis=new Lenis({ lerp: 0.1, smoothWheel: true, wheelMultiplier: 1 });
+  window.sicareLenis=lenis;
+  (function raf(t){ lenis.raf(t); requestAnimationFrame(raf); })(0);
+  // liens internes (#offre, #top…) : glissés en douceur, sous le menu
+  [].forEach.call(document.querySelectorAll('a[href^="#"]'),function(a){
+    a.addEventListener('click',function(ev){
+      var id=a.getAttribute('href'); if(id.length<2) return;
+      var cible=document.querySelector(id); if(!cible) return;
+      ev.preventDefault(); lenis.scrollTo(cible,{offset:-64, duration:1.4});
+    });
+  });
+})();
+
+</script>
+
+<script>
+/* ---- vidéo : de la grande vidéo (section vidéo) jusqu'à la pilule du titre suivant, au défilement ---- */
+(function(){
+  var vol=document.getElementById('vid-vol'), place=document.getElementById('vid-place'), fente=document.getElementById('vid-fente'), main=document.querySelector('main');
+  if(!vol||!place||!fente||!main) return;
+  var A, B;
+  function boite(el){ var r=el.getBoundingClientRect(), m=main.getBoundingClientRect(); return {x:r.left-m.left, y:r.top-m.top, w:r.width, h:r.height}; }
+  function mesure(){
+    // la fente est mesurée sans le décalage d'apparition (.rv) de son titre
+    var h2=fente.closest('h2'), t=h2.style.transform; h2.style.transform='none';
+    A=boite(place); B=boite(fente); h2.style.transform=t;
+    vol.style.width=A.w+'px'; vol.style.height=A.h+'px';
+    maj();
+  }
+  function lisse(t){ return t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
+  function maj(){
+    if(!A) return;
+    var vh=innerHeight, r=fente.getBoundingClientRect();
+    // départ quand la fente entre par le bas de l'écran, arrivée quand elle atteint 45 % de la hauteur
+    var p=(vh*0.98 - r.top)/(vh*0.98 - vh*0.45); p=p<0?0:p>1?1:p;
+    var e=lisse(p), x, y, sx, sy;
+    if(p>0){
+      // 2) la grande vidéo rétrécit et se loge dans la pilule du titre suivant
+      x=A.x+(B.x-A.x)*e; y=A.y+(B.y-A.y)*e; sx=(A.w+(B.w-A.w)*e)/A.w; sy=(A.h+(B.h-A.h)*e)/A.h;
+    } else {
+      // 1) au début, la vidéo est petite (45 % de sa taille) et grandit à mesure qu'on avance
+      var rp=place.getBoundingClientRect(), g=(vh - rp.top)/(vh*0.8); g=g<0?0:g>1?1:g;
+      var k=0.45+0.55*lisse(g);
+      sx=sy=k; x=A.x+A.w*(1-k)/2; y=A.y+A.h*(1-k)/2;
+      e=0;
+    }
+    vol.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px) scale('+sx.toFixed(4)+','+sy.toFixed(4)+')';
+    // les angles restent visuellement constants puis deviennent une pilule
+    var rx=(28+(B.h/2-28)*e)/sx, ry=(28+(B.h/2-28)*e)/sy;
+    vol.style.borderRadius=rx.toFixed(1)+'px / '+ry.toFixed(1)+'px';
+    vol.style.boxShadow=e>0.9?'none':'';
+  }
+  var tic=false;
+  addEventListener('scroll',function(){ if(!tic){ tic=true; requestAnimationFrame(function(){ tic=false; maj(); }); } },{passive:true});
+  addEventListener('resize',mesure); addEventListener('load',mesure);
+  if('ResizeObserver' in window){ var to; new ResizeObserver(function(){ clearTimeout(to); to=setTimeout(mesure,120); }).observe(main); }
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(mesure);
+  mesure();
+})();
+</script>
+
+<script>
+/* ---- personnes : « tornade » de portraits (cylindre 3D qui tourne en continu, un tour en 30 s),
+        apparition depuis des positions aléatoires quand la section arrive à l'écran ---- */
+(function(){
+  var sc=document.querySelector('.eq-scene'); if(!sc) return;
+  var items=[].slice.call(sc.querySelectorAll('.tor-item')), n=items.length;
+  var reduit=matchMedia('(prefers-reduced-motion: reduce)').matches, angle=0, actif=false, t0=0;
+  function rayon(){ return innerWidth*(innerWidth<=767?0.62:0.45); }
+  function pose(){ var r=rayon(); items.forEach(function(it,i){ it.style.transformOrigin='50% 50% '+(-r)+'px'; it.style.transform='rotateY('+(360*i/n+angle).toFixed(2)+'deg)'; }); }
+  function boucle(t){ if(!actif){ t0=0; return; } var dt=t0? Math.min(64,t-t0):16; t0=t; if(!pause){ angle-=360*dt/30000; pose(); } requestAnimationFrame(boucle); }
+  pose(); addEventListener('resize',pose);
+  // survol : la rotation se met en pause pendant qu'on lit le nom
+  var pause=false;
+  sc.querySelectorAll('.tor-carte').forEach(function(c){
+    c.addEventListener('mouseenter',function(){ pause=true; });
+    c.addEventListener('mouseleave',function(){ pause=false; });
+    c.addEventListener('focus',function(){ pause=true; });
+    c.addEventListener('blur',function(){ pause=false; });
+  });
+  // écrans tactiles (sans souris) : un appui affiche le nom, un appui ailleurs le referme
+  if(matchMedia('(hover: none)').matches){
+    sc.addEventListener('click',function(e){
+      var c=e.target.closest('.tor-carte'); if(!c) return;
+      var deja=c.classList.contains('ouvert');
+      sc.querySelectorAll('.tor-carte.ouvert').forEach(function(o){ o.classList.remove('ouvert'); });
+      if(!deja) c.classList.add('ouvert'); pause=!deja; e.stopPropagation();
+    });
+    document.addEventListener('click',function(){ sc.querySelectorAll('.tor-carte.ouvert').forEach(function(o){ o.classList.remove('ouvert'); }); pause=false; });
+  }
+  if(reduit || !('IntersectionObserver' in window)){ sc.classList.add('joue'); return; }
+  new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        // chaque carte surgit d'une hauteur aléatoire, minuscule, puis prend sa place
+        if(!sc.classList.contains('joue')){ sc.querySelectorAll('.tor-carte').forEach(function(c){ c.style.setProperty('--ty',(Math.random()*200-100).toFixed(0)+'%'); }); void sc.offsetWidth; sc.classList.add('joue'); }
+        if(!actif){ actif=true; requestAnimationFrame(boucle); }
+      } else { actif=false; }
+    });
+  },{rootMargin:'0px 0px -15% 0px'}).observe(sc);
+})();
+</script>
+
+<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<script>
+/* ---- bouclier 3D (même modèle que le hero de l'accueil) : chargé quand la section approche ---- */
+(function(){
+  var box=document.getElementById('vision-bouclier'); if(!box) return;
+  var mv=box.querySelector('model-viewer');
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) mv.removeAttribute('auto-rotate');
+  function charge(){
+    if(charge.fait) return; charge.fait=1;
+    if(location.protocol==='file:'){ // ouverture locale : version intégrée du modèle
+      if(window.SICARE_SHIELD_SRC){ mv.setAttribute('src',window.SICARE_SHIELD_SRC); return; }
+      var sc=document.createElement('script'); sc.src='images/sicare-shield.glb.js';
+      sc.onload=function(){ if(window.SICARE_SHIELD_SRC) mv.setAttribute('src',window.SICARE_SHIELD_SRC); };
+      document.head.appendChild(sc);
+    } else { mv.setAttribute('src','images/sicare-shield.glb'); }
+  }
+  if('IntersectionObserver' in window) new IntersectionObserver(function(es,o){ if(es[0].isIntersecting){ charge(); o.disconnect(); } },{rootMargin:'600px 0px'}).observe(box);
+  else charge();
+})();
+</script>
+
+<script>
+/* ---- méthode : la scène est épinglée ; chaque carte monte depuis le bas en pivotant et se pose sur la précédente ---- */
+(function(){
+  var piste=document.getElementById('mth-piste'); if(!piste || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var cartes=[].slice.call(piste.querySelectorAll('.mth-carte')), n=cartes.length;
+  function lisse(t){ return 1-Math.pow(1-t,3); }
+  function maj(){
+    var r=piste.getBoundingClientRect(), course=piste.offsetHeight-innerHeight;
+    var p=Math.min(1,Math.max(0,-r.top/course))*(n+0.4);   // progression : une carte par « étape » de défilement
+    cartes.forEach(function(c,i){
+      var t=Math.min(1,Math.max(0,p-i)), e=lisse(t), rot=parseFloat(c.style.getPropertyValue('--r'))||0;
+      var y=(1-e)*110, ang=rot*(0.4+0.6*e)+(1-e)*rot*1.8;  // arrive de plus bas, plus incliné, puis se pose
+      c.style.transform='translate3d('+(i%2? 1:-1)*(1-e)*14+'vw,'+y.toFixed(2)+'vh,0) rotate('+ang.toFixed(2)+'deg)';
+    });
+  }
+  var tic=false;
+  addEventListener('scroll',function(){ if(!tic){ tic=true; requestAnimationFrame(function(){ tic=false; maj(); }); } },{passive:true});
+  addEventListener('resize',maj); maj();
+})();
+</script>
+<script>
+/* hero À propos : parallaxe douce (l'arche et la femme bougent un peu au défilement et à la souris) */
+(function(){
+  var h=document.querySelector('.apc'); if(!h || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var femme=h.querySelector('.apc-femme'), arche=h.querySelector('.apc-art'), mx=0, my=0, tick=false;
+  function maj(){ tick=false; var y=Math.min(scrollY, h.offsetHeight);
+    arche.style.translate='calc(-50% + '+(mx*-12).toFixed(1)+'px) calc(-50% + '+(y*.16+my*-6).toFixed(1)+'px)'; arche.style.transform='none';
+    femme.style.translate=(mx*16).toFixed(1)+'px '+(y*.05+my*8).toFixed(1)+'px'; }
+  function demande(){ if(!tick){ tick=true; requestAnimationFrame(maj); } }
+  addEventListener('scroll',demande,{passive:true});
+  h.addEventListener('mousemove',function(e){ var r=h.getBoundingClientRect(); mx=(e.clientX-r.left)/r.width-.5; my=(e.clientY-r.top)/r.height-.5; demande(); });
+  h.addEventListener('mouseleave',function(){ mx=0; my=0; demande(); });
+})();
+</script>
+</body>
+</html>
