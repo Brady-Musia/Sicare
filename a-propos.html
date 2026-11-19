@@ -848,6 +848,60 @@
   .apc-blob { background: linear-gradient(160deg, #a9e9f9 0%, #4CBFDF 55%, #2A9CC0 100%); box-shadow: 0 40px 80px -24px rgba(42,156,192,.45); }
   .apc-blob2 { inset: 9% 17% 17% 9%; border: 1.5px solid rgba(25,35,96,.28); animation: apc-morph 14s ease-in-out infinite; animation-delay: -2s; }
   @media (min-width: 901px) { .apc-gauche, .apc-droite { padding-bottom: 27vh; } } /* textes remontés */
+
+  /* ===== HERO « qui déborde » (ordinateur) : le hero devient un panneau arrondi ;
+     la femme en sort par le bas — le fauteuil et le pied levé passent sur la section suivante ===== */
+  @media (min-width: 901px) {
+    .apc { --V: calc(max(680px, 100svh) / var(--z, 1)); --Hc: max(460px, calc((var(--V) * .87 - 250px) / .78)); --over: calc(var(--Hc) * .22);
+      overflow-x: clip; overflow-y: visible; z-index: 2; isolation: isolate; }
+    .apc-fond { border-radius: 0 0 clamp(36px, 4vw, 64px) clamp(36px, 4vw, 64px); box-shadow: 0 30px 60px -40px rgba(25,35,96,.35); }
+    .apc-centre { height: var(--Hc); max-height: none; margin-bottom: calc(var(--over) * -1); }
+    /* la forme bleue reste dans le panneau : coupée net au bord bas du hero */
+    .apc-art { top: auto; bottom: 0; transform: none; translate: -50% 0; clip-path: inset(-60% -60% var(--over) -60%); }
+    /* ombre portée du fauteuil sur la section suivante */
+    .apc-centre::after { content: ""; position: absolute; left: 50%; bottom: -1%; width: 46%; height: 5%; translate: -50% 0; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(25,35,96,.30) 0%, rgba(25,35,96,0) 70%); filter: blur(6px); z-index: 0; }
+    .apc-femme { filter: drop-shadow(0 24px 30px rgba(13,18,48,.25)); }
+    .apc-gauche, .apc-droite { padding-bottom: calc(var(--V) * .2); }
+    /* la section suivante laisse la place aux pieds qui débordent */
+    .qui { padding-top: calc(max(460px, (max(680px, 100svh) / var(--z, 1) * .87 - 250px) / .78) * .22 + clamp(70px, 7vw, 110px)); }
+  }
+
+  /* ===== seule la jambe levée sort du hero (ordinateur) ===== */
+  .apc-perso { position: relative; height: 100%; z-index: 1; will-change: translate; }
+  .apc-jambe { display: none; }
+  @media (min-width: 901px) {
+    .apc { --over: calc(var(--Hc) * .235); }
+    .apc-centre::after { display: none; }
+    .apc-perso { animation: dh-femme 1.1s cubic-bezier(.22,1,.36,1) .15s both; }
+    .apc-femme { animation: none; clip-path: inset(-20% -20% var(--over) -20%); }   /* le corps et le fauteuil restent dans le hero */
+    .apc-jambe { display: block; z-index: 3; position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;
+      clip-path: polygon(53.2% 65.1%, 91.8% 65.1%, 92.8% 74.9%, 100% 86.6%, 100% 100%, 78.1% 100%, 77.6% 86.6%, 75.7% 80.7%, 67.4% 74.9%, 65.6% 84.6%, 64.7% 93.75%, 64.5% 100%, 50.3% 100%, 50.6% 93.75%, 53.3% 87.9%); /* les deux jambes (sans le pied du fauteuil) */ }
+    /* petite ombre portée du talon sur la section suivante */
+    .apc-perso::after { content: ""; position: absolute; left: 76%; top: 96%; width: 22%; height: 2.4%; border-radius: 50%; background: radial-gradient(ellipse, rgba(25,35,96,.28) 0%, rgba(25,35,96,0) 70%); filter: blur(4px); pointer-events: none; }
+    .apc-perso::before { content: ""; position: absolute; z-index: 2; left: 49%; top: 98.6%; width: 18%; height: 2.4%; border-radius: 50%; background: radial-gradient(ellipse, rgba(25,35,96,.32) 0%, rgba(25,35,96,0) 70%); filter: blur(4px); pointer-events: none; }
+    .qui { padding-top: calc(max(460px, (max(680px, 100svh) / var(--z, 1) * .87 - 250px) / .78) * .2 + clamp(60px, 6vw, 96px)); }
+  }
+
+  /* ----- CTA : un peu d'originalité — ondes « signal », trame de points, l'expert qui sort du bandeau ----- */
+  .bandeau__deco { position: absolute; inset: 0; z-index: 0; border-radius: inherit; overflow: hidden; pointer-events: none; }
+  .bandeau__txt { position: relative; z-index: 2; }
+  .bandeau__femme { z-index: 1; filter: drop-shadow(-18px 20px 30px rgba(5,10,40,.45)); clip-path: inset(-40% -40% 0 -40%); }
+  .bandeau__points { position: absolute; right: 0; top: 0; bottom: 0; width: 55%;
+    background-image: radial-gradient(rgba(143,227,247,.35) 1.2px, transparent 1.6px); background-size: 18px 18px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 80% at 78% 55%, #000 0%, transparent 75%); mask-image: radial-gradient(ellipse 70% 80% at 78% 55%, #000 0%, transparent 75%); }
+  .bandeau__halo { position: absolute; right: 8%; bottom: -30%; width: 46%; aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle, rgba(76,191,223,.55) 0%, rgba(76,191,223,.18) 45%, transparent 70%); }
+  .onde { position: absolute; right: calc(8% + 23% - 1px); bottom: 20%; width: 2px; aspect-ratio: 1; border-radius: 50%;
+    border: 1.5px solid rgba(143,227,247,.55); translate: 50% 50%; animation: onde 6s cubic-bezier(.2,.6,.3,1) infinite; }
+  .onde:nth-child(3) { animation-delay: 2s; } .onde:nth-child(4) { animation-delay: 4s; }
+  @keyframes onde { 0% { width: 8%; opacity: 0; } 15% { opacity: 1; } 100% { width: 85%; opacity: 0; } }
+  /* bordure lumineuse fine en haut du bandeau */
+  .bandeau::after { content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; pointer-events: none; padding: 1px;
+    background: linear-gradient(120deg, rgba(143,227,247,.0) 30%, rgba(143,227,247,.55) 70%, rgba(255,210,63,.5));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+  @media (max-width: 900px) { .bandeau__deco .onde { right: 50%; bottom: 18%; } .bandeau__halo { right: 50%; translate: 50% 0; width: 90%; } .bandeau__points { width: 100%; } }
+  @media (prefers-reduced-motion: reduce) { .onde { animation: none; opacity: 0; } }
 </style>
 </head>
 <body>
@@ -855,7 +909,7 @@
 <!-- ===================== EN-TÊTE ===================== -->
 <header class="hdr" id="hdr">
   <div class="shell">
-    <a class="logo" href="index.html" aria-label="SICARE, accueil"><img src="images/sicare-logo-blanc.png" alt="SICARE" width="377" height="128"></a>
+    <a class="logo" href="index.html" aria-label="SICARE, accueil"><img src="images/sicare-logo-sombre.png" alt="SICARE" width="1200" height="387"></a>
     <nav class="menu" id="menu" aria-label="Navigation principale">
       <a href="index.html">Accueil</a>
       <a href="prestations.html">Prestations</a>
@@ -889,7 +943,11 @@
         <span class="apc-blob"></span>
         <span class="apc-blob2"></span>
       </div>
-      <img class="apc-femme" src="images/apropos-fauteuil.webp" alt="Une experte SICARE assise dans son fauteuil, ordinateur portable sur les genoux" width="1024" height="1536" fetchpriority="high">
+      <div class="apc-perso">
+        <img class="apc-femme" src="images/apropos-fauteuil.webp" alt="Une experte SICARE assise dans son fauteuil, ordinateur portable sur les genoux" width="1024" height="1536" fetchpriority="high">
+        <!-- copie de la photo réduite à la jambe levée : elle seule passe par-dessus le bord du hero -->
+        <img class="apc-jambe" src="images/apropos-fauteuil.webp" alt="" aria-hidden="true" width="1024" height="1536">
+      </div>
     </div>
     <div class="apc-droite">
       <div class="dh-label apc-label" aria-hidden="true"><span>Qui sommes-nous</span><span>Nos engagements</span><span>Brydge Group</span></div>
@@ -1185,7 +1243,14 @@
           <a href="contact.html" class="sbtn"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd.png" alt=""></span><span class="sbtn__txt">Parler à un expert</span></span></a>
         </div>
       </div>
-      <img class="bandeau__femme" src="images/cta-femme.webp" alt="Une experte SICARE, tablette en main" width="914" height="1498" loading="lazy" decoding="async">
+      <!-- petite forme derrière elle : une arche cyan avec un contour jaune décalé -->
+      <!-- décor : les mêmes ondes que le CTA de la page Prestations — gardées dans le bandeau ; la femme, elle, en sort par le haut -->
+      <div class="bandeau__deco" aria-hidden="true">
+        <span class="bandeau__points"></span>
+        <span class="onde"></span><span class="onde"></span><span class="onde"></span>
+        <span class="bandeau__halo"></span>
+      </div>
+      <img class="bandeau__femme" src="images/cta-femme-blanc.webp" alt="Une experte SICARE, ordinateur sous le bras" width="1023" height="1536" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -1202,7 +1267,7 @@
   <div class="shell">
     <div class="haut">
       <div class="marque-ftr">
-        <img src="images/sicare-logo-blanc.png" alt="SICARE" width="377" height="128">
+        <img src="images/sicare-logo-sombre.png" alt="SICARE" width="1200" height="387">
         <p>Vision globale, précision dans l'action. Prestations, solutions et formations en cybersécurité. Une entité de Brydge Group.</p>
       </div>
       <div>
@@ -1413,10 +1478,12 @@
 /* hero À propos : parallaxe douce (l'arche et la femme bougent un peu au défilement et à la souris) */
 (function(){
   var h=document.querySelector('.apc'); if(!h || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var femme=h.querySelector('.apc-femme'), arche=h.querySelector('.apc-art'), mx=0, my=0, tick=false;
+  var femme=h.querySelector('.apc-perso')||h.querySelector('.apc-femme'), arche=h.querySelector('.apc-art'), mx=0, my=0, tick=false;
   function maj(){ tick=false; var y=Math.min(scrollY, h.offsetHeight);
-    arche.style.translate='calc(-50% + '+(mx*-12).toFixed(1)+'px) calc(-50% + '+(y*.16+my*-6).toFixed(1)+'px)'; arche.style.transform='none';
-    femme.style.translate=(mx*16).toFixed(1)+'px '+(y*.05+my*8).toFixed(1)+'px'; }
+    if(matchMedia('(min-width: 901px)').matches){ arche.style.translate='calc(-50% + '+(mx*-12).toFixed(1)+'px) 0px'; }  /* forme : suit seulement la souris (elle reste coupée au bord du hero) */
+    else { arche.style.translate='calc(-50% + '+(mx*-12).toFixed(1)+'px) calc(-50% + '+(y*.16+my*-6).toFixed(1)+'px)'; arche.style.transform='none'; }
+    var bureau=matchMedia('(min-width: 901px)').matches; /* ordinateur : pas de mouvement vertical, pour que la coupe reste sur le bord du hero */
+    femme.style.translate=(mx*16).toFixed(1)+'px '+(bureau?0:(y*.05+my*8)).toFixed(1)+'px'; }
   function demande(){ if(!tick){ tick=true; requestAnimationFrame(maj); } }
   addEventListener('scroll',demande,{passive:true});
   h.addEventListener('mousemove',function(e){ var r=h.getBoundingClientRect(); mx=(e.clientX-r.left)/r.width-.5; my=(e.clientY-r.top)/r.height-.5; demande(); });
