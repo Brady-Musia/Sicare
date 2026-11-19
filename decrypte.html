@@ -247,7 +247,7 @@
   /* ----- pied de page ----- */
   .ftr { background: var(--navy-900); color: #fff; padding: 80px 0 34px; }
   .ftr .haut { display: grid; grid-template-columns: 1.3fr repeat(3, 1fr); gap: 40px; }
-  .ftr .marque-ftr img { height: 44px; width: auto; }
+  .ftr .marque-ftr img { height: 60px; width: auto; }
   .ftr .marque-ftr p { margin-top: 18px; font-size: 14.5px; line-height: 1.7; color: var(--muted-dark); max-width: 320px; }
   .ftr h4 { font-size: 12px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan-200); margin-bottom: 18px; }
   .ftr ul { list-style: none; display: grid; gap: 10px; }
@@ -1015,6 +1015,32 @@
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
   @media (max-width: 900px) { .bandeau__deco .onde { right: 50%; bottom: 18%; } .bandeau__halo { right: 50%; translate: 50% 0; width: 90%; } .bandeau__points { width: 100%; } }
   @media (prefers-reduced-motion: reduce) { .onde { animation: none; opacity: 0; } }
+
+  /* ----- bouton de la barre de navigation : même style que le bouton « Contact » de brydge-group.com (pilule jaune) ----- */
+  .nav-cta { display: inline-flex; align-items: center; gap: 10px; padding: 11px 20px; border-radius: 999px; font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif;
+    font-size: 12.2px; font-weight: 700; line-height: 1.2; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; white-space: nowrap;
+    background: #FFEB14; color: #142260; box-shadow: 0 12px 26px rgba(214,190,0,.35); transition: transform .25s, box-shadow .25s, background .25s; }
+  .nav-cta:hover { background: #EBD500; color: #142260; transform: translateY(-2px); }
+  .nav-cta:focus-visible { outline: 3px solid #FFEB14; outline-offset: 3px; }
+  @media (max-width: 900px) { .nav-cta { display: none; } }
+  /* barre de navigation : même bleu que brydge-group.com */
+  .hdr.solide { background: rgba(25,35,96,0.94); }
+
+  /* ----- pied de page : le mot SICARE en très grand, la lumière circule doucement dessus ----- */
+  .ftr { overflow: hidden; padding-bottom: 0; }
+  .ftr .bas { padding-bottom: 10px; }
+  .ftr-geant { font-family: 'Comfortaa', sans-serif; font-weight: 700; text-align: center; white-space: nowrap; user-select: none;
+    font-size: clamp(90px, 21vw, 360px); line-height: .8; letter-spacing: -0.03em; margin: 26px 0 -0.1em; padding-top: .06em;
+    color: transparent; -webkit-background-clip: text; background-clip: text;
+    background-image:
+      linear-gradient(105deg, transparent 0%, transparent 40%, rgba(255,255,255,.75) 50%, transparent 60%, transparent 100%),
+      radial-gradient(ellipse 55% 140% at 50% 40%, #4CBFDF 0%, #2A9CC0 45%, rgba(25,35,96,.35) 100%);
+    background-size: 250% 100%, 100% 100%; background-repeat: no-repeat;
+    background-position: 160% 0, 0 0;
+    animation: ftr-lumiere 7s ease-in-out infinite;
+    -webkit-mask-image: linear-gradient(180deg, #000 55%, rgba(0,0,0,.35) 100%); mask-image: linear-gradient(180deg, #000 55%, rgba(0,0,0,.35) 100%); }
+  @keyframes ftr-lumiere { 0% { background-position: 160% 0, 0 0; } 70%, 100% { background-position: -60% 0, 0 0; } }
+  @media (prefers-reduced-motion: reduce) { .ftr-geant { animation: none; } }
 </style>
 </head>
 <body>
@@ -1024,17 +1050,15 @@
   <div class="shell">
     <a class="logo" href="index.html" aria-label="SICARE, accueil"><img src="images/sicare-logo-sombre.png" alt="SICARE" width="1200" height="387"></a>
     <nav class="menu" id="menu" aria-label="Navigation principale">
-      <a href="index.html">Accueil</a>
       <a href="prestations.html">Prestations</a>
       <a href="formations.html">Formations</a>
       <a href="solutions.html">Solutions</a>
-      <a href="expertises.html">Expertises</a>
       <a href="decrypte.html" class="actif" aria-current="page">SICARE décrypte</a>
       <a href="a-propos.html">À propos</a>
       <a href="brydge-group.html">Brydge Group</a>
       <a href="contact.html" class="sbtn menu-cta"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd.png" alt=""></span><span class="sbtn__txt">Parler à un expert</span></span></a>
     </nav>
-    <a href="contact.html" class="sbtn"><span class="sbtn__in"><span class="sbtn__fill"></span><span class="sbtn__ico"><img src="images/sicare-symbole-hd.png" alt=""></span><span class="sbtn__txt">Parler à un expert</span></span></a>
+    <a href="contact.html" class="nav-cta">Parler à un expert</a>
     <button class="burger" id="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
   </div>
 </header>
@@ -1216,6 +1240,7 @@
       <span><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a></span>
     </div>
   </div>
+<div class="ftr-geant" aria-hidden="true">SICARE</div>
 </footer>
 
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
